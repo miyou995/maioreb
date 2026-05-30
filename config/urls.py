@@ -7,7 +7,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from core.sitemaps import WagtailPageSitemap
-from core.views import MaintenanceView, RobotsTxtView
+from core.views import MaintenanceView, RobotsTxtView, set_language
 from search import views as search_views
 
 sitemaps = {
@@ -15,32 +15,28 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path("", MaintenanceView.as_view(), name="maintenance"),
-    path("", include("contact.urls")),
-    path("django-admin/", admin.site.urls),
-    path("maioreb-admin/", include(wagtailadmin_urls)),
-    path("documents/", include(wagtaildocs_urls)),
-    path("search/", search_views.search, name="search"),
+    path("robots.txt", RobotsTxtView.as_view(), name="robots_txt"),
+    path("set-language/", set_language, name="set_language"),
+    path("set-language/<str:language>/", set_language, name="set_language_code"),
     path(
         "sitemap.xml",
         sitemap,
         {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap",
     ),
-    path("robots.txt", RobotsTxtView.as_view(), name="robots_txt"),
+    path("maintenance/", MaintenanceView.as_view(), name="maintenance"),
+    path("django-admin/", admin.site.urls),
+    path("maioreb-admin/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("search/", search_views.search, name="search"),
+    path("", include("contact.urls")),
     path("", include(wagtail_urls)),
 ]
 
 
 if settings.DEBUG:
-    # import debug_toolbar
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-    # urlpatterns = [
-    #     path("__debug__/", include(debug_toolbar.urls)),
-    # ] + urlpatterns
-
-    # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

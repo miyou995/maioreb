@@ -1,9 +1,10 @@
 
-
+{% load i18n %}
 {% if messages %}
     {% for message in messages %}
-        <div class="alert alert-success" role="alert">
-            {{message}}
+        <div class="flex items-center gap-3 p-4 bg-surface-container-low border border-border-subtle rounded-xl" role="alert">
+            <span class="material-symbols-outlined text-secondary">check_circle</span>
+            <p class="font-body-md text-body-md text-on-background">{{ message }}</p>
         </div>
     {% endfor %}
 {% endif %}

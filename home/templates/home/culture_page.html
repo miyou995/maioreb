@@ -1,70 +1,48 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags static i18n %}
 
 {% block content %}
 
-
-<main id="primary" class="site-main">
-    <div class="space-for-header"></div>
-    <section class="tj-page-header section-gap-x" 
+    <section class="relative py-32 flex items-center overflow-hidden bg-primary">
         {% if page.hero_image %}
-            data-bg-image="{{ page.hero_image.file.url }}"
-        {% endif %}>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tj-page-header-content text-center">
-                        <h1 class="tj-page-title">{{ page.title }}</h1>
-                        <div class="tj-page-link">
-                            <span><i class="tji-home"></i></span>
-                            <span>
-                                <a href="{{ page.get_parent.url }}">{{ page.get_parent.title }}</a>
-                            </span>
-                            <span><i class="tji-arrow-right"></i></span>
-                            <span>
-                                <span>{{ page.title }}</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+            <div class="absolute inset-0 z-0">
+                <img src="{{ page.hero_image.file.url }}" alt="" class="w-full h-full object-cover opacity-30"/>
             </div>
-        </div>
-        <div class="page-header-overlay"  
-            {% if page.hero_image %}
-                data-bg-image="{{ page.hero_image.file.url }}"
-            {% endif %}>
+        {% endif %}
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">{{ page.title }}</h1>
         </div>
     </section>
 
+    {% if page.introduction %}
+        <section class="py-16 bg-surface-light">
+            <div class="max-w-3xl mx-auto px-4 md:px-16 font-body-lg text-body-lg text-on-surface-variant prose max-w-none">
+                {{ page.introduction|richtext }}
+            </div>
+        </section>
+    {% endif %}
 
-    <section class="team-details slidebar-stickiy-container">
-        <div class="container">
-            {% for block in page.culture_content  %}
-                
-                        <div class="row justify-content-center">
-                        <!--  left -->
-                            <div class="col-12 col-md-8 col-lg-5">
-                                <div class="team-details__img slidebar-stickiy wow fadeInUp" data-wow-delay=".1s">
-                                    <img src="{{ block.value.image.file.url }}" alt="">
+    {% if page.culture_content %}
+        <section class="py-[120px] bg-background">
+            <div class="max-w-[1280px] mx-auto px-4 md:px-16 space-y-16">
+                {% for block in page.culture_content %}
+                    {% if block.block_type == "element" %}
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center {% cycle '' 'lg:flex-row-reverse' %}">
+                            {% if block.value.image %}
+                                <div>
+                                    <img src="{{ block.value.image.file.url }}" alt="{{ block.value.title }}"
+                                         class="w-full h-80 object-cover rounded-xl border border-border-subtle shadow-lg"/>
                                 </div>
-                            </div>
-                        <!-- right -->
-                            <div class="col-12 col-lg-7 ">
-                                <div class="team-details__content">
-                                    <h2 class="team-details__name title-anim">{{block.value.title}}</h2>
-                                    <p class="wow fadeInUp" data-wow-delay=".3s">
-                                        {{block.value.text}}
-                                    </p>
-                                </div>
+                            {% endif %}
+                            <div class="{% if not block.value.image %}col-span-2 max-w-3xl{% endif %}">
+                                <h3 class="font-headline-md text-headline-md text-on-background mb-4">{{ block.value.title }}</h3>
+                                <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ block.value.text|richtext }}</div>
                             </div>
                         </div>
-                    
-                 
-            {% endfor %}
-        </div>
-    </section>
-</main>
-
-
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
 
 {% endblock %}

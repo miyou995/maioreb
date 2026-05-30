@@ -1,96 +1,79 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %}
-{% load static %}
+{% load wagtailcore_tags static i18n %}
+
 {% block content %}
 
-
-<main id="primary" class="site-main">
-  <div class="space-for-header"></div>
-  <!-- start: Breadcrumb Section -->
-  <section class="tj-page-header section-gap-x" 
-    {% if page.featured_image %}
-            data-bg-image="{{ page.featured_image.file.url }}"
-    {% endif %}
-    >
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="tj-page-header-content text-center">
-            <h1 class="tj-page-title">{{ page.title }}</h1>
-            <div class="tj-page-link">
-              <span><i class="tji-home"></i></span>
-              <span>
-                <a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a>
-              </span>
-              <span><i class="tji-arrow-right"></i></span>
-              <span>
-                <span>{{ page.title }}</span>
-              </span>
+    <!-- Page Hero -->
+    <section class="relative py-32 flex items-center overflow-hidden bg-primary">
+        {% if page.featured_image %}
+            <div class="absolute inset-0 z-0">
+                <img src="{{ page.featured_image.file.url }}" alt="" class="w-full h-full object-cover opacity-30"/>
             </div>
-          </div>
+        {% endif %}
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">{{ page.client_name }}</h1>
+            <p class="font-body-lg text-body-lg text-surface-container-high">
+                <a href="/" class="hover:text-white transition-colors">{% trans "Home" %}</a>
+                <span class="mx-2">/</span>
+                <a href="{{ page.get_parent.url }}" class="hover:text-white transition-colors">{% trans "Portfolio" %}</a>
+                <span class="mx-2">/</span>
+                {{ page.client_name }}
+            </p>
         </div>
-      </div>
-    </div>
-    <div class="page-header-overlay" 
-    {% if page.featured_image %}
-            data-bg-image="{{ page.featured_image.file.url }}"
-    {% endif %}
-    ></div>
-  </section>
-  <!-- end: Breadcrumb Section -->
+    </section>
 
-  <!-- start: Blog Section -->
-  <section class="tj-blog-section section-gap slidebar-stickiy-container">
-    <div class="container">
-      <div class="row row-gap-5">
-        <div class="col-lg-8">
-          <div class="post-details-wrapper">
-                <h2 class="title title-anim">{{ page.client_name }}</h2>
-                <p class="summary">{{ page.summary }}</p>
-                
-                <h3 class="wow fadeInUp" data-wow-delay=".3s">Challenge</h3>
-
-                <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ page.challenge|richtext }}
-                </p>
-                <h3 class="wow fadeInUp" data-wow-delay=".3s">Solution</h3>
-                <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ page.solution|richtext }}
-                </p>
-                <h3 class="wow fadeInUp" data-wow-delay=".3s">Résultats</h3>
-                <p class="wow fadeInUp" data-wow-delay=".3s">
-                    {{ page.results|richtext }}
-                </p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="tj-main-sidebar slidebar-stickiy">
-            <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
-              <h4 class="widget-title">Informations du projet</h4>
-              <div class="infos-item">
-                <div class="project-icons">
-                  <i class="tji-user"></i>
+    <!-- Project Details -->
+    <section class="py-[120px] bg-background">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-8">
+                    {% if page.summary %}
+                        <div>
+                            <h3 class="font-headline-sm text-headline-sm text-on-background mb-4">{% trans "Overview" %}</h3>
+                            <p class="font-body-lg text-body-lg text-on-surface-variant">{{ page.summary }}</p>
+                        </div>
+                    {% endif %}
+                    {% if page.challenge %}
+                        <div class="glass-card p-8 rounded-xl">
+                            <h3 class="font-headline-sm text-headline-sm text-primary mb-4">{% trans "Challenge" %}</h3>
+                            <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ page.challenge|richtext }}</div>
+                        </div>
+                    {% endif %}
+                    {% if page.solution %}
+                        <div class="glass-card p-8 rounded-xl">
+                            <h3 class="font-headline-sm text-headline-sm text-primary mb-4">{% trans "Solution" %}</h3>
+                            <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ page.solution|richtext }}</div>
+                        </div>
+                    {% endif %}
+                    {% if page.results %}
+                        <div class="glass-card p-8 rounded-xl border-l-4 border-secondary">
+                            <h3 class="font-headline-sm text-headline-sm text-primary mb-4">{% trans "Results" %}</h3>
+                            <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ page.results|richtext }}</div>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="project-text">
-                  <span>Client</span>
-                  <h6 class="title">{{ page.client_name }}</h6>
-                </div>
-              </div>
-              <div class="infos-item">
-                <div class="project-icons">
-                  <i class="tji-calendar"></i>
-                </div>
-                <div class="project-text">
-                  <span>Date</span>
-                  <h6 class="title">{{ page.project_date }}</h6>
-                </div>
-              </div>
+                <!-- Sidebar -->
+                <aside class="space-y-6">
+                    <div class="glass-card p-6 rounded-xl">
+                        <h4 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mb-4">{% trans "Project Info" %}</h4>
+                        <dl class="space-y-3">
+                            {% if page.project_date %}
+                                <div>
+                                    <dt class="font-label-caps text-label-caps uppercase text-on-surface-variant">{% trans "Date" %}</dt>
+                                    <dd class="font-body-md text-body-md text-on-background">{{ page.project_date|date:"F Y" }}</dd>
+                                </div>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    <a href="{{ page.get_parent.url }}"
+                       class="flex items-center gap-2 font-label-caps text-label-caps uppercase text-primary hover:text-secondary transition-colors">
+                        <span class="material-symbols-outlined text-sm">arrow_back</span>
+                        {% trans "Back to Portfolio" %}
+                    </a>
+                </aside>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-</main>
+    </section>
 
 {% endblock %}

@@ -6,14 +6,11 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
-from about.models import AboutPage, RsePage
-from blog.models import BlogIndexPage
-from contact.models import ContactPage
-from expertise.models import ExpertiseIndexPage
+from about.models import AboutPage, WhatWeDoPage
+from contact.models import ContactPage, FqaClient
 from legal.models import LegalPage
 from portfolio.models import PortfolioIndexPage
 from recruitment.models import RecruitmentIndexPage
-from contact.models import FqaClient
 
 
 class HeroSlideBlock(blocks.StructBlock):
@@ -52,7 +49,9 @@ class HomePage(Page):
     )
 
     hero_subtitle = models.CharField(
-        max_length=500, blank=True, verbose_name="petite introduction(afficher dans hero section avant le CTA)"
+        max_length=500,
+        blank=True,
+        verbose_name="petite introduction(afficher dans hero section avant le CTA)",
     )
     slides = StreamField(
         [("slide", HeroSlideBlock())],
@@ -145,7 +144,7 @@ class HomePage(Page):
     )
     posts_linkedin.verbose_name = "Posts LinkedIn"
 
-    sectors =StreamField(
+    sectors = StreamField(
         [
             (
                 "items",
@@ -161,7 +160,7 @@ class HomePage(Page):
         ],
         use_json_field=True,
         blank=True,
-    ) 
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("hero_title"),
@@ -170,7 +169,6 @@ class HomePage(Page):
         FieldPanel("favicon"),
         FieldPanel("logo"),
         FieldPanel("negative_logo"),
-        
         # FieldPanel("slides"),
         # FieldPanel("video"),
         # FieldPanel("introduction"),
@@ -194,41 +192,26 @@ class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
 
-        ###### expertise ##########
-        expertise_index = ExpertiseIndexPage.objects.live().first()
-        context["expertises"] = (
-            expertise_index.get_expertises() if expertise_index else []
-        )
-        context["expertise_index"] = expertise_index
+        ######### what we do #########
+        what_we_do = WhatWeDoPage.objects.live().first()
+        context["what_we_do"] = what_we_do
 
         ######### realisation #########
         portfolio = PortfolioIndexPage.objects.live().first()
-        # context["clients_opinions"] = portfolio.client_opinion.all()
         context["portfolio"] = portfolio
         context["projects"] = (
             portfolio.get_children()
             .live()
             .public()
             .specific()
-            .select_related("image")
             .order_by("-first_published_at")[:6]
+            if portfolio
+            else []
         )
 
         ######## recrutement ########
         recruitment_index = RecruitmentIndexPage.objects.live().public().first()
         context["recruitment_index"] = recruitment_index
-
-        ######## blogs ########
-        blog_index = BlogIndexPage.objects.live().public().first()
-        context["blogs"] = (
-            blog_index.get_children()
-            .live()
-            .public()
-            .specific()
-            .select_related("image")
-            .order_by("-first_published_at")[:3]
-        )
-        context["blog_index"] = blog_index
 
         ######### chiffre cles
         about_page = AboutPage.objects.live().public().specific().first()
@@ -237,16 +220,15 @@ class HomePage(Page):
         # ########## recrutement ##########
         # recrutement_index = RecruitmentIndexPage.objects.live().first()
         # context["recrutement_index"] = recrutement_index
-        
-        context['faq_data'] = FqaClient.objects.all()
-        print("context['faq_data']--------->>>",context['faq_data'])
+
+        context["faq_data"] = FqaClient.objects.all()
+        print("context['faq_data']--------->>>", context["faq_data"])
 
         return context
 
     @property
-    def expertises_list(self):
-        expertise_index = ExpertiseIndexPage.objects.live().first()
-        return expertise_index.get_expertises() if expertise_index else []
+    def get_what_we_do_page(self):
+        return WhatWeDoPage.objects.live().first()
 
     @property
     def get_legal_url(self):
@@ -262,11 +244,6 @@ class HomePage(Page):
     def get_culture_page(self):
         culture_page = CulturePage.objects.live().first()
         return culture_page if culture_page else None
-
-    @property
-    def get_rse_page(self):
-        rse_page = RsePage.objects.live().first()
-        return rse_page if rse_page else None
 
     @property
     def get_recruitment_page(self):
@@ -338,7 +315,3 @@ class CookieConsentSettings(BaseSiteSetting):
 
     class Meta:
         verbose_name = "Cookie Consent"
-
-
-
-

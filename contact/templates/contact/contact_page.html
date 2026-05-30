@@ -1,174 +1,143 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
-{% load static i18n %}
-{% load widget_tweaks %}
+{% load wagtailcore_tags static i18n widget_tweaks %}
 
 {% block content %}
 
-<main id="primary" class="site-main">
-	<div class="space-for-header"></div>
-		<!-- start: Breadcrumb Section -->
-		<section class="tj-page-header section-gap-x" 
-			{% if page.featured_image %}
-				data-bg-image="{{ page.featured_image.file.url }}"
-			{% endif %}
-		>
-		<div class="container">
-			<div class="row">
-			<div class="col-lg-12">
-				<div class="tj-page-header-content text-center">
-				<h1 class="tj-page-title">{{ page.hero_title }}</h1>
-				<div class="tj-page-link">
-					<span><i class="tji-home"></i></span>
-					<span>
-						<a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a>
+    <!-- Page Hero -->
+    <section class="relative py-32 flex items-center overflow-hidden bg-primary">
+        {% if page.featured_image %}
+            <div class="absolute inset-0 z-0">
+                <img src="{{ page.featured_image.file.url }}" alt="" class="w-full h-full object-cover opacity-30"/>
+            </div>
+        {% endif %}
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">
+                {{ page.hero_title|default:"Contact" }}
+            </h1>
+            <p class="font-body-lg text-body-lg text-surface-container-high">
+                <a href="/" class="hover:text-white transition-colors">{% trans "Home" %}</a>
+                <span class="mx-2">/</span>
+                {% trans "Contact" %}
+            </p>
+        </div>
+    </section>
 
-					</span>
-					<span><i class="tji-arrow-right"></i></span>
-					<span>
-					<span>{{ page.hero_title }}</span>
-					</span>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		<div class="page-header-overlay" 
-			{% if page.featured_image %}
-			data-bg-image="{{ page.featured_image.file.url }}"
-			{% endif %}
-		></div>
-		</section>
-		<!-- end: Breadcrumb Section -->
+    <!-- Office Cards -->
+    <section class="py-[120px] bg-surface-light">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+            <div class="text-center mb-16">
+                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Offices" %}</h2>
+                <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Find Us" %}</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <!-- Algeria -->
+                <div class="glass-card p-8 rounded-xl">
+                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
+                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "Algeria Office" %}</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        {% trans "Bat.95 – Rue Khodjet El Djeld – Les sources – Bir Mourad Rais – Alger 16013 – Algérie" %}
+                    </p>
+                    <a href="https://goo.gl/maps/u3g8XVMXcZYxxAzn7" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center gap-1 mt-4 font-label-caps text-label-caps text-primary uppercase border-b border-primary hover:text-secondary hover:border-secondary transition-colors">
+                        {% trans "View on Map" %} <span class="material-symbols-outlined text-sm">open_in_new</span>
+                    </a>
+                </div>
+                <!-- Tunisia -->
+                <div class="glass-card p-8 rounded-xl">
+                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
+                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "Tunisia Office" %}</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        {% trans "App.33, immeuble « Etoile du nord » – Centre Urbain Nord – Tunis 1082 – Tunisie" %}
+                    </p>
+                </div>
+                <!-- UAE -->
+                <div class="glass-card p-8 rounded-xl">
+                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
+                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "UAE Office" %}</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        {% trans "MAIOREB BUSINESS ADVISORY – FZCO, Building A1, Dubai Digital Park, Dubai Silicon Oasis, Dubai, United Arab Emirates" %}
+                    </p>
+                </div>
+            </div>
 
-		<!-- start: Contact Top Section -->
-		<div class="tj-contact-area section-gap">
-		<div class="container">
-			<div class="row">
-			<div class="col-12">
-				<div class="sec-heading text-center">
-				<span class="sub-title wow fadeInUp" data-wow-delay=".1s"><i class="tji-box"></i>Contactez-nous</span>
-				<h2 class="sec-title title-anim">Nos coordonnées</h2>
-				</div>
-			</div>
-			</div>
-			<div class="row row-gap-4">
-			<div class="col-xl-3 col-lg-6 col-sm-6">
-				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".3s">
-				<div class="contact-icon">
-					<i class="tji-location-3"></i>
-				</div>
-				<h3 class="contact-title">Localisation</h3>
-				<p>{{ page.address }}</p>
-				</div>
-			</div>
-			<div class="col-xl-3 col-lg-6 col-sm-6">
-				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".5s">
-				<div class="contact-icon">
-					<i class="tji-envelop"></i>
-				</div>
-				<h3 class="contact-title">Email</h3>
-				<ul class="contact-list">
-					<li><a href="mailto:{{ page.email }}">{{ page.email }}</a></li>
-				</ul>
-				</div>
-			</div>
-			<div class="col-xl-3 col-lg-6 col-sm-6">
-				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".7s">
-				<div class="contact-icon">
-					<i class="tji-phone"></i>
-				</div>
-				<h3 class="contact-title">Téléphone</h3>
-				<ul class="contact-list">
-					<li><a href="tel:{{ page.phone }}">{{ page.phone }}</a></li>
-				</ul>
-				</div>
-			</div>
-			<div class="col-xl-3 col-lg-6 col-sm-6">
-				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".9s">
-					<div class="contact-icon">
-						<i class="tji-chat"></i>
-					</div>
-					<h3 class="contact-title">Réseaux sociaux</h3>
-					<div class="social-icons-grid d-flex gap-3 justify-content-around flex-wrap">
-						{% if page.facebook_url %}
-						<a href="{{ page.facebook_url }}" target="_blank" class="social-icon-link" title="Facebook" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #1877f2 0%, #0d5bbd 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);">
-							<i class="fa-brands fa-facebook-f"></i>
-						</a>
-						{% endif %}
-						{% if page.instagram_url %}
-						<a href="{{ page.instagram_url }}" target="_blank" class="social-icon-link" title="Instagram" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);">
-							<i class="fa-brands fa-instagram"></i>
-						</a>
-						{% endif %}
-						{% if page.twitter_url %}
-						<a href="{{ page.twitter_url }}" target="_blank" class="social-icon-link" title="X (Twitter)" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
-							<i class="fa-brands fa-x-twitter"></i>
-						</a>
-						{% endif %}
-						{% if page.linkedin_url %}
-						<a href="{{ page.linkedin_url }}" target="_blank" class="social-icon-link" title="LinkedIn" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #0077b5 0%, #005582 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3);">
-							<i class="fa-brands fa-linkedin-in"></i>
-						</a>
-						{% endif %}
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
+            <!-- Email & Social -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-8 rounded-xl flex items-center gap-4">
+                    <span class="material-symbols-outlined text-primary-container text-3xl">email</span>
+                    <div>
+                        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">{% trans "Email" %}</p>
+                        <a href="mailto:{{ page.email|default:'info@maioreb.com' }}"
+                           class="font-headline-sm text-headline-sm text-primary hover:text-secondary transition-colors">
+                            {{ page.email|default:"info@maioreb.com" }}
+                        </a>
+                    </div>
+                </div>
+                {% if page.phone %}
+                    <div class="glass-card p-8 rounded-xl flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary-container text-3xl">phone</span>
+                        <div>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">{% trans "Phone" %}</p>
+                            <a href="tel:{{ page.phone }}"
+                               class="font-headline-sm text-headline-sm text-primary hover:text-secondary transition-colors">
+                                {{ page.phone }}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
 
+    <!-- Contact Form + Map -->
+    <section class="py-[120px] bg-background">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Form -->
+                <div class="glass-card p-10 rounded-xl">
+                    <h3 class="font-headline-md text-headline-md text-on-background mb-8">{% trans "Send us a message" %}</h3>
+                    <form id="contact-form"
+                          hx-trigger="submit"
+                          hx-post="{% pageurl page %}"
+                          hx-target="this"
+                          hx-swap="innerHTML">
+                        {% csrf_token %}
+                        <div class="space-y-5">
+                            {% for field in form %}
+                                <div>
+                                    <label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">{{ field.label }}</label>
+                                    {% if field.field.widget.input_type == "textarea" %}
+                                        {{ field|add_class:"w-full border border-border-subtle rounded px-4 py-3 font-body-md text-body-md text-on-background bg-surface focus:outline-none focus:border-primary-container transition-colors resize-none h-32" }}
+                                    {% else %}
+                                        {{ field|add_class:"w-full border border-border-subtle rounded px-4 py-3 font-body-md text-body-md text-on-background bg-surface focus:outline-none focus:border-primary-container transition-colors" }}
+                                    {% endif %}
+                                    {% if field.errors %}
+                                        <p class="mt-1 text-error font-body-md text-body-md">{{ field.errors.0 }}</p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <button type="submit"
+                                    class="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors duration-300">
+                                {% trans "Send Message" %} <span class="material-symbols-outlined text-sm">send</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
-
-	
-		<!-- start: Contact Section -->
-		<section class="tj-contact-section-2 section-bottom-gap">
-		<div class="container">
-			<div class="row">
-			<div class="col-lg-6">
-				<div id="formContainer" class="contact-form  wow fadeInUp" data-wow-delay=".1s">
-					
-
-					<h3 class="title">Nous sommes à votre disposition pour toute prise de contact ou visite</h3>
-					<form id="contact-form" 
-						hx-trigger="submit"
-						hx-post="{% pageurl page %}"
-						hx-target="this"
-						hx-swap="innerHTML"
-					>
-						{% csrf_token %}
-
-						<div class="row">
-							{% for field in form %}
-								<div class="{% if field|widget_type|slugify == 'textarea' %} col-lg-12 col-sm-12{% else %}col-sm-6{% endif %}">
-									<div class="form-input">
-										{{ field }}
-									</div>
-									{% if field.errors %}
-										<div class="form-error">{{ field.errors }}</div>
-									{% endif %}
-								</div>
-							{% endfor %}
-							<div class="submit-btn">
-								<button class="tj-primary-btn" type="submit">
-									<span class="btn-text"><span>{% translate "Envoyer le message" %}</span></span>
-									<span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
-								</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="map-area wow fadeInUp" data-wow-delay=".3s">
-				{{ page.map_embed_code|safe }}
-				</div>
-			</div>
-			</div>
-		</div>
-		</section>
-	
-	</main>
-
+                <!-- Map -->
+                <div class="rounded-xl overflow-hidden border border-border-subtle min-h-[400px]">
+                    {% if page.map_embed_code %}
+                        {{ page.map_embed_code|safe }}
+                    {% else %}
+                        <div class="h-full bg-surface-container-low flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="material-symbols-outlined text-5xl text-on-surface-variant mb-4 block">map</span>
+                                <p class="font-body-md text-body-md text-on-surface-variant">{% trans "Map coming soon" %}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

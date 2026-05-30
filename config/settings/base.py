@@ -49,15 +49,15 @@ ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 INSTALLED_APPS = [
     "about",
-    "expertise",
     "portfolio",
     "recruitment",
     "contact",
     "legal",
-    "blog",
     "core",
     "home",
     "search",
+    "wagtail_localize",
+    "wagtail_localize.locales",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -95,10 +95,10 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "config.middleware.MaintenanceModeMiddleware",
     "django_http_compression.middleware.HttpCompressionMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -168,10 +168,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
+LANGUAGE_CODE = "en"
+
+LANGUAGES = [
+    ("en", "English"),
+    ("fr", "Français"),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
+
+WAGTAIL_I18N_ENABLED = True
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
 
 TIME_ZONE = "UTC"
 
 USE_I18N = True
+
+LANGUAGE_COOKIE_NAME = "os_language"
+LANGUAGE_SESSION_KEY = "_language"
 
 USE_TZ = True
 
@@ -267,12 +283,11 @@ MESSAGE_TAGS = {
 CACHES = {
     "default": {
         "BACKEND": os.environ.get(
-            "CACHE_BACKEND", "django.core.cache.backends.redis.RedisCache"
+            "CACHE_BACKEND", "django.core.cache.backends.filebased.FileBasedCache"
         ),
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": os.environ.get("CACHE_LOCATION", "/tmp/django_cache"),
     }
 }
-COMPRESS_CACHE_BACKEND = "default"
 
 LOGGING = {
     "version": 1,
@@ -300,13 +315,3 @@ LOGGING = {
 
 RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
-
-MAINTENANCE_MODE = env.bool("MAINTENANCE_MODE", default=False)
-MAINTENANCE_ALLOWED_PATHS = [
-    "/maintenance/",
-    "/django-admin/",
-    "/maioreb-admin/",
-    "/static/",
-    "/media/",
-    "/robots.txt",
-]

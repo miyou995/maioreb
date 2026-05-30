@@ -1,25 +1,47 @@
-{% load i18n %}
-{% load wagtailsettings_tags wagtailcore_tags %}
-
+{% load i18n wagtailsettings_tags wagtailcore_tags %}
 {% get_settings %}
 {% with settings.home.CookieConsentSettings as cookie %}
-    {% if cookie.enabled  %}
-        <div class="cookie-banner" id="cookieBanner">
-            <div class="cookie-content">
-                <div class="cookie-title">
-                    <span>{% translate "Devinez quoi ? Des cookies !" %}</span>
-                    <span class="cookie-emoji">🍪</span>
-                </div>
-                <p class="cookie-text">
-                    {% translate "Nous utilisons des cookies essentiels pour vous offrir une meilleure expérience sur notre site web." %}
-                    <a href="{{ cookie.privacy_page.url }}">{% translate "Politique de cookies" %}</a>.
+    {% if cookie.enabled %}
+        <div id="cookie-banner"
+             class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-50 glass-card rounded-xl p-6 shadow-xl"
+             style="display:none">
+            <div class="flex items-start gap-3 mb-4">
+                <span class="material-symbols-outlined text-primary-container text-2xl flex-shrink-0">cookie</span>
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    {{ cookie.message|default:"We use cookies to improve your experience." }}
+                    {% if cookie.privacy_page %}
+                        <a href="{{ cookie.privacy_page.url }}" class="text-primary underline hover:text-secondary transition-colors">
+                            {% trans "Privacy Policy" %}
+                        </a>
+                    {% endif %}
                 </p>
-                <div class="cookie-actions">
-                    <button class="btn-primary" id="acceptCookies">{% translate "Accepter" %}</button>
-                    <button class="btn-secondary" id="rejectCookies">{% translate "Refuser" %}</button>
-                </div>
+            </div>
+            <div class="flex gap-3">
+                <button id="cookie-accept"
+                        class="flex-1 px-4 py-2 bg-primary text-white font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors">
+                    {% trans "Accept" %}
+                </button>
+                <button id="cookie-reject"
+                        class="flex-1 px-4 py-2 border border-border-subtle text-on-surface-variant font-label-caps text-label-caps uppercase rounded hover:bg-surface-container transition-colors">
+                    {% trans "Decline" %}
+                </button>
             </div>
         </div>
+        <script>
+            (function(){
+                var banner = document.getElementById('cookie-banner');
+                if(!banner) return;
+                if(!localStorage.getItem('cookie_consent')) banner.style.display = 'block';
+                document.getElementById('cookie-accept').addEventListener('click', function(){
+                    localStorage.setItem('cookie_consent','accepted');
+                    banner.style.display='none';
+                });
+                document.getElementById('cookie-reject').addEventListener('click', function(){
+                    localStorage.setItem('cookie_consent','rejected');
+                    banner.style.display='none';
+                });
+            })();
+        </script>
     {% endif %}
 {% endwith %}
 

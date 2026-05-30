@@ -1,38 +1,64 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
-
-{% block body_class %}template-searchresults{% endblock %}
-
-{% block title %}Search{% endblock %}
+{% load wagtailcore_tags i18n %}
 
 {% block content %}
-<h1>Search</h1>
 
-<form action="{% url 'search' %}" method="get">
-    <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
-    <input type="submit" value="Search" class="button">
-</form>
+    <section class="relative py-32 bg-primary">
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">{% trans "Search" %}</h1>
+        </div>
+    </section>
 
-{% if search_results %}
-<ul>
-    {% for result in search_results %}
-    <li>
-        <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-        {% if result.search_description %}
-        {{ result.search_description }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    <section class="py-[120px] bg-background">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+            <form action="{% url 'search' %}" method="get" class="max-w-2xl mx-auto mb-12">
+                <div class="flex gap-3">
+                    <input type="text" name="query" value="{{ search_query }}"
+                           class="flex-1 border border-border-subtle rounded px-4 py-3 font-body-md text-body-md text-on-background bg-surface focus:outline-none focus:border-primary-container transition-colors"
+                           placeholder="{% trans 'Search...' %}"/>
+                    <button type="submit"
+                            class="flex items-center gap-2 px-6 py-3 bg-primary text-white font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                </div>
+            </form>
 
-{% if search_results.has_previous %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-{% endif %}
+            {% if search_results %}
+                <div class="space-y-4">
+                    {% for result in search_results %}
+                        <a href="{{ result.url }}" class="group glass-card p-6 rounded-xl hover:shadow-xl transition-shadow duration-300 block">
+                            <h4 class="font-headline-sm text-headline-sm text-primary group-hover:text-secondary transition-colors mb-1">{{ result.title }}</h4>
+                            {% if result.search_description %}
+                                <p class="font-body-md text-body-md text-on-surface-variant">{{ result.search_description }}</p>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+                {% if search_results.has_other_pages %}
+                    <div class="flex justify-center gap-2 mt-12">
+                        {% if search_results.has_previous %}
+                            <a href="?query={{ search_query }}&page={{ search_results.previous_page_number }}"
+                               class="px-4 py-2 border border-border-subtle rounded font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                                {% trans "Previous" %}
+                            </a>
+                        {% endif %}
+                        {% if search_results.has_next %}
+                            <a href="?query={{ search_query }}&page={{ search_results.next_page_number }}"
+                               class="px-4 py-2 border border-border-subtle rounded font-label-caps text-label-caps uppercase text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+                                {% trans "Next" %}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% elif search_query %}
+                <div class="text-center py-16 glass-card rounded-xl">
+                    <span class="material-symbols-outlined text-5xl text-on-surface-variant mb-4 block">search_off</span>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        {% blocktrans with query=search_query %}No results found for "{{ query }}".{% endblocktrans %}
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </section>
 
-{% if search_results.has_next %}
-<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-{% endif %}
-{% elif search_query %}
-No results found
-{% endif %}
 {% endblock %}

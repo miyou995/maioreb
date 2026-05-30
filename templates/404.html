@@ -1,74 +1,22 @@
-
-{% extends "base.html" %}
-{% load static i18n %}
-
-{% block content %}
-
-<main id="primary" class="site-main">
-    <div class="space-for-header"></div>
-
-    <!-- Breadcrumb / Header -->
-    <section class="tj-page-header section-gap-x" >
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tj-page-header-content text-center">
-                        <h1 class="tj-page-title">Erreur 404</h1>
-                        <div class="tj-page-link">
-                            <span><i class="tji-home"></i></span>
-                            <span>
-                                    <a href="/">Accueil</a>
-                            </span>
-                            <span><i class="tji-arrow-right"></i></span>
-                            <span>Erreur 404</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>404 — Maioreb</title>
+        <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    </head>
+    <body class="min-h-screen flex items-center justify-center bg-[#faf9ff] text-[#0f1b33] font-[Inter]">
+        <div class="text-center px-4">
+            <span class="material-symbols-outlined text-8xl text-[#00395c] block mb-6">find_in_page</span>
+            <h1 class="text-6xl font-bold text-[#00233b] mb-4">404</h1>
+            <h2 class="text-2xl font-semibold text-[#0f1b33] mb-4">Page Not Found</h2>
+            <p class="text-[#42474e] mb-8 max-w-md mx-auto">The page you are looking for does not exist.</p>
+            <a href="/" class="inline-flex items-center gap-2 px-8 py-4 bg-[#00395c] text-white text-xs font-semibold uppercase tracking-widest rounded hover:bg-[#00233b] transition-colors">
+                <span class="material-symbols-outlined text-sm">home</span> Back to Home
+            </a>
         </div>
-        <div class="page-header-overlay"></div>
-    </section>
-
-    <!-- Error Content -->
-    <section class="tj-error-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="tj-error-wrap text-center">
-                        <div class="tj-error-content">
-                            <div class="error-img">
-                                 {% comment %} <img src="{% static 'images/contact_4.webp' %}" alt=""> {% endcomment %}
-                            </div>
-
-                            <h2 class="error-title title-anim">
-                                Oups ! Page introuvable
-                            </h2>
-
-                            <div class="error-desc">
-                                La page que vous recherchez n’existe pas, a été déplacée
-                                ou son adresse est incorrecte.
-                            </div>
-
-                            {% with homepage=site_root.specific %}
-                                <a class="tj-primary-btn error-btn" href="/">
-                                    <span class="btn-text">
-                                        <span>Retour à l’accueil</span>
-                                    </span>
-                                    <span class="btn-icon">
-                                        <i class="tji-arrow-right-long"></i>
-                                    </span>
-                                </a>
-                            {% endwith %}
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-{% endblock %} 
-
-
-
+    </body>
+</html>

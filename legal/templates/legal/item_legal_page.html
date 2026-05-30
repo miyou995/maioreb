@@ -1,54 +1,31 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
-{% load static %}
+{% load wagtailcore_tags static i18n %}
+
 {% block content %}
-<main id="primary" class="site-main">
-<div class="space-for-header"></div>
-<!-- start: Breadcrumb Section -->
-    <section class="tj-page-header section-gap-x" 
-        {% if page.featured_image %}
-            data-bg-image="{{ page.featured_image.file.url }}"
-        {% endif %}
-    >
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tj-page-header-content text-center">
-                        <h1 class="tj-page-title">{{ page.subtitle }}</h1>
-                        <div class="tj-page-link">
-                            <span><i class="tji-home"></i></span>
-                            <span>
-                                <a href="index.html">Home</a>
-                            </span>
-                            <span><i class="tji-arrow-right"></i></span>
-                            <span>
-                                <span>{{ page.subtitle }}</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+    <section class="relative py-32 flex items-center overflow-hidden bg-primary">
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">{{ page.title }}</h1>
+            <p class="font-body-lg text-body-lg text-surface-container-high">
+                <a href="{{ page.get_parent.url }}" class="hover:text-white transition-colors">{{ page.get_parent.title }}</a>
+                <span class="mx-2">/</span>{{ page.title }}
+            </p>
         </div>
-        <div class="page-header-overlay" 
-            {% if page.featured_image %}
-                data-bg-image="{{ page.featured_image.file.url }}"
-            {% endif %}
-        ></div>
     </section>
 
-    <section class="terms-and-conditions section-gap">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-10">
-                    <div>
-                        <h2>{{ page.title }}</h2>
-                        {% comment %} <p class="muted">{{ page.last_updated }}</p> {% endcomment %}
-                        {{ page.description|richtext }}
-                    </div>
-                </div>
+    <section class="py-[120px] bg-background">
+        <div class="max-w-3xl mx-auto px-4 md:px-16">
+            <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">
+                {{ page.description|richtext }}
+            </div>
+            <div class="mt-12">
+                <a href="{{ page.get_parent.url }}"
+                   class="inline-flex items-center gap-2 font-label-caps text-label-caps uppercase text-primary hover:text-secondary transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                    {% trans "Back" %}
+                </a>
             </div>
         </div>
     </section>
 
-</main>
 {% endblock %}

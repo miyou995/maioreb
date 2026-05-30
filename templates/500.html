@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html class="scroll-smooth" lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>Internal server error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>500 — Maioreb</title>
+        <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     </head>
-    <body>
-        <h1>Internal server error</h1>
-
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
+    <body class="min-h-screen flex items-center justify-center bg-[#faf9ff] text-[#0f1b33] font-[Inter]">
+        <div class="text-center px-4">
+            <span class="material-symbols-outlined text-8xl text-[#00395c] block mb-6">error</span>
+            <h1 class="text-6xl font-bold text-[#00233b] mb-4">500</h1>
+            <h2 class="text-2xl font-semibold text-[#0f1b33] mb-4">Server Error</h2>
+            <p class="text-[#42474e] mb-8 max-w-md mx-auto">Something went wrong on our end. Please try again later.</p>
+            <a href="/" class="inline-flex items-center gap-2 px-8 py-4 bg-[#00395c] text-white text-xs font-semibold uppercase tracking-widest rounded hover:bg-[#00233b] transition-colors">
+                <span class="material-symbols-outlined text-sm">home</span> Back to Home
+            </a>
+        </div>
     </body>
 </html>

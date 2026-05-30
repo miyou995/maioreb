@@ -1,111 +1,91 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags widget_tweaks i18n %}
+{% load wagtailcore_tags static i18n widget_tweaks %}
 
 {% block content %}
-    <section class="tj-careers-details section-gap">
-        <div class="container">
-            <div class="row rg-50">
-                <div class="col-lg-8">
-                    <div class="tj-post-wrapper">
-                        <div class="tj-post-single-post">
-                            <!-- top content -->
-                            <div class="tj-careers-top mb-30">
-                                <div class="tj-careers-top-icon">
-                                    <i class="tji-manage"></i>
-                                </div>
-                                <div class="tj-careers-top-content">
-                                    {% if page.contract_type %}
-                                    <div class="tj-careers-tag">
-                                        <span>{{ page.contract_type }}</span> 
-                                    </div>
-                                    {% endif %}
-                                <h4 class="tj-careers-top-title text-anim">{{ page.job_title }}</h4>
-                                    {% if page.location %}
-                                    <span class="location"><i class="tji-location"></i>{{ page.location }}</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <!-- content -->
-                            <div class="tj-entry-content">
-                                <h4 class="text-anim">Description</h4>
-                                <p class="wow fadeInUp" data-wow-delay="0.1s">
-                                    {{ page.body|richtext }}
-                                </p>
-                            </div>
+
+    <section class="relative py-32 flex items-center overflow-hidden bg-primary">
+        <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-16">
+            <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-4">{{ page.title }}</h1>
+            <p class="font-body-lg text-body-lg text-surface-container-high">
+                <a href="{{ page.get_parent.url }}" class="hover:text-white transition-colors">{% trans "Careers" %}</a>
+                <span class="mx-2">/</span>{{ page.title }}
+            </p>
+        </div>
+    </section>
+
+    <section class="py-[120px] bg-background">
+        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Job Details -->
+                <div class="lg:col-span-2">
+                    {% if page.body %}
+                        <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none mb-12">
+                            {{ page.body|richtext }}
                         </div>
+                    {% endif %}
+
+                    <!-- Application Form -->
+                    <div class="glass-card p-10 rounded-xl">
+                        <h3 class="font-headline-md text-headline-md text-on-background mb-8">{% trans "Apply for this Position" %}</h3>
+                        <form method="post"
+                              enctype="multipart/form-data"
+                              hx-post="{% pageurl page %}"
+                              hx-target="this"
+                              hx-swap="innerHTML">
+                            {% csrf_token %}
+                            <div class="space-y-5">
+                                {% for field in form %}
+                                    <div>
+                                        <label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">{{ field.label }}</label>
+                                        {% if field.field.widget.input_type == "textarea" %}
+                                            {{ field|add_class:"w-full border border-border-subtle rounded px-4 py-3 font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors resize-none h-32" }}
+                                        {% else %}
+                                            {{ field|add_class:"w-full border border-border-subtle rounded px-4 py-3 font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors" }}
+                                        {% endif %}
+                                        {% if field.errors %}
+                                            <p class="mt-1 text-error font-body-md text-body-md">{{ field.errors.0 }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit"
+                                        class="w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors duration-300">
+                                    {% trans "Submit Application" %} <span class="material-symbols-outlined text-sm">send</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <aside class="tj-blog-sidebar">
-                        <!-- Job information  -->
-                        <div class="tj-sidebar-widget wow fadeInUp" data-wow-delay="0.1s">
-                            <h4 class="widget-title"> Information </h4>
-                            <div class="project_catagory">
-                                <ul>
-                                    {% if page.contract_type %}
-                                    <li><span class="first-child">Type de contrat</span><span>{{ page.contract_type }}</span></li>
-                                    {% endif %}
-                                    {% if page.location %}
-                                    <li><span class="first-child">Localisation</span><span>{{ page.location }}</span></li>
-                                    {% endif %}
-                                    {% if page.salary %}
-                                    <li><span class="first-child">Salaire</span><span>{{ page.salary }}</span></li>
-                                    {% endif %}
-                                    {% if page.date %}
-                                    <li><span class="first-child">Date</span><span>{{ page.date }}</span></li>
-                                    {% endif %}
-                                    {% comment %} <li><span class="first-child">Vacancy</span><span>03 Available</span></li>
-                                    <li><span class="first-child">Apply on</span><span>OCT 22, 2024</span></li> {% endcomment %}
-                                </ul>
-                            </div>
-                        </div>
-                        <!-- apply form -->
-                        <div class="tj-sidebar-widget wow fadeInUp" data-wow-delay="0.3s">
-                            <h4 class="widget-title">Postuler</h4>
-                            <div class="tj-careers-form">
-                                <form 
-                                    hx-trigger="submit"
-                                    hx-post="{% pageurl page.get_parent %}"
-                                    hx-target="this"
-                                    hx-swap="innerHTML"
-                                    enctype="multipart/form-data"
-
-                                >
-                                 <input type="hidden" name="recruitment_page_id" value="{{ page.pk }}">
-                                    {% for field in form %}
-                                        {% if field.field.widget.input_type == "file" %}
-                                            <div class="form-input m-0">
-                                                <div class="pt-3">
-                                                    <label for="{{ field.id_for_label }}">
-                                                        {{ field.label }}
-                                                        {% if field.field.required %}
-                                                            <span class="required">*</span>
-                                                        {% endif %}
-                                                    </label>
-                                                </div>
-                                                {{ field }}
-                                            </div>
-                                        {% else %}
-                                            <div class="form-input m-0 pt-3">
-                                                {{ field }}
-                                            </div>
-                                        {% endif %}
-
-                                        {% if field.errors %}
-                                            <div class="form-error">{{ field.errors }}</div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <div class="submit-btn pt-3">
-                                        <button class="tj-primary-btn" type="submit">
-                                            <span class="btn-text"><span>{% translate "Envoyer le message" %}</span></span>
-                                            <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
+                <!-- Sidebar -->
+                <aside class="space-y-6">
+                    <div class="glass-card p-6 rounded-xl">
+                        <h4 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mb-4">{% trans "Position Details" %}</h4>
+                        <dl class="space-y-3">
+                            {% if page.specific.contract_type %}
+                                <div>
+                                    <dt class="font-label-caps text-label-caps uppercase text-on-surface-variant">{% trans "Contract" %}</dt>
+                                    <dd class="font-body-md text-body-md text-on-background">{{ page.specific.contract_type }}</dd>
+                                </div>
+                            {% endif %}
+                            {% if page.specific.location %}
+                                <div>
+                                    <dt class="font-label-caps text-label-caps uppercase text-on-surface-variant">{% trans "Location" %}</dt>
+                                    <dd class="font-body-md text-body-md text-on-background">{{ page.specific.location }}</dd>
+                                </div>
+                            {% endif %}
+                            {% if page.specific.date %}
+                                <div>
+                                    <dt class="font-label-caps text-label-caps uppercase text-on-surface-variant">{% trans "Published" %}</dt>
+                                    <dd class="font-body-md text-body-md text-on-background">{{ page.specific.date|date:"j F Y" }}</dd>
+                                </div>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    <a href="{{ page.get_parent.url }}"
+                       class="flex items-center gap-2 font-label-caps text-label-caps uppercase text-primary hover:text-secondary transition-colors">
+                        <span class="material-symbols-outlined text-sm">arrow_back</span>
+                        {% trans "All Positions" %}
+                    </a>
+                </aside>
             </div>
         </div>
     </section>

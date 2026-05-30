@@ -4,7 +4,12 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
-from contact.models import ContactPage
+
+
+def _contact_page():
+    from contact.models import ContactPage
+
+    return ContactPage.objects.live().first()
 
 
 class AboutPage(Page):
@@ -156,131 +161,19 @@ class AboutPage(Page):
     class Meta:
         verbose_name = "Page Qui sommes nous ?"
 
-    parent_page_types = ['EntrepriseIndexPage']
+    parent_page_types = ["EntrepriseIndexPage"]
     subpage_types = []
-
 
     def get_context(self, request):
         from home.models import HomePage
 
         context = super().get_context(request)
-
-        context["rse_page"] = RsePage.objects.live().specific().first()
         context["home_page"] = HomePage.objects.live().specific().first()
         return context
 
-
-class RsePage(Page):
-    hero_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Image d'en-tête",
-    )
-    summary = models.TextField(max_length=500, blank=True, verbose_name="Résumé( sera affiché dans la page 'Qui sommes-nous ?' dans la section RSE)")
-    description = RichTextField(blank=True, verbose_name="Contenu de RSE")
-
-    award_section = RichTextField(blank=True, verbose_name="Contenu médaille")
-
-    images = StreamField(
-        [
-            ("image", ImageChooserBlock(required=True, label="image médaille")),
-        ],
-        blank=True,
-        use_json_field=True,
-    )
-    values = StreamField(
-        [(
-            "values_items",
-            blocks.ListBlock(
-                blocks.StructBlock(
-                    [
-                        ("title", blocks.TextBlock(required=True, label="titre")),
-                        (
-                            "description",
-                            blocks.RichTextBlock(
-                                required=True, label="Description"
-                            ),
-                        ),
-                    ])),)],
-        blank=True,
-        use_json_field=True,
-    )
-    values.verbose_name = "Nos piliers RSE"
-
-    key_numbers = StreamField(
-        [
-            (
-                "numbers",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            (
-                                "number",
-                                blocks.CharBlock(required=True, label="chiffre"),
-                            ),
-                            ("label", blocks.CharBlock(required=True, label="label")),
-                            (
-                                "symbol",
-                                blocks.CharBlock(required=False, label="symbole"),
-                            ),
-                        ]
-                    )
-                ),
-            )
-        ],
-        blank=True,
-        use_json_field=True,
-    )
-    key_numbers.verbose_name = "chiffres clés"
-    
-    document_rse = models.ForeignKey(
-        "wagtaildocs.Document",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Document RSE",
-    )
-    date_document = models.DateField(null=True, blank=True, verbose_name="Dernière mise à jour")
-
-    content_panels = Page.content_panels + [
-        FieldPanel("hero_image"),
-        FieldPanel("summary"),
-        FieldPanel("description"),
-        FieldPanel("values"),
-        FieldPanel("award_section"),
-        FieldPanel("images"),
-        FieldPanel("key_numbers"),
-        FieldPanel("document_rse"),
-        FieldPanel("date_document"),
-    ]
-
-    class Meta:
-        verbose_name = "Page RSE"
-
-    subpage_types = []
-    parent_page_types = ['EntrepriseIndexPage']
-
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        return context
-
-    @property
-    def first_image(self):
-        if self.images:
-            for block in self.images:
-                if block.block_type == "image":
-                    return block.value
-        return None
-    
     @property
     def get_contact_page(self):
-        contact_page = ContactPage.objects.live().first()
-        return contact_page if contact_page else None
+        return _contact_page()
 
 
 class EntrepriseIndexPage(Page):
@@ -289,8 +182,87 @@ class EntrepriseIndexPage(Page):
     promote_panels = Page.promote_panels + [
         FieldPanel("not_clicable"),
     ]
-    subpage_types = ["AboutPage","RsePage"]  
-    max_count = 2 
+    subpage_types = ["AboutPage"]
+    max_count = 1
 
     class Meta:
         verbose_name = "Entreprise"
+
+
+class WhatWeDoPage(Page):
+    """Single 'What We Do' page replacing the old expertise index+detail pattern."""
+
+    hero_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="Hero image",
+    )
+
+    introduction = RichTextField(blank=True, verbose_name="Introduction")
+
+    services = StreamField(
+        [
+            (
+                "items",
+                blocks.ListBlock(
+                    blocks.StructBlock(
+                        [
+                            (
+                                "icon",
+                                blocks.CharBlock(
+                                    required=False,
+                                    label="Material Symbols icon name (e.g. analytics)",
+                                ),
+                            ),
+                            ("title", blocks.CharBlock(label="Title")),
+                            (
+                                "description",
+                                blocks.RichTextBlock(
+                                    required=False, label="Description"
+                                ),
+                            ),
+                        ]
+                    )
+                ),
+            )
+        ],
+        use_json_field=True,
+        blank=True,
+        verbose_name="Services",
+    )
+
+    vision_title = models.CharField(
+        max_length=255, default="Our Vision", verbose_name="Vision title"
+    )
+    vision_content = RichTextField(blank=True, verbose_name="Vision content")
+
+    mission_title = models.CharField(
+        max_length=255, default="Our Mission", verbose_name="Mission title"
+    )
+    mission_content = RichTextField(blank=True, verbose_name="Mission content")
+
+    content_panels = Page.content_panels + [
+        FieldPanel("hero_image"),
+        FieldPanel("introduction"),
+        FieldPanel("services"),
+        FieldPanel("vision_title"),
+        FieldPanel("vision_content"),
+        FieldPanel("mission_title"),
+        FieldPanel("mission_content"),
+    ]
+
+    class Meta:
+        verbose_name = "What We Do Page"
+
+    subpage_types = []
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        return context
+
+    @property
+    def get_contact_page(self):
+        return _contact_page()

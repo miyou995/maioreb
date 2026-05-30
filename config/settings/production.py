@@ -1,5 +1,9 @@
 from .base import *  # noqa
+from pathlib import Path
 
+PROJECT_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = PROJECT_DIR.parent
 # ManifestStaticFilesStorage is recommended in production, to prevent
 # outdated JavaScript / CSS assets being served from cache
 # (e.g. after a Wagtail upgrade).
@@ -17,3 +21,5 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 # ALLOWED_HOSTS = "atrisgroupe.com", "www.atrisgroupe.com"
+MEDIA_ROOT = BASE_DIR / "public/media"
+STATIC_ROOT = BASE_DIR / "public/static"
