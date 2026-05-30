@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load static %}
+{% block content %}
+
+
+<main id="primary" class="site-main">
+  <div class="space-for-header"></div>
+  <!-- start: Breadcrumb Section -->
+  <section class="tj-page-header section-gap-x" 
+    {% if page.featured_image %}
+            data-bg-image="{{ page.featured_image.file.url }}"
+    {% endif %}
+    >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="tj-page-header-content text-center">
+            <h1 class="tj-page-title">{{ page.title }}</h1>
+            <div class="tj-page-link">
+              <span><i class="tji-home"></i></span>
+              <span>
+                <a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a>
+              </span>
+              <span><i class="tji-arrow-right"></i></span>
+              <span>
+                <span>{{ page.title }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-header-overlay" 
+    {% if page.featured_image %}
+            data-bg-image="{{ page.featured_image.file.url }}"
+    {% endif %}
+    ></div>
+  </section>
+  <!-- end: Breadcrumb Section -->
+
+  <!-- start: Blog Section -->
+  <section class="tj-blog-section section-gap slidebar-stickiy-container">
+    <div class="container">
+      <div class="row row-gap-5">
+        <div class="col-lg-8">
+          <div class="post-details-wrapper">
+                <h2 class="title title-anim">{{ page.client_name }}</h2>
+                <p class="summary">{{ page.summary }}</p>
+                
+                <h3 class="wow fadeInUp" data-wow-delay=".3s">Challenge</h3>
+
+                <p class="wow fadeInUp" data-wow-delay=".3s">
+                    {{ page.challenge|richtext }}
+                </p>
+                <h3 class="wow fadeInUp" data-wow-delay=".3s">Solution</h3>
+                <p class="wow fadeInUp" data-wow-delay=".3s">
+                    {{ page.solution|richtext }}
+                </p>
+                <h3 class="wow fadeInUp" data-wow-delay=".3s">Résultats</h3>
+                <p class="wow fadeInUp" data-wow-delay=".3s">
+                    {{ page.results|richtext }}
+                </p>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="tj-main-sidebar slidebar-stickiy">
+            <div class="tj-sidebar-widget widget-categories wow fadeInUp" data-wow-delay=".1s">
+              <h4 class="widget-title">Informations du projet</h4>
+              <div class="infos-item">
+                <div class="project-icons">
+                  <i class="tji-user"></i>
+                </div>
+                <div class="project-text">
+                  <span>Client</span>
+                  <h6 class="title">{{ page.client_name }}</h6>
+                </div>
+              </div>
+              <div class="infos-item">
+                <div class="project-icons">
+                  <i class="tji-calendar"></i>
+                </div>
+                <div class="project-text">
+                  <span>Date</span>
+                  <h6 class="title">{{ page.project_date }}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

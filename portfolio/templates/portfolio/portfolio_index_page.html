@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+
+<main id="primary" class="site-main">
+    <div class="space-for-header"></div>
+  <!-- start: Breadcrumb Section -->
+    <section class="tj-page-header section-gap-x" 
+        {% if page.hero_image %}
+                data-bg-image="{{ page.hero_image.file.url }}"
+        
+        {% endif %}
+        >
+
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="tj-page-header-content text-center">
+                <h1 class="tj-page-title">{{ page.title }}</h1>
+                <div class="tj-page-link">
+                <span><i class="tji-home"></i></span>
+                <span>
+                    <a href="{{ page.get_parent.url }}">{{ page.get_parent.title }}</a>
+                </span>
+                <span><i class="tji-arrow-right"></i></span>
+                <span>
+                    <span>{{ page.title }}</span>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="page-header-overlay" 
+            {% if page.hero_image %}
+                    data-bg-image="{{ page.hero_image.file.url }}"
+            {% endif %}>
+        </div>
+    </section>
+
+    <section class="tj-project-section section-gap">
+      <div class="container">
+        <div class="col-12">
+            <div class="sec-heading text-center style-2">
+                <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Études de cas</span>
+                <h2 class="sec-title text-anim">{{ page.introduction|richtext }}</h2>
+            </div>
+        </div>
+          <div class="row row-gap-4">
+              {% for project in projects %}
+                  <div class="col-xl-4 col-md-6">
+                      <div class="project-item wow fadeInUp" data-wow-delay=".1s">
+                          <div class="project-img">
+                              {% if project.featured_image %}
+                                  <img src="{{ project.featured_image.file.url }}" alt="{{ project.title }}">
+                              {% endif %}
+                          </div>
+                          <div class="project-content">
+                              <span class="categories">
+                                  <a href="{% pageurl project %}">{{ project.project_date }}</a>
+                              </span>
+                              <div class="project-text">
+                                  <h4 class="title">
+                                      <a href="{% pageurl project %}">{{ project.client_name }}</a>
+                                  </h4>
+                                  <a class="project-btn" href="{% pageurl project %}">
+                                      <i class="tji-arrow-right-big"></i>
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          {% if projects.paginator.num_pages > 1 %}
+              <div class="tj-pagination d-flex justify-content-center">
+                  <ul>
+                      {% if projects.has_previous %}
+                          <li>
+                              <a class="page-numbers prev" href="?page={{ projects.previous_page_number }}">
+                                  <i class="tji-arrow-left-long"></i>
+                              </a>
+                          </li>
+                      {% endif %}
+                      {% for num in projects.paginator.page_range %}
+                          {% if projects.number == num %}
+                              <li>
+                                  <span class="page-numbers current">{{ num }}</span>
+                              </li>
+                          {% else %}
+                              <li>
+                                  <a class="page-numbers" href="?page={{ num }}">{{ num }}</a>
+                              </li>
+                          {% endif %}
+                      {% endfor %}
+                      {% if projects.has_next %}
+                          <li>
+                              <a class="page-numbers next" href="?page={{ projects.next_page_number }}">
+                                  <i class="tji-arrow-right-long"></i>
+                              </a>
+                          </li>
+                      {% endif %}
+                  </ul>
+              </div>
+          {% endif %}
+      </div>
+    </section>
+
+    <section class="h10-testimonial section-gap section-gap-x">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="sec-heading-wrap">
+                        <div class="heading-wrap-content">
+                            <div class="sec-heading style-3">
+                                <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>Témoignages clients</span>
+                                <h2 class="sec-title text-anim">L’expérience client au cœur de nos réussites</h2>
+                            </div>
+                            <div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".5s">
+                                <div class="slider-prev">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-left"></i>
+                                    <i class="tji-arrow-left"></i>
+                                    </span>
+                                </div>
+                                <div class="slider-next">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-right"></i>
+                                    <i class="tji-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid gap-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonial-wrapper h8-testimonial-wrapper h10-testimonial-wrapper wow fadeInUp" data-wow-delay=".3s">
+                        <div class="swiper swiper-container h10-testimonial-slider">
+                            <div class="swiper-wrapper">
+                                {% for client in clients_opinions %}
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-author">
+                                                <div class="author-inner">
+                                                    <div class="author-img">
+                                                        {% if client.logo %}
+                                                            <img src="{{ client.logo.file.url }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'images/user.png' %}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="author-header">
+                                                        <h5 class="title">{{ client.client_name }}</h5>
+                                                        <span class="designation">{{ client.author }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="desc">
+                                                {{ client.quote|richtext }}
+                                            </div>
+                                            <div class="star-ratings">
+                                                <div class="fill-ratings" style="width: 100%">
+                                                <span>★★★★★</span>
+                                                </div>
+                                                <div class="empty-ratings">
+                                                <span>★★★★★</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination-area"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %} <section class="tj-funfact-section section-gap section-gap-x">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="heading-wrap-content">
+                        <div class="sec-heading style-4">
+                            <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>Nos chiffres clés</span>
+                            <h2 class="sec-title title-anim">L’impact de nos actions en chiffres</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-gap-4">
+                {% for block in key_numbers %}
+                    {% if block.block_type == "numbers" %}
+                        {% for key in block.value %}
+                            <div class="col-lg-4 col-md-6">
+                                <div class="countup-item style-2 wow fadeInUp" data-wow-delay=".5s">
+                                    <span class="count-icon"><i class="tji-growth"></i></span>
+                                    <div class="count-inner">
+                                        <span class="count-text fs-6">{{ key.label }}</span>
+                                        <div class="inline-content">
+                                            <span class="odometer countup-number"
+                                                data-count="{{ key.number }}"></span>
+                                            <span class="count-plus">{{ key.symbol }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    {% comment %} nos chiffres cles {% endcomment %}
+    {% include 'about/chiffre_cles.html' with key_numbers=key_numbers %}
+
+    {% comment %} CLIENT LOGOS  {% endcomment %}
+    {% include 'portfolio/section_logos_client.html' with images=page.images %}
+
+    
+</main>
+
+{% endblock %}

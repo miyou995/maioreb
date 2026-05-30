@@ -1,0 +1,909 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% load wagtailuserbar %}
+{% comment %} {% load menu_tags %} {% endcomment %}
+{% load wagtailcore_tags navigation_tags %}
+
+
+
+{% block content %}
+
+<main id="primary" class="site-main">
+    <div class="top-space-15"></div>
+        <!-- start: Banner Section -->
+
+    {% comment %} section 1 {% endcomment %}
+          <section class="h9-hero">
+          <div class="h9-hero-inner">
+            <div class="h9-hero-bg-image" data-bg-image="{% static 'images/h9-hero-bg.webp' %}"></div>
+            <div class="h9-hero-item-wrapper">
+              <div class="h9-hero-content">
+                <h1 class="h9-hero-title text-anim">{{page.hero_title}} <span class="wow fadeInLeft" data-wow-delay="0.3s"></span>
+                 {{page.hero_title_2}}
+                </h1>
+                <div class="h9-hero-desc-area">
+                  <h4 class="title wow fadeInUp" data-wow-delay="0.5s">Des solutions évolutives.</h4>
+                  <div class="desc-inner wow fadeInUp" data-wow-delay="0.7s">
+                    <p class="desc">{{page.hero_subtitle}}</p>
+                    <a class="tj-primary-btn" href="{{ page.cta_linked_page.url }}">
+                      <span class="btn-text"><span>{{page.hero_cta_text}}</span></span>
+                      <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                    </a>
+                  </div>
+                </div>
+                <div class="h9-hero-social wow fadeInUp" data-wow-delay="0.9s">
+                  <div class="social-links style-3">
+                    <ul>
+                        {% if page.get_contact_page.facebook_url %}
+                            <li><a href="{{ page.get_contact_page.facebook_url }}" aria-label="social media link" target="_blank"><i
+                                    class="fa-brands fa-facebook-f"></i></a>
+                            </li>
+                        {% endif %}
+                        {% if page.get_contact_page.instagram_url %}
+                            <li><a href="{{ page.get_contact_page.instagram_url }}" aria-label="social media link" target="_blank"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            </li>
+                        {% endif %}
+                        {% if page.get_contact_page.twitter_url %}
+                            <li><a href="{{ page.get_contact_page.twitter_url }}" aria-label="social media link" target="_blank"><i
+                                    class="fa-brands fa-x-twitter"></i></a></li>
+                        {% endif %}
+                        {% if page.get_contact_page.linkedin_url %}
+                            <li><a href="{{ page.get_contact_page.linkedin_url }}" aria-label="social media link" target="_blank"><i
+                                    class="fa-brands fa-linkedin-in"></i></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="h9-hero-img  img-parallax wow fadeInUp" data-wow-delay="0.9s">
+                <img src="{% static 'images/section1.jpg' %}" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="h7-hero-shape h9-hero-shape-1 wow fadeInUpBig" data-wow-delay="1s"><img
+                class="tj-anim-move-var-big" src="{% static 'images/h7-hero-blur-1.webp' %}" alt=""></div>
+          <div class="h7-hero-shape h9-hero-shape-2 wow fadeInDownBig" data-wow-delay="1.2s"><img
+                class="tj-anim-move-var-big-reverse" src="{% static 'images/h7-hero-blur-2.webp' %}" alt=""></div>
+        </section>
+
+
+
+    {% comment %} <section class="tj-slider-section">
+        <div class="swiper hero-slider">
+            <div class="swiper-wrapper">
+                {% for block in page.slides %}
+                    <div class="swiper-slide tj-slider-item">
+                        <div class="slider-bg-image" data-bg-image="{{ block.value.background_image.file.url }}" fetchpriority="high"></div>
+                        <div class="container">
+                            <div class="slider-wrapper">
+                                <div class="slider-content">
+                                    <h1 class="slider-title">{{ block.value.hero_title }}</h1>
+                                    <div class="slider-desc">
+                                        {{ block.value.hero_subtitle }}
+                                    </div>
+                                    {% if block.value.cta_linked_page %}
+                                    <div class="slider-btn">
+                                        <a class="tj-primary-btn" href="{{ block.value.cta_linked_page.url }}">
+                                            <span class="btn-text">{{ block.value.hero_cta_text }}</span>
+                                            <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="hero-navigation d-inline-flex wow fadeIn" data-wow-delay="1.5s">
+                <div class="slider-prev">
+                    <span class="anim-icon">
+                        <i class="tji-arrow-left"></i>
+                        <i class="tji-arrow-left"></i>
+                    </span>
+                </div>
+                <div class="slider-next">
+                    <span class="anim-icon">
+                        <i class="tji-arrow-right"></i>
+                        <i class="tji-arrow-right"></i>
+                    </span>
+                </div>
+            </div>
+        </div>  
+    </section> {% endcomment %}
+
+
+    {% comment %} EMPOWRING BUSINESS WITH EXPERTISE {% endcomment %}
+    <section id="choose" class="tj-choose-section section-gap">
+        <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="sec-heading style-8 sec-heading-centered">
+                  <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Choisissez le meilleur</span>
+                  <h2 class="sec-title title-anim">Renforcer les entreprises grâce à notre expertise.</h2>
+                </div>
+              </div>
+        </div>
+            <div class="row row-gap-4 rightSwipeWrap">
+              <div class="col-md-6 col-lg-4">
+                <div class="choose-box customers-box h9-choose-box right-swipe">
+                  <h4 class="title">Nous vous offrons la meilleure solution d'affaires que nous ayons jamais vue.</h4>
+                  <div class="customers-inner">
+                    <div class="customers">
+                    </div>
+                    <div class="rating-area">
+                      <div class="star-ratings">
+                        <div class="fill-ratings" style="width: 100%">
+                          <span>★★★★★</span>
+                        </div>
+                        <div class="empty-ratings">
+                          <span>★★★★★</span>
+                        </div>
+                      </div>
+                    </div>
+                    <h5 class="customers-text">100+ clients satisfaits</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                <div class="choose-box h9-choose-box right-swipe">
+                  <div class="choose-content">
+                    <div class="choose-icon">
+                      <i class="tji-award"></i>
+                    </div>
+                    <h4 class="title">Une expertise reconnue et primée</h4>
+                        <p class="desc">Reconnue par les leaders du secteur, 
+                            notre équipe primée a fait ses preuves en matière 
+                            d'excellence dans la réalisation de projets.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="choose-box h9-choose-box h9-choose-bg right-swipe"
+                  data-bg-image="{% static 'images/team_2.jpg' %}">
+                  <div class="choose-content">
+                    <h4 class="title">Assistance dédiée</h4>
+                    <p class="desc">Notre équipe est toujours disponible pour répondre à vos préoccupations d'experts et 
+                            vous fournir des solutions rapides et efficaces afin de préserver votre activité.</p>
+                    <a class="text-btn" href="{{ page.get_contact_page.url }}">
+                      <span class="btn-text"><span>Contact Us</span></span>
+                      <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+
+    {% comment %} section marque on loop {% endcomment %}
+    <section class="h5-maquee z-2">
+        <div class="h5-maquee-inner">
+            <div class="swiper h5-maquee-slider">
+                <div class="swiper-wrapper  h5-maquee-slider-wrapper">
+                    {% for _ in "123456" %}
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Enterprise</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Succès</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">{{ page.hero_title }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Innovation</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div dir="rtl" class="h5-maquee-inner h5-maquee-inner-rtl">
+            <div class="swiper h5-maquee-slider">
+                <div class="swiper-wrapper  h5-maquee-slider-wrapper">
+                    {% for _ in "123456" %}
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Enterprise</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Succès</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">{{ page.hero_title }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide h5-maquee-slider-item">
+                            <div class="marquee-box">
+                                <div class="marquee-icon-wrapper">
+                                    <div class="marquee-icon"><i class="tji-star"></i></div>
+                                </div>
+                                <div class="marquee-title">
+                                    <h4 class="title">Innovation</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section> 
+ 
+
+
+    {% comment %} CLIENT LOGOS  {% endcomment %}
+    {% include 'portfolio/section_logos_client.html' with images=portfolio.images %}
+
+
+
+
+	{% comment %} nos chiffres cles {% endcomment %}
+    {% include 'about/chiffre_cles.html' with key_numbers=key_numbers %}
+
+
+
+    {% comment %} secteur d'activité {% endcomment %}
+    <section class="tj-project-section-2 section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sec-heading style-2 text-center">
+                        <span class="sub-title wow fadeInUp" data-wow-delay=".3s"> Secteurs stratégiques</span>
+                        <h2 class="sec-title text-anim">Secteurs <span>stratégiques.</span></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="project-wrapper wow fadeInUp" data-wow-delay=".5s">
+                        <div class="swiper project-slider">
+                            <div class="swiper-wrapper">
+                                {% for block in  page.sectors %}
+                                    {% for key in block.value %}
+                                        <div class="swiper-slide">
+                                            <div class="project-item">
+                                                <div class="project-img" data-bg-image="{{ key.image.file.url }}"></div>
+                                                <div class="project-content">
+                                                    <div class="project-text">
+                                                        <h1 class="title">{{ key.title }}</h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination-area"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {% comment %} EXPERTISE {% endcomment %}
+
+    {% comment %} <section class="tj-service-section service-2 section-gap section-gap-x slidebar-stickiy-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="content-wrap  slidebar-stickiy">
+                        <div class="sec-heading style-2">
+                            <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Nos Expertises</span>
+                            <h2 class="sec-title text-white text-anim">
+                                Des expertises au service de votre performance
+                            </h2>
+                        </div>
+                        <div class="wow fadeInUp" data-wow-delay=".6s">
+                            <a class="tj-primary-btn" href="{{ expertise_index.url }}">
+                                <span class="btn-text"><span>plus de services</span></span>
+                                <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="service-wrapper-2">
+                        {% for expertise in expertises %}
+                            <div class="service-item-wrapper tj-fadein-right-on-scroll">
+                                <div class="service-item style-2 ">
+                                    <div class="title-area">
+                                        <div class="service-icon">
+                                            <i class="tji-service-{% cycle '1' '2' '3' '4' '5' '6' %}"></i>
+                                        </div>
+                                        <h4 class="title"><a href="{{ expertise.url }}">{{ expertise.title }}</a></h4>
+                                    </div>
+                                    <div class="service-content">
+                                        <p class="desc fs-3">{{ expertise.summary }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+
+    <section class="h9-service section-gap  section-gap-x tj-sticky-panel-container-2 tj-progress-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4 ">
+                    <div class="sec-heading style-8  tj-sticky-panel-2">
+                        <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Nos Expertises</span>
+                        <h2 class="sec-title title-anim">Des expertises au service de votre performance</h2>
+                        <div class="h9-service-more wow fadeInUp" data-wow-delay=".3s">
+                            <a class="tj-primary-btn" href="{{ expertise_index.url }}">
+                                <span class="btn-text"><span>Plus d'expertises</span></span>
+                                <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8 ">
+                    <div class="h9-service-scroll-progress tj-scroll-progress tj-sticky-panel-2">
+                        {% for expertise in expertises %}
+                            <div class="tj-scroll-progress-item active">
+                                <h5 class="tj-scroll-progress-sln">{{ forloop.counter }}.</h5>
+                                <div class="tj-scroll-progress-ind">
+                                    <div class="tj-scroll-progress-ind-inner"></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="service-wrapper h9-service-wrapper">
+                        {% for expertise in expertises %}
+                            <div class="service-item style-5 tj-progress-item">
+                                <div class="service-content-area">
+                                <div class="service-icon">
+                                    <i class="tji-service-{% cycle '1' '2' '3' '4' '5' '6' %}"></i>
+                                </div>
+                                <div class="service-content">
+                                    <h3 class="title"><a href="{{ expertise.url }}">{{ expertise.title }}</a></h3>
+                                    <p class="desc">{{ expertise.summary }}.</p>
+                                </div>
+                                <a href="{{ expertise.url }}" class="h9-service-nav">
+                                    <i class="tji-arrow-right-long"></i>
+                                </a>
+                                </div>
+                                <div class="service-img">
+                                <img src="{{ expertise.featured_image.file.url }}" alt="">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- start: colaborateur Section -->
+	{% comment %} <section class="tj-testimonial-section-2 section-gap">
+		<div class="container">
+			<div class="row row-gap-3">
+				<div class="col-lg-6">
+					<div class="testimonial-img-area wow fadeInUp" data-wow-delay=".3s">
+						<div class="testimonial-img">
+							<img data-speed=".8" src="{{portfolio.reviews_banner.file.url}}" alt="">
+							<div class="sec-heading style-2">
+							    <h2 class="sec-title text-anim">{{portfolio.clients_title}}</h2>
+                            </div>
+                        </div>
+						<div class="box-area">
+							<div class="rating-box wow fadeInUp" data-wow-delay=".3s">
+							    <h2 class="title">4.9</h2>
+							    <div class="rating-area">
+								    <div class="star-ratings">
+									    <div class="fill-ratings" style="width: 100%">
+										    <span>★★★★★</span>
+									    </div>
+									    <div class="empty-ratings">
+										    <span>★★★★★</span>
+									    </div>
+								    </div>
+							    </div>
+							    <span class="rating-text">({% translate "sur Google reviews" %})</span>
+						    </div>
+					    </div>
+				    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="testimonial-wrapper wow fadeInUp" data-wow-delay=".5s">
+                        <div class="swiper testimonial-slider-2">
+                            <div class="swiper-wrapper">
+                                {% for block in recruitment_index.testimonials %}
+                                    {% if block.block_type == "testimonial" %}
+                                        {% with client=block.value %}
+                                            <div class="swiper-slide">
+                                                <div class="testimonial-item">
+                                                    <span class="quote-icon"><i class="tji-quote"></i></span>
+
+                                                    <div class="desc">
+                                                        <p>{{ client.quote }}</p>
+                                                    </div>
+
+                                                    <div class="testimonial-author">
+                                                        <div class="author-inner">
+
+                                                            {% if client.photo %}
+                                                                <div class="author-img">
+                                                                    <img src="{{ client.photo.file.url }}" alt="{{ client.name }}">
+                                                                </div>
+                                                            {% endif %}
+
+                                                            <div class="author-header">
+                                                                <h4 class="title">{{ client.name }}</h4>
+                                                                <span class="designation">{{ client.role }}</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination-area"></div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</section> {% endcomment %}
+
+    <section class="tj-testimonial-section section-gap section-gap-x">
+          <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-12">
+                <div class="sec-heading-wrap">
+                  <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>{{portfolio.clients_title}}
+                    </span>
+                  <div class="heading-wrap-content">
+                    <div class="sec-heading">
+                      <h2 class="sec-title title-anim">{{portfolio.clients_title}}</h2>
+                    </div>
+                    <div class="slider-navigation d-inline-flex wow fadeInUp" data-wow-delay=".4s">
+                      <div class="slider-prev">
+                        <span class="anim-icon">
+                          <i class="tji-arrow-left"></i>
+                          <i class="tji-arrow-left"></i>
+                        </span>
+                      </div>
+                      <div class="slider-next">
+                        <span class="anim-icon">
+                          <i class="tji-arrow-right"></i>
+                          <i class="tji-arrow-right"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="testimonial-wrapper wow fadeInUp" data-wow-delay=".5s">
+                  <div class="swiper swiper-container testimonial-slider">
+                    <div class="swiper-wrapper">
+                        {% for block in recruitment_index.testimonials %}
+                            {% if block.block_type == "testimonial" %}
+                                {% with client=block.value %}
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-item">
+                                        <span class="quote-icon"><i class="tji-quote"></i></span>
+                                        <div class="desc">
+                                            <p>{{ client.quote }}.</p>
+                                        </div>
+                                        <div class="testimonial-author">
+                                            <div class="author-inner">
+                                            {% if client.photo %}
+                                                                <div class="author-img">
+                                                                    <img src="{{ client.photo.file.url }}" alt="{{ client.name }}">
+                                                                </div>
+                                                            {% endif %}
+                                            <div class="author-header">
+                                                <h4 class="title">{{ client.name }}</h4>
+                                                <span class="designation">{{ client.role }}</span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination-area"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+
+
+
+    
+    {% comment %} section marque on loop {% endcomment %}
+     <section class="tj-marquee-section section-gap-x">
+        <div class="marquee-wrapper">
+            <div class="swiper marquee-slider">
+                <div class="swiper-wrapper">
+                    {% for _ in "123456" %}
+                        <div class="swiper-slide marquee-item">
+                            <h4 class="marquee-text">{{ page.hero_title }}</h4>
+                            <div class="marquee-img">
+                                <img src="{{ page.logo.file.url }}" alt="">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+
+
+{% comment %} ETUDE DE CAS {% endcomment %}
+    <section class="tj-project-section-3 section-gap section-gap-x">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sec-heading-wrap">
+                        <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>Etudes de Cas</span>
+                        <div class="heading-wrap-content">
+                            <div class="sec-heading style-3">
+                                <h2 class="sec-title title-anim"> 
+                                    Découvrez comment nous transformons les défis de nos clients en résultats mesurables</h2>
+                            </div>
+                            <div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".5s">
+                                <div class="slider-prev">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-left"></i>
+                                    <i class="tji-arrow-left"></i>
+                                    </span>
+                                </div>
+                                <div class="slider-next">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-right"></i>
+                                    <i class="tji-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="project-wrapper wow fadeInUp" data-wow-delay=".4s">
+                        <div class="swiper project-slider-2">
+                            <div class="swiper-wrapper">
+                                {% for project in projects  %}
+                                    <div class="swiper-slide">
+                                        <div class="project-item">
+                                            <div class="project-img">
+                                                {% if project.featured_image %}
+                                                    <img src="{{ project.featured_image.file.url }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <div class="project-content">
+                                                <div class="project-text">
+                                                    <h4 class="title"><a href="{{ project.url }}">{{ project.client_name }}</a></h4>
+                                                    <a class="project-btn" href="{{ project.url }}">
+                                                        <i class="tji-arrow-right-big"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %} 
+                            </div>
+                            <div class="swiper-pagination-area"></div>
+                        </div>
+                        <div class="service-btn-area text-center wow fadeInUp" data-wow-delay=".3s">
+                            <a class="tj-primary-btn" href="{{ portfolio.url }}">
+                                <span class="btn-text"><span> Explorer plus de projets </span></span>
+                                <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+
+
+    {% comment %} BLOGS AND INSIGHTS {% endcomment %}
+    <section class="tj-blog-section-2 section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sec-heading-wrap">
+                        <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Blogs et Insights</span>
+                        <div class="heading-wrap-content">
+                            <div class="sec-heading style-2">
+                                <h2 class="sec-title text-anim">Blogs et <span>Insights</span></h2>
+                            </div>
+                            <div class="wow fadeInUp" data-wow-delay=".5s">
+                                <p class="desc">Découvrez notre blog et nos dernières actualités.
+                                </p>
+                            </div>
+                            <div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".7s">
+                                <div class="slider-prev">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-left"></i>
+                                    <i class="tji-arrow-left"></i>
+                                    </span>
+                                </div>
+                                <div class="slider-next">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-right"></i>
+                                    <i class="tji-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="blog-wrapper wow fadeIn" data-wow-delay=".5s">
+                        <div class="swiper blog-slider">
+                            <div class="swiper-wrapper">
+                                {% for blog in blogs %}
+                                    <div class="swiper-slide">
+                                        <div class="blog-item style-2">
+                                            <div class="blog-thumb">
+                                                {% if blog.image %}
+                                                    <a href="{{blog.url}}"><img src="{{blog.image.file.url}}" alt=""></a>
+                                                {% endif %}
+                                                <div class="blog-date">
+                                                    <span class="date">{{blog.date|date:"d"}}</span>
+                                                    <span class="month">{{blog.date|date:"M"}}</span>
+                                                    <span class="month">{{blog.date|date:"Y"}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="blog-content">
+                                                <div class="title-area">
+                                                    <div class="blog-meta">
+                                                      {% for tag in blog.tags.all %}
+                                                        <span class="categories">{{ tag.name }}</span>
+                                                      {% endfor %}
+                                                        <span>Par <a href="blog-details.html">{{blog.author}}</a></span>
+                                                    </div>
+                                                    <h4 class="title"><a href="{{blog.url}}">{{blog.subtitle}}</a></h4>
+                                                </div>
+                                                <a class="text-btn" href="{{blog.url}}">
+                                                    <span class="btn-text"><span>Lire Plus</span></span>
+                                                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination-area"></div>
+                            <div class="service-btn-area text-center wow fadeInUp" data-wow-delay=".3s">
+                                <a class="tj-primary-btn" href="{{ blog_index.url }}">
+                                    <span class="btn-text"><span>{% translate "plus d'articles" %}</span></span>
+                                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {% comment %} section linkin {% endcomment %}
+    {% if  page.posts_linkedin %}
+        <section class="tj-blog-section-2 section-gap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="sec-heading-wrap">
+                            <span class="sub-title wow fadeInUp " data-wow-delay=".3s">LinkedIn</span>
+                            <div class="heading-wrap-content">
+                                <div class="sec-heading style-2">
+                                    <h2 class="sec-title text-anim">Publications <span>LinkedIn</span></h2>
+                                </div>
+                                <div class="wow fadeInUp" data-wow-delay=".5s">
+                                    <p class="desc">À retrouver sur LinkedIn
+                                    </p>
+                                </div>
+                                <div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".7s">
+                                    <div class="slider-prev">
+                                        <span class="anim-icon">
+                                        <i class="tji-arrow-left"></i>
+                                        <i class="tji-arrow-left"></i>
+                                        </span>
+                                    </div>
+                                    <div class="slider-next">
+                                        <span class="anim-icon">
+                                        <i class="tji-arrow-right"></i>
+                                        <i class="tji-arrow-right"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="blog-wrapper wow fadeIn" data-wow-delay=".5s">
+                            {% if page.posts_linkedin %}
+                            <div class="swiper blog-slider">
+                                <div class="swiper-wrapper">
+                                    {% for block in page.posts_linkedin %}
+                                        {% if block.block_type == "items" %}
+                                            {% for item in block.value %}
+                                                <div class="swiper-slide">
+                                                    <div class="blog-item style-2">
+                                                        <div class="blog-thumb">
+                                                        {% if item.image %}
+                                                                <img src="{{ item.image.file.url }}" alt="">
+                                                            {% endif %}
+                                                            <div class="blog-date">
+                                                                <span class="date">{{item.date|date:"d"}}</span>
+                                                                <span class="month">{{item.date|date:"M"}}</span>
+                                                                <span class="month">{{item.date|date:"Y"}}</span>
+                                                                {% comment %} <img src="{{ page.logo.file.url }}" alt=""> {% endcomment %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="blog-content">
+                                                            <div class="title-area">
+                                                                <div class="blog-meta">
+                                                                    <span class="categories linkedin">Linkedin</span>
+                                                                    {% comment %} <span>Par <a href="blog-details.html">{{blog.author}}</a></span> {% endcomment %}
+                                                                </div>
+                                                                <h6 class="title"><a href="{{item.link}}">{{item.introduction|richtext}}</a></h6>
+                                                            </div>
+                                                            <a class="text-btn" href="{{item.link}}">
+                                                                <span class="btn-text"><span>Lire Plus</span></span>
+                                                                <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="swiper-pagination-area"></div>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="tji-info-circle" ></i>
+                                <h4 class="mt-3">
+                                    Aucun contenu LinkedIn disponible pour le moment.
+                                </h4>
+                                <p>Revenez bientôt pour découvrir nos dernières publications LinkedIn.</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+
+    {% comment %} section need help {% endcomment %}
+
+    <section class="tj-faq-section section-gap tj-arrange-container-2">
+        <div class="container">
+            <div class="row justify-content-between">
+              <div class="col-lg-6">
+                <div class="faq-img-area tj-arrange-item-2">
+                  <div class="faq-img overflow-hidden">
+                    <img src="{% static 'images/help.jpg' %}" alt="">
+                    <h2 class="title">Besoin d'aide ? Commencez ici...</h2>
+                  </div>
+                  <div class="box-area ">
+                    <div class="call-box">
+                      <h4 class="title">Commencer par un appel ? </h4>
+                      <span class="call-icon"><i class="tji-phone"></i></span>
+                      <a class="number" href="tel:{{ page.get_contact_page.phone }}"><span>{{page.get_contact_page.phone}}</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="col-lg-6">
+                <div class="accordion tj-faq tj-arrange-item-2" id="faqOne">
+                    {% for object in faq_data %}
+                        {% for block in object.faq %}
+                        <div class="accordion-item" id="faq-group-{{ forloop.counter }}">
+                            {% for item in block.value %}
+                                    <button class=" faq-title collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#faq-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                                        aria-expanded="false"
+                                    >{{ item.question }}</button>
+                                    <div id="faq-{{ forloop.parentloop.counter }}-{{ forloop.counter }}"
+                                     class="collapse " data-bs-parent="#faq-group-{{ forloop.parentloop.counter }}">
+                                    <div class="accordion-body faq-text">
+                                        <p>{{ item.answer|richtext }}</p>
+                                    </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+          </div>
+    </section>
+
+
+</main>
+
+{% endblock content %}

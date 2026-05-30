@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags widget_tweaks i18n %}
+
+{% load static %}
+
+
+{% block content %}
+
+ <main id="primary" class="site-main">
+    <div class="space-for-header"></div>
+    <section class="tj-page-header section-gap-x" 
+    {% if page.hero_image %}
+            data-bg-image="{{ page.hero_image.file.url }}"
+    {% endif %}
+    >
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="tj-page-header-content text-center">
+                <h1 class="tj-page-title">{{ page.title }}</h1>
+                <div class="tj-page-link">
+                <span><i class="tji-home"></i></span>
+                <span>
+                    <a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a>
+                </span>
+                <span><i class="tji-arrow-right"></i></span>
+                <span>
+                    <span>{{ page.title }}</span>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+        <div class="page-header-overlay" 
+        {% if page.hero_image %}
+                data-bg-image="{{ page.hero_image.file.url }}"
+        {% endif %}
+        ></div>
+    </section>
+
+
+        
+    <section class="tj-careers-section section-gap">
+        <div class="container">
+            <div class="tj-sidebar-widget widget-search wow fadeInUp">
+                <h4 class="widget-title">Recherche</h4>
+                <div class="search-box">
+                    <form method="get">
+                        <input
+                            type="search"
+                            name="search"
+                            placeholder="Recherche..."
+                            value="{{ search_query|default:'' }}"
+                        >
+                          <button type="submit">
+                            <i class="tji-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="row rg-30">
+                {% for job in jobs  %}
+                    <div class="col-xl-4 col-md-6">
+                        <div class="tj-careers wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="tj-careers-icon mb-30">
+                                <i class="tji-operations"></i>
+                            </div>
+                            {% if job.contract_type %}
+                                <div class="tj-careers-tag">
+                                    <span>{{job.contract_type}}</span> 
+                                </div>
+                            {% endif %}
+                            <h4 class="tj-careers-title">
+                                <a href="{% pageurl job %}">{{job.job_title}}</a>
+                            </h4>
+                            {% if job.salary %}
+                                <div class="tj-careers-salary">
+                                    <span>{{job.salary}}</span>
+                                </div>
+                            {% endif %}
+                            <div class="tj-careers-bottom">
+                                {% if job.location %}
+                                <span class="location"><i class="tji-location"></i>{{job.location}}</span>
+                                {% endif %}
+                                <a href="{% pageurl job %}" class="tj-careers-btn">
+                                    <div class="btn-text">
+                                        <span>Postuler</span>
+                                    </div>
+                                    <span class="btn-icon">
+                                        <i class="tji-arrow-right"></i>
+                                        <i class="tji-arrow-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- post pagination -->
+            {% if jobs.paginator.num_pages > 1 %}
+                <div class="tj-pagination d-flex justify-content-center">
+                    <ul>
+                        {% if jobs.has_previous %}
+                            <li>
+                                {% comment %} <a class="page-numbers prev" href="?page={{ jobs.previous_page_number }}"> {% endcomment %}
+                                      <a class="page-numbers prev" href="?{% if search_query %}search={{ search_query }}&{% endif %}page={{ jobs.previous_page_number }}">
+                                            <i class="tji-arrow-left-long"></i>
+                                    </a> 
+                            </li>
+                        {% endif %}
+                        {% for num in jobs.paginator.page_range %}
+                            {% if jobs.number == num %}
+                                <li>
+                                    <span class="page-numbers current">{{ num }}</span>
+                                </li>
+                            {% else %}
+                                <li>
+                                    {% comment %} <a class="page-numbers" href="?page={{ num }}">{{ num }}</a> {% endcomment %}
+                                    <a class="page-numbers" href="?{% if search_query %}search={{ search_query }}&{% endif %}page={{ num }}">
+                                         {{ num }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if jobs.has_next %}
+                            <li>
+                                <a class="page-numbers next" href="?{% if search_query %}search={{ search_query }}&{% endif %}page={{ jobs.next_page_number }}">
+                                    <i class="tji-arrow-right-long"></i>        
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+ 
+
+   {% comment %} témoignages collaborateurs {% endcomment %}
+    <section class="h10-testimonial section-gap section-gap-x">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <div class="sec-heading-wrap">
+                        <div class="heading-wrap-content">
+                            <div class="sec-heading style-3">
+                                <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>
+                                     témoignages collaborateurs
+                                </span>
+                                <h2 class="sec-title text-anim">Nos avis collaborateurs</h2>
+                            </div>
+                            <div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".5s">
+                                <div class="slider-prev">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-left"></i>
+                                    <i class="tji-arrow-left"></i>
+                                    </span>
+                                </div>
+                                <div class="slider-next">
+                                    <span class="anim-icon">
+                                    <i class="tji-arrow-right"></i>
+                                    <i class="tji-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid gap-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="testimonial-wrapper h8-testimonial-wrapper h10-testimonial-wrapper wow fadeInUp" data-wow-delay=".3s">
+                        <div class="swiper swiper-container h10-testimonial-slider">
+                            <div class="swiper-wrapper">
+                                {% for block in page.testimonials %}
+                                    <div class="swiper-slide">
+                                        <div class="testimonial-item">
+                                            <div class="testimonial-author">
+                                                <div class="author-inner">
+                                                    <div class="author-img">
+                                                        {% if block.value.photo %}
+                                                            <img src="{{ block.value.photo.file.url }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'images/user.png' %}" alt="">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="author-header">
+                                                        <h5 class="title">{{ block.value.name }}</h5>
+                                                        <span class="designation">{{ block.value.role }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-quote">
+                                                {{ block.value.quote }}
+                                            </div>
+                                            <div class="star-ratings">
+                                                <div class="fill-ratings" style="width: 100%">
+                                                <span>★★★★★</span>
+                                                </div>
+                                                <div class="empty-ratings">
+                                                <span>★★★★★</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-pagination-area"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    {% comment %} Ambiance et culture {% endcomment %}
+    <section class="h9-about-section section-bottom-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="sec-heading style-8 h9-sec-heading">
+                        <span class="sub-title wow fadeInUp" data-wow-delay=".3s">Ambiance et culture</span>
+                        <h2 class="sec-title title-highlight wow fadeInUp" data-wow-delay=".3s">
+                           {{ culture_page.title }}
+
+                        </h2>
+                    </div>
+                    <div class="h9-about-area">
+                    <div class="about-img-area h9-about-img wow fadeInLeft" data-wow-delay=".3s">
+                        <div class="about-img overflow-hidden">
+                        <img data-speed=".8" src="{{ culture_page.hero_image.file.url }}" alt="">
+                        </div>
+                    </div>
+                    <div class="h9-about-content">
+                        <p class="desc wow fadeInUp" data-wow-delay=".4s">
+                                                    {{ culture_page.introduction|richtext }}
+
+                        </p>
+        
+                        <div class="about-btn-area-2 wow fadeInUp" data-wow-delay=".7s">
+                        <a class="tj-primary-btn" href="{{ culture_page.url }}">
+                            <span class="btn-text"><span>En savoir plus</span></span>
+                            <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                        </a>
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% comment %} formulaire Candidature Spontanée {% endcomment %}
+    <section class="tj-contact-section section-gap section-gap-x pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="global-map wow fadeInUp" data-wow-delay=".3s">
+                        <div class="global-map-img">
+                            <img src="{% static 'images/map.svg' %}" alt="Image">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-form style-2 wow fadeInUp" data-wow-delay=".4s">
+                        <div class="sec-heading">
+                            <span class="sub-title text-white"><i class="tji-box"></i>Rejoignez-nous.</span>
+                            <h2 class="sec-title title-anim">Candidature Spontanée</h2>
+                        </div>
+                        <div class="tj-careers-form">
+                            <form 
+                                hx-trigger="submit"
+                                hx-post="{% pageurl  page %}"
+                                hx-target="this"
+                                hx-swap="innerHTML"
+                                enctype="multipart/form-data"
+
+                            >
+                                <input type="hidden" name="recruitment_page_id" value="{{ page.pk }}">
+                                {% for field in form %}
+                                    {% if field.field.widget.input_type == "file" %}
+                                        <div class="form-input m-0">
+                                            <div class="text-white pt-3">
+                                                <label for="{{ field.id_for_label }}">
+                                                    {{ field.label }}
+                                                    {% if field.field.required %}
+                                                        <span class="required">*</span>
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                            {{ field }}
+                                        </div>
+                                    {% else %}
+                                        <div class="form-input m-0 pt-3">
+                                            {{ field }}
+                                        </div>
+                                    {% endif %}
+
+                                    {% if field.errors %}
+                                        <div class="form-error">{{ field.errors }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="submit-btn pt-5">
+                                    <button class="tj-primary-btn" type="submit">
+                                        <span class="btn-text"><span>{% translate "Envoyer le message" %}</span></span>
+                                        <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class=" section-bottom-gap">
+    </div>
+
+
+</main>
+
+{% endblock %}

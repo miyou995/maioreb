@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load static %}
+{% block content %}
+<main id="primary" class="site-main">
+<div class="space-for-header"></div>
+<!-- start: Breadcrumb Section -->
+<section class="tj-page-header section-gap-x" 
+    {% if page.featured_image %}
+        data-bg-image="{{ page.featured_image.file.url }}"
+    {% endif %}
+>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+        <div class="tj-page-header-content text-center">
+            <h1 class="tj-page-title">{{ page.hero_title }}</h1>
+            <div class="tj-page-link">
+            <span><i class="tji-home"></i></span>
+            <span>
+                <a href="index.html">Home</a>
+            </span>
+            <span><i class="tji-arrow-right"></i></span>
+            <span>
+                <span>{{ page.hero_title }}</span>
+            </span>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="page-header-overlay" 
+        {% if page.featured_image %}
+            data-bg-image="{{ page.featured_image.file.url }}"
+       
+        {% endif %}
+    ></div>
+</section>
+<!-- end: Breadcrumb Section -->
+
+<!-- start: History Section -->
+
+<section class="tj-service-section-5 section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sec-heading style-4 text-center">
+                <span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>{{ page.hero_title }}</span>
+                <h2 class="sec-title title-anim">{{ page.hero_title }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="service-wrapper">
+                    {% for item in items %}
+                        <div class="service-item style-5 service-stack">
+                            <div class="service-content-area">
+                                <div class="service-icon">
+                                     <i class="tji-service-{% cycle '1' '2' '3' '4' '5' '6' %}"></i>
+                                </div>
+                                <div class="service-content">
+                                    <span class="no">{{ forloop.counter }}</span>
+                                    <h3 class="title"><a href="{% pageurl item %}">{{ item.subtitle }}</a></h3>
+                                    <p class="desc">{{ item.summary }}</p>
+                                    <a class="tj-primary-btn" href="{% pageurl item %}">
+                                    <span class="btn-text"><span>En savoir plus</span></span>
+                                    <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="service-img">
+                                {% if item.featured_image %}
+                                    <img src="{{ item.featured_image.file.url }}" alt="{{ item.title }}">
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</main>
+{% endblock %}

@@ -1,0 +1,74 @@
+
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+
+<main id="primary" class="site-main">
+    <div class="space-for-header"></div>
+
+    <!-- Breadcrumb / Header -->
+    <section class="tj-page-header section-gap-x" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tj-page-header-content text-center">
+                        <h1 class="tj-page-title">Erreur 404</h1>
+                        <div class="tj-page-link">
+                            <span><i class="tji-home"></i></span>
+                            <span>
+                                    <a href="/">Accueil</a>
+                            </span>
+                            <span><i class="tji-arrow-right"></i></span>
+                            <span>Erreur 404</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-header-overlay"></div>
+    </section>
+
+    <!-- Error Content -->
+    <section class="tj-error-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tj-error-wrap text-center">
+                        <div class="tj-error-content">
+                            <div class="error-img">
+                                 {% comment %} <img src="{% static 'images/contact_4.webp' %}" alt=""> {% endcomment %}
+                            </div>
+
+                            <h2 class="error-title title-anim">
+                                Oups ! Page introuvable
+                            </h2>
+
+                            <div class="error-desc">
+                                La page que vous recherchez n’existe pas, a été déplacée
+                                ou son adresse est incorrecte.
+                            </div>
+
+                            {% with homepage=site_root.specific %}
+                                <a class="tj-primary-btn error-btn" href="/">
+                                    <span class="btn-text">
+                                        <span>Retour à l’accueil</span>
+                                    </span>
+                                    <span class="btn-icon">
+                                        <i class="tji-arrow-right-long"></i>
+                                    </span>
+                                </a>
+                            {% endwith %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %} 
+
+
+

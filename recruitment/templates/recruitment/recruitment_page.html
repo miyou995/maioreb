@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags widget_tweaks i18n %}
+
+{% block content %}
+    <section class="tj-careers-details section-gap">
+        <div class="container">
+            <div class="row rg-50">
+                <div class="col-lg-8">
+                    <div class="tj-post-wrapper">
+                        <div class="tj-post-single-post">
+                            <!-- top content -->
+                            <div class="tj-careers-top mb-30">
+                                <div class="tj-careers-top-icon">
+                                    <i class="tji-manage"></i>
+                                </div>
+                                <div class="tj-careers-top-content">
+                                    {% if page.contract_type %}
+                                    <div class="tj-careers-tag">
+                                        <span>{{ page.contract_type }}</span> 
+                                    </div>
+                                    {% endif %}
+                                <h4 class="tj-careers-top-title text-anim">{{ page.job_title }}</h4>
+                                    {% if page.location %}
+                                    <span class="location"><i class="tji-location"></i>{{ page.location }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- content -->
+                            <div class="tj-entry-content">
+                                <h4 class="text-anim">Description</h4>
+                                <p class="wow fadeInUp" data-wow-delay="0.1s">
+                                    {{ page.body|richtext }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <aside class="tj-blog-sidebar">
+                        <!-- Job information  -->
+                        <div class="tj-sidebar-widget wow fadeInUp" data-wow-delay="0.1s">
+                            <h4 class="widget-title"> Information </h4>
+                            <div class="project_catagory">
+                                <ul>
+                                    {% if page.contract_type %}
+                                    <li><span class="first-child">Type de contrat</span><span>{{ page.contract_type }}</span></li>
+                                    {% endif %}
+                                    {% if page.location %}
+                                    <li><span class="first-child">Localisation</span><span>{{ page.location }}</span></li>
+                                    {% endif %}
+                                    {% if page.salary %}
+                                    <li><span class="first-child">Salaire</span><span>{{ page.salary }}</span></li>
+                                    {% endif %}
+                                    {% if page.date %}
+                                    <li><span class="first-child">Date</span><span>{{ page.date }}</span></li>
+                                    {% endif %}
+                                    {% comment %} <li><span class="first-child">Vacancy</span><span>03 Available</span></li>
+                                    <li><span class="first-child">Apply on</span><span>OCT 22, 2024</span></li> {% endcomment %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- apply form -->
+                        <div class="tj-sidebar-widget wow fadeInUp" data-wow-delay="0.3s">
+                            <h4 class="widget-title">Postuler</h4>
+                            <div class="tj-careers-form">
+                                <form 
+                                    hx-trigger="submit"
+                                    hx-post="{% pageurl page.get_parent %}"
+                                    hx-target="this"
+                                    hx-swap="innerHTML"
+                                    enctype="multipart/form-data"
+
+                                >
+                                 <input type="hidden" name="recruitment_page_id" value="{{ page.pk }}">
+                                    {% for field in form %}
+                                        {% if field.field.widget.input_type == "file" %}
+                                            <div class="form-input m-0">
+                                                <div class="pt-3">
+                                                    <label for="{{ field.id_for_label }}">
+                                                        {{ field.label }}
+                                                        {% if field.field.required %}
+                                                            <span class="required">*</span>
+                                                        {% endif %}
+                                                    </label>
+                                                </div>
+                                                {{ field }}
+                                            </div>
+                                        {% else %}
+                                            <div class="form-input m-0 pt-3">
+                                                {{ field }}
+                                            </div>
+                                        {% endif %}
+
+                                        {% if field.errors %}
+                                            <div class="form-error">{{ field.errors }}</div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="submit-btn pt-3">
+                                        <button class="tj-primary-btn" type="submit">
+                                            <span class="btn-text"><span>{% translate "Envoyer le message" %}</span></span>
+                                            <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

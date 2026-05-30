@@ -1,0 +1,156 @@
+{% load static %}
+{% load i18n %}
+{% load wagtailcore_tags navigation_tags %}
+{% load tz %}
+{% get_site_root as site_root %}
+
+
+
+
+<footer class="tj-footer-section footer-2 section-gap-x">
+
+	<div class="footer-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="footer-subscribe wow fadeInUp" data-wow-delay=".3s">
+						<div>
+							<h3 class="sec-title text-white text-anim">{% translate "Inscrivez vous a notre Newsletter" %}</h3>
+						</div>
+						<div id="subscribeForm" class="subscribe-form">
+							<form 
+								hx-post="{% url 'contact:newsletter_subscribe' %}"
+								hx-trigger="submit"
+								hx-target="#subscribeForm"
+								hx-swap="innerHTML"
+							>
+								<input type="email" name="email" placeholder="Enter email">
+								<button class="tj-primary-btn" type="submit">
+									<span class="btn-text"><span>Send Message</span></span>
+									<span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="footer-main-area">
+		<div class="container">
+			<div class="row justify-content-between">
+				<div class="col-xl-5 col-lg-4 col-md-6">
+					<div class="footer-widget footer-col-1">
+						<h2 class="h10-footer-title text-white text-anim">
+							<span>Tomorrow comes today</span>
+						</h2>
+						<div class="bg-shape-widget wow fadeInUpBig" data-wow-delay=".7s">
+						</div>
+						<div class="footer-logo">
+							<img src="{% static 'images/logomaiorebblanc.png' %}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-2 col-lg-3 col-md-6">
+					{% with homepage=site_root.specific %}
+						{% if homepage.expertises_list %}
+							<div class="footer-widget footer-col-2 widget-nav-menu wow fadeInUp" data-wow-delay=".3s">
+								<h5 class="title">Nos Expertises</h5>
+								<ul>
+									{% for expertise in homepage.expertises_list %}
+										<li><a href="{{ expertise.url }}">{{ expertise.title }}</a></li>  {# use title to debug #}
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+					{% endwith %}
+				</div>
+				<div class="col-xl-2 col-lg-2 col-md-6">
+					<div class="footer-widget footer-col-3 widget-nav-menu wow fadeInUp" data-wow-delay=".5s">
+						<h5 class="title">Resources</h5>
+						<ul>
+							<li><a href="{{ site_root.specific.get_contact_page.url }}">Contact</a></li>
+							<li><a href="{{ site_root.specific.get_rse_page.url }}">RSE</a></li>
+							<li><a href="{{ site_root.specific.get_culture_page.url }}">Ambiance & Culture</a></li>
+							{% comment %} <li><a href="careers.html">Careers <span class="badge">New</span></a></li>
+							<li><a href="#">News</a></li>
+							<li><a href="#">Feedback</a></li> {% endcomment %}
+						</ul>
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-3 col-md-6">
+					<div class="footer-widget widget-contact wow fadeInUp" data-wow-delay=".7s">
+						<h5 class="title">Contactez-nous</h5>
+						<div class="footer-contact-info">
+							<div class="contact-item">
+								<span>{{ site_root.specific.get_contact_page.address }}</span>
+							</div>
+							<div class="contact-item">
+								<a href="tel:{{ site_root.specific.get_contact_page.phone_number }}"> {{ site_root.specific.get_contact_page.phone}}</a>
+								<a href="mailto:{{ site_root.specific.get_contact_page.email }}"> {{ site_root.specific.get_contact_page.email }}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="tj-copyright-area-2 h5-footer-copyright">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="copyright-content-area">
+						<div class="copyright-text">
+							<p>&copy;  <a href="{{ site_root.specific.get_contact_page.facebook_url }}"
+								target="_blank">{% now "Y" %} maioreb</a>
+								{% translate "Tout droits reservés" %}</p>
+						</div>
+						<div class="social-links style-3">
+							<ul>
+								{% if site_root.specific.get_contact_page.facebook_url %}
+									<li>
+										<a href="{{ site_root.specific.get_contact_page.facebook_url }}" target="_blank"><i
+											class="fa-brands fa-facebook-f"></i></a>
+									</li>
+								{% endif %}
+								{% if site_root.specific.get_contact_page.instagram_url %}
+									<li>
+										<a href="{{ site_root.specific.get_contact_page.instagram_url }}" target="_blank"><i
+											class="fa-brands fa-instagram"></i></a>
+									</li>
+								{% endif %}
+								{% if site_root.specific.get_contact_page.twitter_url %}
+									<li>
+										<a href="{{ site_root.specific.get_contact_page.twitter_url }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+									</li>
+								{% endif %}
+								{% if site_root.specific.get_contact_page.linkedin_url %}
+									<li>
+										<a 
+											href="{{ site_root.specific.get_contact_page.linkedin_url }}" 
+											target="_blank"
+											rel="noopener noreferrer" 
+											aria-label="Follow us on linkedin"
+										>
+											<i class="fa-brands fa-linkedin-in"></i>
+										</a>
+									</li>
+								{% endif %}
+							</ul>
+						</div>
+						<div class="copyright-menu">
+							<ul>
+								<li><a href="{{ site_root.specific.get_legal_url }}">{% translate "Mentions légales & RGPD" %}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>

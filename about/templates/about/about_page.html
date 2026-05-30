@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+{% block content %}
+
+
+<main id="primary" class="site-main">
+	<div class="space-for-header"></div>
+	<!-- start: Breadcrumb Section -->
+	<section class="tj-page-header section-gap-x" 
+		{% if page.hero_image %}
+			data-bg-image="{{ page.hero_image.file.url }}"
+		{% endif %}
+	>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="tj-page-header-content text-center">
+						<h1 class="tj-page-title">{{page.title}}</h1>
+						<div class="tj-page-link">
+							<span><i class="tji-home"></i></span>
+							<span>
+								<a href="#">{{ page.get_parent.title }}</a>
+							</span>
+							<span><i class="tji-arrow-right"></i></span>
+							<span>
+								<span>{{page.title}}</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="page-header-overlay" 
+			{% if page.hero_image %}
+				data-bg-image="{{ page.hero_image.file.url }}"
+			{% endif %}
+		></div>
+	</section>
+	<!-- end: Breadcrumb Section -->
+
+
+	{% comment %} introduction histoire {% endcomment %}
+	<section class="tj-history section-gap">
+		<div class="container">
+			<div class="row rg-30 justify-content-between">
+				<div class="col-xl-5">
+					<div class="sec-heading mb-0">
+						<span class="sub-title wow fadeInUp" data-wow-delay="0.1s"><i class="tji-box"></i> L’histoire d’ATR-IS
+						</span>
+						<h2 class="sec-title text-anim">
+							Le début d’une aventure  <span>audacieuse.</span>
+						</h2>
+					</div>
+				</div>
+				<div class="col-xl-5">
+					<div class="desc wow fadeInUp" data-wow-delay="0.3s">
+						<p>
+							{{page.introduction|richtext}}
+						</p>
+					</div>
+					<div class="history-btn mt-30 wow fadeInUp" data-wow-delay="0.5s">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	{% comment %} histoire {% endcomment %}
+	<section class="tj-history-area section-bottom-gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="timeline">
+						{% for block in page.timeline %}
+							{% if block.block_type == "items" %}
+								{% for item in block.value %}
+									<div class="timeline-inner wow fadeInUp" data-wow-delay="0.5s">
+										<div class="date">{{ item.year }}</div>
+
+										<div class="content">
+											<div class="top">
+												{% comment %} <span>{{ forloop.counter }}</span> {% endcomment %}
+												<h4 class="title">{{ item.event }}</h4>
+												<p>{{ item.description }}</p>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{% comment %} les valeurs {% endcomment %}
+	<section class="h10-process section-gap section-gap-x tj-sticky-panel-3-container">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-5">
+					<div class="sec-heading style-3 tj-sticky-panel-3">
+						<span class="sub-title"><i class="tji-box"></i> Nos Valeurs</span>
+						<h2 class="sec-title text-anim">{{page.values_title}}</h2>
+					</div>
+				</div>
+				<div class="col-12 col-lg-7 ">
+					<div class="h10-process-wrapper">
+						{% for block in page.values  %}
+							{% if block.block_type == "values_items" %}
+								{% for key in block.value  %}
+									<div class="h10-process-item tj-sticky-panel-3">
+										<div class="h10-process-icon">
+											<i class="tji-growth"></i>
+										</div>
+										<div class="h10-process-content">
+											<h4 class="title">{{key.title}}</h4>
+											<div class="white-text">{{key.description|richtext}}</div>
+										</div>
+									</div>  
+								{% endfor %}
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	
+	{% comment %} mission et vision {% endcomment %}
+	<section class="tj-about-section-2 section-gap section-gap-x">
+		<div class="container">
+			<div class="col-xl-12 col-lg-12 order-lg-2 order-1">
+				<div class="about-content-area">
+					<div class="sec-heading">
+						<span class="sub-title wow fadeInUp" data-wow-delay=".3s"><i class="tji-box"></i>Nos vision</span>
+						<h2 class="sec-title ">Un partenaire de confiance pour votre 
+							<span>avenir numérique.</span>
+						</h2>
+					</div>
+				</div>
+				<div class="about-bottom-area">
+					<div class="mission-vision-box wow fadeInLeft" data-wow-delay=".5s">
+						<h3 class="title">{{page.mission_title}}</h3>
+						{{page.mission_content|richtext}}
+					</div>
+					<div class="mission-vision-box wow fadeInRight" data-wow-delay=".5s">
+						<h3 class="title">{{page.vision_title}}</h3>
+						{{page.vision_content|richtext}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{% comment %} nos chiffres cles {% endcomment %}
+	{% include 'about/chiffre_cles.html' with key_numbers=page.key_numbers %}
+
+	{% comment %} our team {% endcomment %}
+	<section class="tj-project-section-3 h9-project section-gap section-gap-x mb-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sec-heading-wrap">
+						<div class="heading-wrap-content">
+							<div class="sec-heading style-8">
+								<span class="sub-title wow fadeInUp" data-wow-delay=".3s"> équipe dirigeante</span>
+								<h2 class="sec-title title-anim">Notre équipe dirigeante</h2>
+							</div>
+							<div class="slider-navigation d-none d-md-inline-flex wow fadeInUp" data-wow-delay=".5s">
+								<div class="slider-prev">
+									<span class="anim-icon">
+									<i class="tji-arrow-left"></i>
+									<i class="tji-arrow-left"></i>
+									</span>
+								</div>
+								<div class="slider-next">
+									<span class="anim-icon">
+									<i class="tji-arrow-right"></i>
+									<i class="tji-arrow-right"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+					<div class="project-wrapper h9-project-wrapper wow fadeInUp" data-wow-delay=".4s">
+						<div class="swiper h9-project-slider">
+							<div class="swiper-wrapper">
+								{% for block in page.leadership %}
+									{% if block.block_type == "members"  %}
+										{% for key in block.value  %}
+											<div class="swiper-slide">
+												<div class="project-item">
+													<div class="project-img">
+														{% if key.photo %}
+															<img src="{{ key.photo.file.url }}" alt="">
+														{% endif %}
+													</div>
+													<div class="project-content">
+														<span class="categories">{{key.name}}</span>
+														<div class="project-text">
+															<h4 class="title">{{key.position}}</h4>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="swiper-pagination-area"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</section>
+
+	{% comment %} section RSE {% endcomment %}
+	<section class="h9-about-section section-bottom-gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="sec-heading style-8 h9-sec-heading">
+						<span class="sub-title wow fadeInUp" data-wow-delay=".3s"> Notre Engagement RSE</span>
+						<h5 class="sec-title title-highlight wow fadeInUp" data-wow-delay=".3s">{{rse_page.summary}}</h5>
+					</div>
+					<div class="h9-about-area">
+					   <div class="about-img-area h9-about-img wow fadeInLeft" data-wow-delay=".3s">
+							{% if rse_page and rse_page.first_image %}
+								<div class="about-img overflow-hidden">
+									<img data-speed=".8" src="{{ rse_page.first_image.file.url }}" alt="">
+								</div>
+							{% endif %}
+						</div>
+						<div class="h9-about-content">
+							<div class="h9-about-funfact wow fadeInUp" data-wow-delay=".6s">
+								{% if rse_page and rse_page.key_numbers %}
+									{% for block in rse_page.key_numbers %}
+										{% if block.block_type == "numbers" %}
+											{% for key in block.value %}
+												<div class="countup-item">
+													<div class="inline-content">
+														<span class="odometer countup-number" data-count="{{ key.number }}"></span>
+														<span class="count-plus">{{ key.symbol }}</span>
+													</div>
+													<span class="count-text">{{ key.label }}</span>
+												</div>
+											{% endfor %}
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="about-btn-area-2 wow fadeInUp" data-wow-delay=".7s">
+								<a class="tj-primary-btn" href="{{ rse_page.url }}">
+								<span class="btn-text"><span>En savoir plus</span></span>
+								<span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	{% comment %} message presedant {% endcomment %}
+
+
+	<section class="tj-testimonial-section-2 section-gap">
+		<div class="container">
+			<div class="tj-sidebar-widget widget-feature-item wow fadeInUp" data-wow-delay=".3s">
+				
+				<!-- Feature box with flex layout -->
+				<div class="feature-box" style="display: flex; align-items: center; gap: 30px;">
+					
+					<!-- Left side: Content + Image -->
+					<div class="feature-left" style="flex: 1;">
+						<div class="feature-content">
+							<h2 class="title">Président</h2>
+							<span>{{ home_page.presedant_name }}</span>
+
+						</div>
+
+						<div class="feature-images">
+							{% if home_page.presedant_image %}
+								<img data-speed=".8" src="{{ home_page.presedant_image.file.url }}" alt="">
+							{% endif %}
+						</div>
+					</div>
+
+					<!-- Right side: Quote + message -->
+					<div class="feature-desc" style="flex: 1;">
+						<span class="quote-icon"><i class="tji-quote fs-1"></i></span>
+						<div class="desc">
+							<h4>{{ home_page.presedant_message|richtext }}</h4>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+</main>
+
+		   
+{% endblock %}

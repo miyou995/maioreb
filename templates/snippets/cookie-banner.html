@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load wagtailsettings_tags wagtailcore_tags %}
+
+{% get_settings %}
+{% with settings.home.CookieConsentSettings as cookie %}
+    {% if cookie.enabled  %}
+        <div class="cookie-banner" id="cookieBanner">
+            <div class="cookie-content">
+                <div class="cookie-title">
+                    <span>{% translate "Devinez quoi ? Des cookies !" %}</span>
+                    <span class="cookie-emoji">🍪</span>
+                </div>
+                <p class="cookie-text">
+                    {% translate "Nous utilisons des cookies essentiels pour vous offrir une meilleure expérience sur notre site web." %}
+                    <a href="{{ cookie.privacy_page.url }}">{% translate "Politique de cookies" %}</a>.
+                </p>
+                <div class="cookie-actions">
+                    <button class="btn-primary" id="acceptCookies">{% translate "Accepter" %}</button>
+                    <button class="btn-secondary" id="rejectCookies">{% translate "Refuser" %}</button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
+

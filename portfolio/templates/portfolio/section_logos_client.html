@@ -1,0 +1,28 @@
+{% load static %}    
+    
+    
+    <section class="tj-client-section section-top-gap pt-5 pb-5">
+        <div class="container-fluid client-container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="client-content style-2 wow fadeIn" data-wow-delay=".3s">
+                        <h5 class="sec-title"> Des entreprises <span class="client-numbers"></span> qui nous
+                            <span class="client-text">font confiance</span>
+                        </h5>
+                    </div>
+                    <div class="swiper client-slider client-slider-1 wow fadeIn" data-wow-delay=".5s">
+                        <div class="swiper-wrapper">
+                            {% for block in images %}
+                                <div class="swiper-slide client-item">
+                                    <div class="client-logo">
+                                        <img src="{{ block.value.file.url }}"
+                                            alt="{{ block.value.title }}">
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </section>

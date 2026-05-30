@@ -1,0 +1,70 @@
+{% load static %}
+
+   <section class="tj-about-section section-gap">
+        <div class="container">
+            <div class="row row-gap-4">
+                <div class="col-lg-4 col-md-6 order-lg-1 order-3">
+                    <div class="countup-item style-2 wow fadeInUp" data-wow-delay=".7s">
+                        <span class="count-icon"><i class="tji-complete"></i></span>
+                        <span class="steps">01.</span>
+                        <div class="count-inner">
+                            <span class="count-text">{{key_numbers.0.value.0.label}}</span>
+                            <div class="inline-content">
+                            <span class="odometer countup-number" data-count="{{key_numbers.0.value.0.number}}"></span>
+                            <span class="count-plus">{{key_numbers.0.value.0.symbol}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="col-lg-8 col-sm-12 order-lg-2 order-1">
+                <div class="about-content-area-2 wow fadeInUp" data-wow-delay=".5s">
+                  <div class="about-content">
+                    <div class="sec-heading style-2">
+                      <span class="sub-title">Nos chiffres clés</span>
+                      <h3 class="sec-title title-highlight">
+                        Ces chiffres racontent une seule chose : 
+                        une croissance guidée par la confiance de nos clients et la qualité de nos équipes.
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="video-img wow fadeInRight" data-wow-delay=".7s">
+                    <img src="{% static 'images/vertical_grouth.jpg' %}" alt="Image">
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 order-lg-3 order-2">
+                <div class="customers-box style-2 wow fadeInUp" data-wow-delay=".5s">
+                  <div class="customers-bg" data-bg-image="{% static 'images/horizental_grouth.jpg' %}"></div>
+                  <h6 class="customers-text wow fadeInLeft" data-wow-delay=".6s">100+ clients satisfaits</h6>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 order-lg-4 order-4">
+                <div class="countup-item style-2 wow fadeInUp" data-wow-delay=".5s">
+                  <span class="count-icon"><i class="tji-worldwide"></i></span>
+                  <span class="steps">02.</span>
+                  <div class="count-inner">
+                    <span class="count-text">{{ key_numbers.1.value.0.label }}</span>
+                    <div class="inline-content">
+                      <span class="odometer countup-number" data-count="{{key_numbers.1.value.0.number}}"></span>
+                      <span class="count-plus">{{key_numbers.1.value.0.symbol}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 order-lg-5 order-5">
+                <div class="countup-item style-2 wow fadeInUp" data-wow-delay=".7s">
+                  <span class="count-icon"><i class="tji-growth"></i></span>
+                  <span class="steps">03.</span>
+                  <div class="count-inner">
+                    <span class="count-text">{{ key_numbers.2.value.0.label }} </span>
+                    <div class="inline-content">+
+                      <span class="odometer countup-number" data-count="{{key_numbers.2.value.0.number}}"></span>
+                      <span class="count-plus">{{key_numbers.2.value.0.symbol}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>

@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load static i18n %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<main id="primary" class="site-main">
+	<div class="space-for-header"></div>
+		<!-- start: Breadcrumb Section -->
+		<section class="tj-page-header section-gap-x" 
+			{% if page.featured_image %}
+				data-bg-image="{{ page.featured_image.file.url }}"
+			{% endif %}
+		>
+		<div class="container">
+			<div class="row">
+			<div class="col-lg-12">
+				<div class="tj-page-header-content text-center">
+				<h1 class="tj-page-title">{{ page.hero_title }}</h1>
+				<div class="tj-page-link">
+					<span><i class="tji-home"></i></span>
+					<span>
+						<a href="{% pageurl page.get_parent %}">{{ page.get_parent.title }}</a>
+
+					</span>
+					<span><i class="tji-arrow-right"></i></span>
+					<span>
+					<span>{{ page.hero_title }}</span>
+					</span>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="page-header-overlay" 
+			{% if page.featured_image %}
+			data-bg-image="{{ page.featured_image.file.url }}"
+			{% endif %}
+		></div>
+		</section>
+		<!-- end: Breadcrumb Section -->
+
+		<!-- start: Contact Top Section -->
+		<div class="tj-contact-area section-gap">
+		<div class="container">
+			<div class="row">
+			<div class="col-12">
+				<div class="sec-heading text-center">
+				<span class="sub-title wow fadeInUp" data-wow-delay=".1s"><i class="tji-box"></i>Contactez-nous</span>
+				<h2 class="sec-title title-anim">Nos coordonnées</h2>
+				</div>
+			</div>
+			</div>
+			<div class="row row-gap-4">
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".3s">
+				<div class="contact-icon">
+					<i class="tji-location-3"></i>
+				</div>
+				<h3 class="contact-title">Localisation</h3>
+				<p>{{ page.address }}</p>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".5s">
+				<div class="contact-icon">
+					<i class="tji-envelop"></i>
+				</div>
+				<h3 class="contact-title">Email</h3>
+				<ul class="contact-list">
+					<li><a href="mailto:{{ page.email }}">{{ page.email }}</a></li>
+				</ul>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".7s">
+				<div class="contact-icon">
+					<i class="tji-phone"></i>
+				</div>
+				<h3 class="contact-title">Téléphone</h3>
+				<ul class="contact-list">
+					<li><a href="tel:{{ page.phone }}">{{ page.phone }}</a></li>
+				</ul>
+				</div>
+			</div>
+			<div class="col-xl-3 col-lg-6 col-sm-6">
+				<div class="contact-item style-2 wow fadeInUp" data-wow-delay=".9s">
+					<div class="contact-icon">
+						<i class="tji-chat"></i>
+					</div>
+					<h3 class="contact-title">Réseaux sociaux</h3>
+					<div class="social-icons-grid d-flex gap-3 justify-content-around flex-wrap">
+						{% if page.facebook_url %}
+						<a href="{{ page.facebook_url }}" target="_blank" class="social-icon-link" title="Facebook" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #1877f2 0%, #0d5bbd 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);">
+							<i class="fa-brands fa-facebook-f"></i>
+						</a>
+						{% endif %}
+						{% if page.instagram_url %}
+						<a href="{{ page.instagram_url }}" target="_blank" class="social-icon-link" title="Instagram" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+						{% endif %}
+						{% if page.twitter_url %}
+						<a href="{{ page.twitter_url }}" target="_blank" class="social-icon-link" title="X (Twitter)" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);">
+							<i class="fa-brands fa-x-twitter"></i>
+						</a>
+						{% endif %}
+						{% if page.linkedin_url %}
+						<a href="{{ page.linkedin_url }}" target="_blank" class="social-icon-link" title="LinkedIn" style="width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: linear-gradient(135deg, #0077b5 0%, #005582 100%); color: #fff; font-size: 1.25rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3);">
+							<i class="fa-brands fa-linkedin-in"></i>
+						</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+
+
+
+	
+		<!-- start: Contact Section -->
+		<section class="tj-contact-section-2 section-bottom-gap">
+		<div class="container">
+			<div class="row">
+			<div class="col-lg-6">
+				<div id="formContainer" class="contact-form  wow fadeInUp" data-wow-delay=".1s">
+					
+
+					<h3 class="title">Nous sommes à votre disposition pour toute prise de contact ou visite</h3>
+					<form id="contact-form" 
+						hx-trigger="submit"
+						hx-post="{% pageurl page %}"
+						hx-target="this"
+						hx-swap="innerHTML"
+					>
+						{% csrf_token %}
+
+						<div class="row">
+							{% for field in form %}
+								<div class="{% if field|widget_type|slugify == 'textarea' %} col-lg-12 col-sm-12{% else %}col-sm-6{% endif %}">
+									<div class="form-input">
+										{{ field }}
+									</div>
+									{% if field.errors %}
+										<div class="form-error">{{ field.errors }}</div>
+									{% endif %}
+								</div>
+							{% endfor %}
+							<div class="submit-btn">
+								<button class="tj-primary-btn" type="submit">
+									<span class="btn-text"><span>{% translate "Envoyer le message" %}</span></span>
+									<span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="map-area wow fadeInUp" data-wow-delay=".3s">
+				{{ page.map_embed_code|safe }}
+				</div>
+			</div>
+			</div>
+		</div>
+		</section>
+	
+	</main>
+
+
+{% endblock %}

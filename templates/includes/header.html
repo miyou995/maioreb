@@ -1,0 +1,331 @@
+{% load static %}
+{% load wagtailuserbar %}
+{% comment %} {% load menu_tags %} {% endcomment %}
+{% load wagtailcore_tags navigation_tags %}
+{% get_site_root as site_root %}
+
+
+  <div class="tj-offcanvas-area d-none d-lg-block">
+    <div class="hamburger_bg"></div>
+    <div class="hamburger_wrapper">
+      <div class="hamburger_inner">
+        <div class="hamburger_top d-flex align-items-center justify-content-between">
+          <div class="hamburger_logo">
+            {% with homepage=site_root.specific %}
+            <img src="{{ homepage.negative_logo.file.url }}" alt="Logo">
+            {% endwith %}
+          </div>
+          <div class="hamburger_close">
+            <button 
+              type="button" 
+              class="hamburger_close_btn" 
+              aria-label="Close menu"
+              aria-expanded="true"
+            >
+              <i class="fa-thin fa-times" aria-hidden="true"></i>
+            </button>          
+          </div>
+        </div>
+        <div class="hamburger-infos">
+          <h5 class="hamburger-search-area">{{ site_root.specific.hero_subtitle }}</h5>
+          <h6 class="hamburger-title pt-3">Informations de contact</h6>
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="subtitle text-theme-primary">Téléphone</span>
+              <a class="contact-link" href="tel:{{ site_root.specific.get_contact_page.phone }}">{{ site_root.specific.get_contact_page.phone }}</a>
+            </div>
+            <div class="contact-item">
+              <span class="subtitle">Email</span>
+              <a class="contact-link" href="mailto:{{ site_root.specific.get_contact_page.email }}">{{ site_root.specific.get_contact_page.email }}</a>
+            </div>
+            <div class="contact-item">
+              <span class="subtitle">Adresse</span>
+              <span class="contact-link">{{ site_root.specific.get_contact_page.address }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hamburger-socials">
+        <h5 class="hamburger-title">Suivez-nous</h5>
+        <div class="social-links style-3">
+          <ul>
+            {% if site_root.specific.get_contact_page.facebook_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.facebook_url }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            </li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.instagram_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.instagram_url }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.twitter_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.twitter_url }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.linkedin_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.linkedin_url }}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hamburger-area d-lg-none">
+    <div class="hamburger_bg"></div>
+    <div class="hamburger_wrapper">
+      <div class="hamburger_inner">
+        <div class="hamburger_top d-flex align-items-center justify-content-between">
+          <div class="hamburger_logo">
+            {% with homepage=site_root.specific %}
+              <a href="{{ homepage.url }}" class="mobile_logo">
+                <img src="{{ homepage.negative_logo.file.url }}" alt="Logo">
+              </a>
+            {% endwith %}
+          </div>
+          <div class="hamburger_close">
+            <button aria-label="close menu button " class="hamburger_close_btn"><i class="fa-thin fa-times"></i></button>
+          </div>
+        </div>
+        <div class="hamburger_menu">
+          <div class="mobile_menu"></div>
+        </div>
+        <div class="hamburger-infos">
+          <h4 class="title">{{ site_root.specific.hero_subtitle }}</h4>
+          <h5 class="hamburger-title pt-3 ">Informations de contact</h5>
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="subtitle">Téléphone</span>
+              <a class="contact-link" href="tel:{{ site_root.specific.get_contact_page.phone }}">{{ site_root.specific.get_contact_page.phone }}</a>
+            </div>
+            <div class="contact-item">
+              <span class="subtitle">Email</span>
+              <a class="contact-link" href="mailto:{{ site_root.specific.get_contact_page.email }}">{{ site_root.specific.get_contact_page.email }}</a>
+            </div>
+            <div class="contact-item">
+              <span class="subtitle">Adresse</span>
+              <span class="contact-link">{{ site_root.specific.get_contact_page.address }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hamburger-socials">
+        <h5 class="hamburger-title">Suivez-nous</h5>
+        <div class="social-links style-3">
+          <ul>
+            
+            {% if site_root.specific.get_contact_page.facebook_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.facebook_url }}" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            </li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.instagram_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.instagram_url }}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.twitter_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.twitter_url }}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
+            {% endif %}
+            {% if site_root.specific.get_contact_page.linkedin_url %}
+            <li><a href="{{ site_root.specific.get_contact_page.linkedin_url }}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  
+  {% comment %} <header class="header-area header-1 section-gap-x"> {% endcomment %}
+   <header  {% if page.id == site_root.id %}class="header-area header-2 header-absolute section-gap-x"{% else %}class="header-area header-1 section-gap-x"{% endif %}>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="header-wrapper">
+                    <!-- site logo -->
+                    <div class="site_logo">
+                        <a class="logo" href="{% pageurl site_root %}">
+                            {% with homepage=site_root.specific %}
+                                <img src="{{ homepage.logo.file.url }}" alt="Logo">
+                            {% endwith %}
+                        </a>
+                    </div>
+                    <!-- navigation -->
+                    <div class="menu-area d-none d-lg-inline-flex align-items-center">
+                        <nav id="mobile-menu" class="mainmenu">
+                            <ul>
+                                {% for menuitem in site_root.get_children.live.in_menu %}
+                                      {% with subitems=menuitem.get_children.live.in_menu %}
+                                          <li class="{% if subitems.exists %}has-dropdown{% endif %}{% if menuitem.specific.hide_on_pc == True %} d-lg-none{% endif %}{% if menuitem.specific.not_clicable == True %} not-clicable{% endif %}">
+                                              
+                                              {% if menuitem.specific.not_clicable %}
+                                                  <a href="#">{{ menuitem.title }}</a>  {# Non-clickable #}
+                                              {% else %}
+                                                  <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                                              {% endif %}
+
+                                              {% if subitems.exists %}
+                                                  <ul class="sub-menu mega-menu-service">
+                                                      {% for child in subitems %}
+                                                          <li>
+                                                              <a class="mega-menu-service-single" href="{% pageurl child %}">
+                                                                  <span class="mega-menu-service-icon">
+                                                                      <i class="tji-service-{% cycle '1' '2' '3' '4' '5' '6' %}"></i>
+                                                                  </span>
+                                                                  <span class="mega-menu-service-title">{{ child.title }}</span>
+                                                                  <span class="mega-menu-service-nav">
+                                                                      <i class="tji-arrow-right-long"></i>
+                                                                      <i class="tji-arrow-right-long"></i>
+                                                                  </span>
+                                                              </a>
+                                                          </li>
+                                                      {% endfor %}
+                                                  </ul>
+                                              {% endif %}
+                                          </li>
+                                      {% endwith %}
+                                  {% endfor %}
+
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- header right info -->
+                    <div class="header-right-item d-none d-lg-inline-flex">
+                    <div class="header-button">
+                        <a class="tj-primary-btn" href="{{site_root.specific.get_recruitment_page.url }}">
+                        <span class="btn-text"><span>Postuler</span></span>
+                        <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                        </a>
+                    </div>
+                    <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    </div>
+                 <!-- menu bar -->
+                    <div class="menu_bar mobile_menu_bar d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Popup -->
+    <div class="search_popup">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <div class="tj_search_wrapper">
+              <div class="search_form">
+                <form action="#">
+                  <div class="search_input">
+                    <div class="search-box">
+                      <input class="search-form-input" type="text" placeholder="Type Words and Hit Enter" required>
+                      <button type="submit">
+                        <i class="tji-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</header> 
+
+
+
+<header class="header-area header-2 header-duplicate header-sticky section-gap-x">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="header-wrapper">
+                    <!-- site logo -->
+                    <div class="site_logo">
+                         <a class="logo" href="{% pageurl site_root %}">
+                            {% with homepage=site_root.specific %}
+                                <img src="{{ homepage.logo.file.url }}" alt="Logo">
+                            {% endwith %}
+                        </a>
+                    </div>
+                    <div class="menu-area d-none d-lg-inline-flex align-items-center">
+                        <nav class="mainmenu">
+                            <ul>
+                                {% for menuitem in site_root.get_children.live.in_menu %}
+                                      {% with subitems=menuitem.get_children.live.in_menu %}
+                                          <li class="{% if subitems.exists %}has-dropdown{% endif %}
+                                                    {% if menuitem.specific.hide_on_pc == True %}d-lg-none{% endif %}
+                                                    {% if menuitem.specific.not_clicable == True %}not-clicable{% endif %}">
+                                              
+                                              {% if menuitem.specific.not_clicable %}
+                                                  {% comment %} <span>{{ menuitem.title }}</span>  {% endcomment %}
+                                                  <a href="#">{{ menuitem.title }}</a>
+
+                                              {% else %}
+                                                  <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                                              {% endif %}
+
+                                              {% if subitems.exists %}
+                                                  <ul class="sub-menu mega-menu-service">
+                                                      {% for child in subitems %}
+                                                          <li>
+                                                              <a class="mega-menu-service-single" href="{% pageurl child %}">
+                                                                  <span class="mega-menu-service-icon">
+                                                                        <i class="tji-service-{% cycle '1' '2' '3' '4' '5' '6' %}"></i>
+                                                                  </span>
+                                                                  <span class="mega-menu-service-title">{{ child.title }}</span>
+                                                                  <span class="mega-menu-service-nav">
+                                                                      <i class="tji-arrow-right-long"></i>
+                                                                      <i class="tji-arrow-right-long"></i>
+                                                                  </span>
+                                                              </a>
+                                                          </li>
+                                                      {% endfor %}
+                                                  </ul>
+                                              {% endif %}
+                                          </li>
+                                      {% endwith %}
+                                  {% endfor %}
+
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="header-right-item d-none d-lg-inline-flex">
+                        <div class="header-button">
+                            <a class="tj-primary-btn" href="{{ site_root.specific.get_recruitment_page.url }}">
+                            <span class="btn-text"><span>Postuler</span></span>
+                            <span class="btn-icon"><i class="tji-arrow-right-long"></i></span>
+                            </a>
+                        </div>
+                        <div class="menu_bar menu_offcanvas d-none d-lg-inline-flex">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!-- menu bar -->
+                    <div class="menu_bar mobile_menu_bar d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

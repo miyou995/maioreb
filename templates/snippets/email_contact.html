@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle candidature reçue</title>
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+        table {
+            border-spacing: 0;
+            width: 100%;
+        }
+        td {
+            padding: 0;
+        }
+        img {
+            border: 0;
+        }
+
+        /* Container */
+        .wrapper {
+            width: 100%;
+            table-layout: fixed;
+            background-color: #f0f2f5;
+            padding-bottom: 40px;
+        }
+
+        .main {
+            background-color: #ffffff;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 600px;
+            border-spacing: 0;
+            font-family: sans-serif;
+            color: #4a4a4a;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Header */
+        .header {
+            background-color: #1a73e8;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 40px 30px;
+        }
+        .introduction {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #5f6368;
+        }
+
+        /* Data Card */
+        .data-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 24px;
+            border: 1px solid #e8eaed;
+        }
+        .data-row {
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e8eaed;
+            padding-bottom: 12px;
+        }
+        .data-row:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #70757a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .value {
+            font-size: 15px;
+            color: #202124;
+            word-break: break-word;
+        }
+
+        /* Button/Link style */
+        .file-link {
+            display: inline-block;
+            background-color: #ffffff;
+            color: #1a73e8;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid #dadce0;
+            margin-top: 4px;
+        }
+        .file-link:hover {
+            background-color: #f1f3f4;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #70757a;
+        }
+    </style>
+</head>
+<body>
+
+<center class="wrapper">
+    <table class="main">
+        <!-- Header -->
+        <tr>
+            <td class="header">
+                <h1>📄 Nouveau Contact </h1>
+            </td>
+        </tr>
+
+        <!-- Content -->
+        <tr>
+            <td class="content">
+                <p class="introduction">
+                    Bonjour,<br><br>
+                    Vous avez reçu une nouveau contact via votre site maiorebgroupe.com . Voici le récapitulatif des informations fournies :
+                </p>
+
+                <div class="data-card">
+                    <div class="data-row">
+                        <div class="value">
+                            {{ data.name }}
+                        </div>
+                    </div>
+                    {% for key, value in data.items %}
+                    <div class="data-row">
+                        <span class="label">{{ key|capfirst}}</span>
+                        <div class="value">
+                            {% if value %}
+                                {{ value|linebreaksbr }}
+                            {% else %}
+                                <span style="color: #9aa0a6; font-style: italic;">Non renseigné</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td class="footer">
+                <p>Cet email a été envoyé automatiquement depuis votre site maiorebgroupe.com .</p>
+                <p>© {{ now|date:"Y" }} maiorebgroupe.com. Tous droits réservés.</p>
+            </td>
+        </tr>
+    </table>
+</center>
+
+</body>
+</html>

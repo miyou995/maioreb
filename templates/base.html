@@ -1,0 +1,220 @@
+{% load static django_htmx wagtailcore_tags wagtailuserbar navigation_tags wagtailsettings_tags %}
+{% get_site_root as site_root %}
+{% load compress %}
+
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PFPK0TMS0Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PFPK0TMS0Q');
+  </script>
+
+
+  <!-- Site Title -->
+  <title>
+        {% block title %}
+          {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+        {% wagtail_site as current_site %}
+          {% if current_site and current_site.site_name %} - {{ current_site.site_name }}{% endif %}
+        {% endblock %}
+    </title>
+    {% if page.search_description %}
+        <meta name="description" content="{{ page.search_description }}" />
+    {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {# Force all links in the live preview panel to be opened in a new tab #}
+        {% if request.in_preview_panel %}
+            <base target="_blank">
+        {% endif %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ site_root.specific.favicon.file.url }}">
+
+  <!-- Place favicon.ico in the root directory -->
+    {% comment %} <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet"> {% endcomment %}
+
+    <link rel="preconnect" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'"/>
+    <noscript><link rel="preconnect" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/></noscript>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   
+    {% comment %} {% compress css %}
+      <link rel="stylesheet" href="{% static 'css/bexon/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/font-awesome-pro.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/animate.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/swiper.min.css' %}">
+      <!-- CSS here -->
+      <link rel="stylesheet" href="{% static 'css/bexon/bexon-icons.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/odometer-theme-default.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/meanmenu.css' %}">
+    {% endcompress %}  
+
+    {% compress css %}
+      <link rel="stylesheet" href="{% static 'css/bexon/main.css' %}">
+    {% endcompress %}   {% endcomment %}
+
+
+{% compress css %}
+  <!-- Put ALL CSS in ONE block -->
+  {% comment %} <link rel="stylesheet" href="{% static 'css/bexon/bootstrap.min.css' %}"> {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/bexon/font-awesome-pro.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bexon/animate.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bexon/swiper.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bexon/bexon-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bexon/odometer-theme-default.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bexon/meanmenu.css' %}">
+  {% endcompress %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/bexon/main.css' %}">
+  {% endcompress %}
+
+
+{% comment %} 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="{% static 'css/bexon/bootstrap.min.css' %}">
+    {% compress css %}
+      <link rel="stylesheet" href="{% static 'css/bexon/main.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/meanmenu.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bexon/swiper.min.css' %}">
+    {% endcompress %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/bexon/font-awesome-pro.min.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/bexon/animate.min.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/bexon/bexon-icons.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/bexon/odometer-theme-default.css' %}" media="print" onload="this.media='all'">
+
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+        <link rel="stylesheet" href="{% static 'css/bexon/font-awesome-pro.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bexon/animate.min.css' %}">
+    </noscript> {% endcomment %}
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  {% htmx_script %}
+
+  {% block extra_css %}
+    {{ block.super }}
+  {% endblock %}
+
+</head>
+
+<body hx-headers='{"x-csrftoken": "{{ csrf_token }}"}'>
+  {% wagtailuserbar 'bottom-left' %}
+  <div class="body-overlay"></div>
+
+<div class="tj-preloader is-loading">
+    <div class="tj-preloader-inner">
+        <div class="data-stream">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="preloader-logo-scan">
+            <img src="{{ site_root.specific.logo.file.url }}" alt="ATR-IS Logo" class="scan-img">
+            <div class="scan-bar"></div>
+        </div>
+
+        <div class="preloader-text">
+            <p class="signature">ATR-IS — <span class="typing">Technologie vivante.</span></p>
+            <div class="decoding-text">01010110 10100010 11010110</div>
+        </div>
+    </div>
+    <div class="tj-preloader-overlay"></div>
+</div>
+
+
+
+
+
+
+
+  <!-- back to top start -->
+  <div id="tj-back-to-top"><span id="tj-back-to-top-percentage"></span></div>
+
+  <div id="magic-cursor">
+        <div id="ball"></div>
+  </div>
+
+  {% comment %} <div class="search-popup-overlay"></div> {% endcomment %}
+
+
+  {% include "includes/header.html" %}
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
+        {% block content %}{% endblock content %}
+        {% include "includes/footer.html" %}
+    </div>
+  </div>
+
+  
+{% include 'snippets/cookie-banner.html' %}
+
+
+<!-- JS here -->
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+{% compress js %}
+  <script src="{% static 'js/bexon/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bexon/gsap.min.js' %}"></script>
+  <script src="{% static 'js/bexon/gsap-scroll-to-plugin.min.js' %}"></script>
+  <script src="{% static 'js/bexon/gsap-scroll-trigger.min.js' %}"></script>
+  <script src="{% static 'js/bexon/gsap-split-text.min.js' %}"></script>
+  <script src="{% static 'js/bexon/swiper.min.js' %}"></script>
+  <script src="{% static 'js/bexon/odometer.min.js' %}"></script>
+  <script src="{% static 'js/bexon/appear.min.js' %}"></script>
+  <script src="{% static 'js/bexon/wow.min.js' %}"></script>
+  <script src="{% static 'js/bexon/meanmenu.js' %}"></script>
+  <script src="{% static 'js/bexon/ScrollSmoother.js' %}"></script>
+  <script src="{% static 'js/bexon/imagesloaded-pkgd.js' %}"></script>
+  <script src="{% static 'js/bexon/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'js/bexon/magiccursor.js' %}"></script>
+  <script src="{% static 'js/bexon/main.js' %}"></script>
+{% endcompress %}
+
+{% compress js %}
+  <script defer src="{% static 'js/core.js' %}"></script>
+{% endcompress %}
+
+  {% block extra_js %}
+    {{ block.super }}
+  {% endblock %}
+
+
+
+
+</body>
+
+</html>
