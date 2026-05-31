@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+{% if faq_data %}
+    <section class="py-[100px] bg-surface-container-low">
+        <div class="max-w-[1100px] mx-auto px-4 md:px-16">
+            <div class="text-center mb-20">
+                <h3 class="font-headline-md text-headline-md text-on-background">
+                    {% trans "The services provided by Maioreb are:" %}
+                </h3>
+            </div>
+
+            <!-- FAQ list -->
+            <div class="max-w-6xl mx-auto space-y-4">
+                {% for object in faq_data %}
+                    {% for block in object.faq %}
+                        {% if block.block_type == "items" %}
+                            {% for item in block.value %}
+                                <details class="group bg-surface-container rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                                    <summary class="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 font-headline-sm text-[18px] text-on-background group-hover:text-primary transition-colors">
+                                        <span class="leading-snug">
+                                            {{ item.service }}
+                                        </span>
+
+                                        <span class="flex items-center justify-center w-9 h-9 rounded-full bg-surface-container-high text-primary transition-transform duration-300 group-open:rotate-180">
+                                            <span class="material-symbols-outlined text-xl">
+                                                expand_more
+                                            </span>
+                                        </span>
+                                    </summary>
+                                    <div class="px-6 pb-6 pt-0 text-body-md text-on-surface-variant leading-relaxed prose max-w-none">
+                                        <div class="pt-2 border-t border-border-subtle/50">
+                                            {{ item.detail|richtext }}
+                                        </div>
+                                    </div>
+                                </details>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}

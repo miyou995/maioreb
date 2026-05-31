@@ -27,76 +27,109 @@
                 <div class="lg:col-span-5">
                     <div class="relative">
                         <div class="absolute -inset-4 bg-surface-variant/30 rounded transform -rotate-2 z-0"></div>
-                        <img src="{% static 'images/section1.jpg' %}" alt="Maioreb Team"
-                             class="relative z-10 w-full h-auto rounded border border-border-subtle shadow-lg"/>
-                        <div class="absolute -bottom-6 -right-6 glass-card p-5 rounded z-20 hidden md:flex items-center gap-3">
-                            <span class="material-symbols-outlined text-3xl text-primary-container">verified</span>
-                            <div>
-                                <p class="font-label-caps text-label-caps text-on-surface-variant uppercase">{% trans "Certified Quality" %}</p>
-                                <p class="font-headline-sm text-headline-sm text-primary">ISO 9001:2015</p>
+                      <div class="carousel" id="imageCarousel">
+                            <div class="carousel-track-wrapper">
+                                <div class="carousel-track">
+                                {% for block in page.images %}
+                                    {% if block.block_type == "image" %}
+                                    <div class="carousel-slide">
+                                        <img
+                                        src="{{ block.value.file.url }}"
+                                        alt="Maioreb Team"
+                                        class="relative z-10 w-full h-auto rounded border border-border-subtle shadow-lg"
+                                        />
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
                             </div>
-                        </div>
+                            <button class="carousel-btn prev" aria-label="Previous">&#8592;</button>
+                            <button class="carousel-btn next" aria-label="Next">&#8594;</button>
+
+                            <!-- Dots -->
+                            <div class="carousel-dots" id="carouselDots"></div>
+                            </div>
+                       
                     </div>
                 </div>
                 <div class="lg:col-span-6 lg:col-start-7 mt-12 lg:mt-0">
-                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Established 2022" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "Unmatched Local Access to the Maghreb" %}</h3>
+                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "MAIOREB" %}</h2>
+                    <h2 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "About us" %}</h2>
                     {% if page.introduction %}
                         <div class="font-body-md text-body-md text-on-surface-variant space-y-4 prose max-w-none">
                             {{ page.introduction|richtext }}
                         </div>
-                    {% else %}
-                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
-                            {% trans "Established in Tunisia and in Algeria during 2022, Maioreb is a business development consultancy firm with unmatched local access to the lucrative Algeria and Maghreb business environment. Led by an international team of experienced and accomplished professionals, providing complete business solutions that turn innovative ideas into profitable investments and developments." %}
-                        </p>
-                        <p class="font-body-md text-body-md text-on-surface-variant mb-4">
-                            {% trans "Maioreb's main objective is the assistance of International EPC Contractors, engineering and supplier companies in Oil & Gas, Power, industrial and Infrastructures sectors." %}
-                        </p>
-                        <p class="font-body-md text-body-md text-on-surface-variant">
-                            {% trans "Maioreb acts as a reliable partner to supply engineered spare parts and simplify supply chain management as your central purchasing office. Maioreb is proud to be certified ISO 9001:2015 for technical and administrative services." %}
-                        </p>
                     {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
+    {% comment %} FAQ SERVICE {% endcomment %}
+    {% include "about/faq.html" %}
+
     <!-- Founders / History -->
     <section class="py-[120px] bg-background">
         <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-            <div class="max-w-3xl mx-auto text-center mb-16">
-                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Story" %}</h2>
-                <h3 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "Born from Decades of Experience" %}</h3>
-                <p class="font-body-md text-body-md text-on-surface-variant">
-                    {% trans "Maioreb is a firm born by the experience of its founders, which after operating in the area for more than 10 years, decided to put their know-how to support companies in the growth of their international business in Algeria. Maioreb is focused in oil & gas, infrastructure, energy, petrochemical and industrial sectors. Its offices are in Tunisia and Algeria, and frequently works in each country of Maghreb in collaboration with its entrusted partners." %}
-                </p>
+
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-20">
+                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">
+                    {% trans "Our Story" %}
+                </h2>
+                <h3 class="font-headline-md text-headline-md text-on-background">
+                    {% trans "Born from Decades of Experience" %}
+                </h3>
             </div>
 
-            <!-- Timeline -->
-            {% if page.timeline %}
-                <div class="relative max-w-2xl mx-auto">
-                    <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border-subtle transform md:-translate-x-1/2"></div>
-                    {% for block in page.timeline %}
-                        {% if block.block_type == "items" %}
-                            {% for item in block.value %}
-                                <div class="relative pl-12 md:pl-0 mb-12 md:grid md:grid-cols-2 md:gap-8">
-                                    <div class="md:text-right md:pr-8 {% cycle 'order-1' 'order-2' %}">
-                                        <span class="inline-block px-3 py-1 bg-primary-container text-white font-label-caps text-label-caps uppercase rounded mb-2">{{ item.year }}</span>
-                                        <h4 class="font-headline-sm text-headline-sm text-on-background">{{ item.event }}</h4>
-                                        <div class="font-body-md text-body-md text-on-surface-variant mt-2">{{ item.description|richtext }}</div>
-                                    </div>
-                                    <div class="absolute left-4 md:left-1/2 top-2 w-3 h-3 bg-primary-container rounded-full border-2 border-white transform md:-translate-x-1/2"></div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
+            <!-- Content -->
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Left Content -->
+                <div class="order-2 lg:order-1">
+                    {% comment %} <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary-container/10 text-primary-container mb-6">
+                        <span class="font-label-md uppercase tracking-wider">
+                            {% trans "MAIOREB" %}
+                        </span>
+                    </div>
+
+                    <h2 class="font-headline-lg text-on-background mb-6">
+                        {% trans "About Us" %}
+                    </h2> {% endcomment %}
+
+                    {% if page.mission_content %}
+                        <div class="font-body-lg text-on-surface-variant leading-relaxed prose max-w-none">
+                            {{ page.mission_content|richtext }}
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
+
+                <!-- Right Image -->
+                <div class="order-1 lg:order-2 relative">
+
+                    <!-- Decorative Shapes -->
+                    <div class="absolute -top-6 -right-6 w-full h-full bg-primary-container/10 rounded-3xl"></div>
+                    <div class="absolute -bottom-6 -left-6 w-full h-full border-2 border-primary-container/20 rounded-3xl"></div>
+
+                    <!-- Image Card -->
+                    <div class="relative overflow-hidden rounded-3xl shadow-2xl bg-surface z-10">
+                        <img
+                            src="{{ page.mission_image.file.url }}"
+                            alt="Maioreb Team"
+                            class="w-full h-[500px] object-cover"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="container pt-10">
+                {{page.history|richtext}}
+            </div>
         </div>
     </section>
 
+
     <!-- Values -->
-    {% if page.values %}
+    {% comment %} {% if page.values %}
         <section class="py-[120px] bg-surface-container-low">
             <div class="max-w-[1280px] mx-auto px-4 md:px-16">
                 <div class="text-center mb-16">
@@ -118,84 +151,122 @@
                 </div>
             </div>
         </section>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     <!-- Vision & Mission -->
     {% if page.mission_content or page.vision_content %}
-        <section class="py-[120px] bg-primary text-white">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="text-center mb-16">
-                    <h2 class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-4">{% trans "Vision & Mission" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-white">{% trans "Where We Are Going" %}</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
-                        <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">visibility</span>
-                        <h4 class="font-headline-sm text-headline-sm text-white mb-4">{{ page.vision_title }}</h4>
-                        <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.vision_content|richtext }}</div>
-                    </div>
-                    <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
-                        <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">flag</span>
-                        <h4 class="font-headline-sm text-headline-sm text-white mb-4">{{ page.mission_title }}</h4>
-                        <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.mission_content|richtext }}</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+         {% include "about/mission_section.html" with page=what_we_do_page  %}
     {% endif %}
 
-    <!-- Key Numbers -->
-    {% if page.key_numbers %}
-        {% include 'about/chiffre_cles.html' with key_numbers=page.key_numbers %}
-    {% endif %}
-
-    <!-- Leadership Team -->
-    {% if page.leadership %}
-        <section class="py-[120px] bg-surface-container-low">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="text-center mb-16">
-                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Team" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Leadership Team" %}</h3>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {% for block in page.leadership %}
-                        {% if block.block_type == "members" %}
-                            {% for member in block.value %}
-                                <div class="glass-card p-6 rounded-xl text-center">
-                                    {% if member.photo %}
-                                        <img src="{{ member.photo.file.url }}" alt="{{ member.name }}"
-                                             class="w-20 h-20 rounded-full object-cover mx-auto mb-4"/>
-                                    {% else %}
-                                        <div class="w-20 h-20 rounded-full bg-surface-container mx-auto mb-4 flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-3xl text-on-surface-variant">person</span>
-                                        </div>
-                                    {% endif %}
-                                    <h4 class="font-headline-sm text-[18px] text-primary font-bold">{{ member.name }}</h4>
-                                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-1">{{ member.position }}</p>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-    {% endif %}
 
     <!-- Companies Assisted -->
-    <section class="py-[120px] bg-background">
+    <section class="py-[120px] bg-background overflow-hidden">
         <div class="max-w-[1280px] mx-auto px-4 md:px-16">
             <div class="text-center mb-16">
-                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Network" %}</h2>
-                <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Companies Assisted by MAIOREB" %}</h3>
+                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">
+                    {% trans "Our Network" %}
+                </h2>
+                <h3 class="font-headline-md text-headline-md text-on-background">
+                    {% trans "Companies Assisted by MAIOREB" %}
+                </h3>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
-                {% for name in "Water Technologies,AST Spa,COET,Indra,TET Sistemi,Arrow Pipes,Sinergia,Enereco,Thermo Engineering,Hit Valve"|split:"," %}
-                    <div class="flex justify-center p-4 glass-card rounded-lg">
-                        <span class="font-headline-sm text-primary/50 font-bold text-center text-sm">{{ name }}</span>
-                    </div>
-                {% endfor %}
+
+            <div class="relative overflow-hidden">
+                <div class="logo-track flex items-center gap-12">
+                    
+                    {# First set #}
+                    {% for block in page.client_logo %}
+                        {% if block.block_type == "image" %}
+                            <div class="flex-shrink-0 w-56 h-32 flex items-center justify-center
+                                bg-surface-container-low rounded-2xl
+                                border border-outline-variant p-6">
+                                <img
+                                    src="{{ block.value.file.url }}"
+                                    alt="Client logo"
+                                    class="max-h-24 max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                                >
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {# Duplicate for seamless loop #}
+                    {% for block in page.client_logo %}
+                        {% if block.block_type == "image" %}
+                            <div class="flex-shrink-0 w-40 h-24 flex items-center justify-center">
+                                <img
+                                    src="{{ block.value.file.url }}"
+                                    alt="Client logo"
+                                    class="max-h-20 max-w-full object-contain grayscale hover:grayscale-0 transition duration-300"
+                                >
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
             </div>
         </div>
     </section>
+
+    {% comment %}  cerfitied document section {% endcomment %}
+    <section class="py-[120px] bg-surface-container-low">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">
+                {% trans "Certifications" %}
+            </h2>
+
+            <h3 class="font-headline-md text-headline-md text-on-surface mb-6">
+                {% trans "Certified Excellence & Compliance" %}
+            </h3>
+
+            <p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                {% trans "Our certifications reflect our commitment to quality, safety, environmental responsibility, and international standards." %}
+            </p>
+        </div>
+
+        <!-- Certifications Grid -->
+        {% if page.certified %}
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for block in page.certified %}
+                    {% for cert in block.value %}
+                        <div class="group bg-surface rounded-3xl border border-outline-variant p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+                            <div class="w-14 h-14 rounded-2xl bg-primary-container/10 flex items-center justify-center mb-6">
+                                <span class="material-symbols-outlined text-primary-container text-3xl">
+                                    verified
+                                </span>
+                            </div>
+
+                            <h4 class="font-headline-sm text-on-surface mb-3">
+                                {{ cert.label }}
+                            </h4>
+
+                            <p class="font-body-md text-on-surface-variant mb-6">
+                                {% trans "Official certification document available for download." %}
+                            </p>
+
+                            <a href="{{ cert.document.url }}"
+                            target="_blank"
+                            class="inline-flex items-center gap-2 text-primary-container font-medium hover:gap-3 transition-all">
+
+                                {% trans "View Certificate" %}
+
+                                <span class="material-symbols-outlined text-base">
+                                    arrow_forward
+                                </span>
+                            </a>
+
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+
+
 
 {% endblock %}

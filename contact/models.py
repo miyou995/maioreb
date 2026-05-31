@@ -172,7 +172,7 @@ class NewsletterViewSet(SnippetViewSet):
 register_snippet(NewsletterViewSet)
 
 
-class FqaClient(models.Model):
+class FqaServicesProvided(models.Model):
     faq = StreamField(
         [
             (
@@ -181,12 +181,12 @@ class FqaClient(models.Model):
                     blocks.StructBlock(
                         [
                             (
-                                "question",
-                                blocks.CharBlock(required=True, label="question"),
+                                "service",
+                                blocks.CharBlock(required=True, label="service"),
                             ),
                             (
-                                "answer",
-                                blocks.RichTextBlock(required=True, label="answer"),
+                                "detail",
+                                blocks.RichTextBlock(required=True, label="detail"),
                             ),
                         ]
                     )
@@ -196,15 +196,15 @@ class FqaClient(models.Model):
         blank=True,
         use_json_field=True,
     )
-    faq.verbose_name = "questions et réponses client"
+    faq.verbose_name = "The services provided by Maioreb are:"
 
     panels = [
         FieldPanel("faq"),
     ]
 
     class Meta:
-        verbose_name = "questions et réponses client"
-        verbose_name_plural = "questions et réponses clients"
+        verbose_name = "The services provided by Maioreb are:"
+        verbose_name_plural = "The services provided by Maioreb are:"
 
 
-register_snippet(FqaClient)
+register_snippet(FqaServicesProvided)
