@@ -136,3 +136,52 @@ document.addEventListener("DOMContentLoaded", function () {
         banner.style.display = "none";
     });
 });
+
+
+// hero slider home page 
+(function () {
+    const slider = document.getElementById('hero-slider');
+    if (!slider) return;
+    const slides = slider.querySelectorAll('img');
+    if (slides.length < 2) return;
+    let current = 0;
+    setInterval(function () {
+        slides[current].classList.replace('opacity-100', 'opacity-0');
+        current = (current + 1) % slides.length;
+        slides[current].classList.replace('opacity-0', 'opacity-100');
+    }, 3000);
+})();
+ 
+
+// carousel images about us
+  (function () {
+    const track = document.querySelector('#imageCarousel .carousel-track');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carouselDots');
+    let current = 0;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+      slides[current].querySelector('img').classList.remove('active');
+      dotsContainer.children[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsContainer.children[current].classList.add('active');
+    }
+
+    document.querySelector('#imageCarousel .prev').addEventListener('click', () => goTo(current - 1));
+    document.querySelector('#imageCarousel .next').addEventListener('click', () => goTo(current + 1));
+
+    // Optional: auto-advance every 4s
+    // setInterval(() => goTo(current + 1), 4000);
+  })();
+
+

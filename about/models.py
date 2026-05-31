@@ -4,6 +4,9 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
+from wagtail.documents.blocks import DocumentChooserBlock
+
+from contact.models import FqaServicesProvided
 
 
 def _contact_page():
@@ -27,148 +30,98 @@ class AboutPage(Page):
     introduction = RichTextField(blank=True, verbose_name="Introduction")
 
     mission_title = models.CharField(
-        max_length=255, default="Nos Missions", verbose_name="Titre de la mission"
+        max_length=255, default="More details", verbose_name="More details"
     )
 
-    mission_content = RichTextField(blank=True, verbose_name="Contenu de la mission")
-
-    vision_title = models.CharField(
-        max_length=255, default="Nos Vision", verbose_name="Titre de la vision"
+    mission_content = RichTextField(blank=True, verbose_name="content (More details)")
+    mission_image = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        verbose_name="image of the content",
     )
+    history = RichTextField(blank=True, verbose_name="history")
 
-    vision_content = RichTextField(blank=True, verbose_name="Contenu de la vision")
+
+    # vision_title = models.CharField(
+    #     max_length=255, default="Nos Vision", verbose_name="Titre de la vision"
+    # )
+
+    # vision_content = RichTextField(blank=True, verbose_name="Contenu de la vision")
 
     values_title = models.CharField(
         max_length=255, default="Nos Valeurs", verbose_name="Titre des valeurs"
     )
 
-    values = StreamField(
+    images = StreamField(
         [
-            (
-                "values_items",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            ("title", blocks.TextBlock(required=True, label="titre")),
-                            (
-                                "description",
-                                blocks.RichTextBlock(
-                                    required=True, label="Description"
-                                ),
-                            ),
-                        ]
-                    )
-                ),
-            )
+            ("image", ImageChooserBlock(required=True, label="about us images")),
         ],
         blank=True,
         use_json_field=True,
     )
-    values.verbose_name = "valeurs"
-
-    timeline = StreamField(
+    client_logo = StreamField(
         [
-            (
-                "items",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            ("year", blocks.CharBlock(required=True, label="année")),
-                            (
-                                "event",
-                                blocks.TextBlock(required=True, label="événement"),
-                            ),
-                            (
-                                "description",
-                                blocks.RichTextBlock(
-                                    required=True, label="Description"
-                                ),
-                            ),
-                        ]
-                    )
-                ),
-            )
+            ("image", ImageChooserBlock(required=True, label="our client logos")),
         ],
         blank=True,
         use_json_field=True,
     )
-    timeline.verbose_name = "histoire"
-
-    key_numbers = StreamField(
+    certified = StreamField(
         [
-            (
-                "numbers",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            (
-                                "number",
-                                blocks.CharBlock(required=True, label="chiffre"),
+        (
+            "items",
+            blocks.ListBlock(
+                blocks.StructBlock(
+                    [
+                        ("label", blocks.CharBlock(required=True, label="Label")),
+                        (
+                            "document",
+                            DocumentChooserBlock(
+                                required=True,
+                                label="Document",
                             ),
-                            ("label", blocks.CharBlock(required=True, label="label")),
-                            (
-                                "symbol",
-                                blocks.CharBlock(required=False, label="symbole"),
-                            ),
-                        ]
-                    )
-                ),
-            )
-        ],
+                        ),
+                    ]
+                )
+            ),
+        )
+    ],
         blank=True,
         use_json_field=True,
     )
-    key_numbers.verbose_name = "chiffres clés"
+    certified.verbose_name = "Maioreb certified"
 
-    leadership = StreamField(
-        [
-            (
-                "members",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            ("photo", ImageChooserBlock(required=False, label="photo")),
-                            ("name", blocks.CharBlock(required=True, label="nom")),
-                            (
-                                "position",
-                                blocks.CharBlock(required=True, label="position"),
-                            ),
-                            # ('bio', blocks.TextBlock(required=True,label="bio")),
-                        ]
-                    )
-                ),
-            )
-        ],
-        blank=True,
-        use_json_field=True,
-    )
-    leadership.verbose_name = "équipe dirigeante"
-
+    
     content_panels = Page.content_panels + [
         FieldPanel("hero_image"),
         FieldPanel("introduction"),
-        FieldPanel("mission_title"),
+        FieldPanel("images"),
+        # FieldPanel("mission_title"),
         FieldPanel("mission_content"),
-        FieldPanel("vision_title"),
-        FieldPanel("vision_content"),
-        FieldPanel("values_title"),
-        FieldPanel("values"),
-        FieldPanel("timeline"),
-        FieldPanel("key_numbers"),
-        FieldPanel("leadership"),
+        FieldPanel("mission_image"),
+        FieldPanel("client_logo"),
+        FieldPanel("history"),
+        FieldPanel("certified"),
+   
     ]
 
     class Meta:
-        verbose_name = "Page Qui sommes nous ?"
+        verbose_name = "About us"
 
-    parent_page_types = ["EntrepriseIndexPage"]
-    subpage_types = []
+    # parent_page_types = ["EntrepriseIndexPage"]
+    # subpage_types = []
 
     def get_context(self, request):
         from home.models import HomePage
 
         context = super().get_context(request)
         context["home_page"] = HomePage.objects.live().specific().first()
+        context["what_we_do_page"] = WhatWeDoPage.objects.live().specific().first()
+        context["faq_data"] = FqaServicesProvided.objects.all()
+        
         return context
 
     @property
@@ -235,9 +188,9 @@ class WhatWeDoPage(Page):
     )
 
     vision_title = models.CharField(
-        max_length=255, default="Our Vision", verbose_name="Vision title"
+        max_length=255, default="Vision & Mission", verbose_name="Vision & Mission title"
     )
-    vision_content = RichTextField(blank=True, verbose_name="Vision content")
+    vision_content = RichTextField(blank=True, verbose_name="Vision & Mission content")
 
     mission_title = models.CharField(
         max_length=255, default="Our Mission", verbose_name="Mission title"
@@ -250,8 +203,8 @@ class WhatWeDoPage(Page):
         FieldPanel("services"),
         FieldPanel("vision_title"),
         FieldPanel("vision_content"),
-        FieldPanel("mission_title"),
-        FieldPanel("mission_content"),
+        # FieldPanel("mission_title"),
+        # FieldPanel("mission_content"),
     ]
 
     class Meta:
@@ -261,6 +214,9 @@ class WhatWeDoPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        context["faq_data"] = FqaServicesProvided.objects.all()
+        print("context['faq_data']------------------------->>>", context["faq_data"])
+
         return context
 
     @property

@@ -7,7 +7,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
 from about.models import AboutPage, WhatWeDoPage
-from contact.models import ContactPage, FqaClient
+from contact.models import ContactPage, FqaServicesProvided
 from legal.models import LegalPage
 from portfolio.models import PortfolioIndexPage
 from recruitment.models import RecruitmentIndexPage
@@ -17,16 +17,16 @@ class HeroSlideBlock(blocks.StructBlock):
     background_image = ImageChooserBlock(
         required=True, help_text="Image de fond du slide"
     )
-    hero_title = blocks.CharBlock(
-        required=True, max_length=255, help_text="Titre principal"
-    )
-    hero_subtitle = blocks.TextBlock(required=False, help_text="Sous-titre du slide")
-    hero_cta_text = blocks.CharBlock(
-        required=False, max_length=50, default="Entrer dans l’univers ATR-IS"
-    )
-    cta_linked_page = blocks.PageChooserBlock(
-        required=False, help_text="Lien du bouton CTA"
-    )
+    # hero_title = blocks.CharBlock(
+    #     required=True, max_length=255, help_text="Titre principal"
+    # )
+    # hero_subtitle = blocks.TextBlock(required=False, help_text="Sous-titre du slide")
+    # hero_cta_text = blocks.CharBlock(
+    #     required=False, max_length=50, default="Entrer dans l’univers ATR-IS"
+    # )
+    # cta_linked_page = blocks.PageChooserBlock(
+    #     required=False, help_text="Lien du bouton CTA"
+    # )
 
     class Meta:
         icon = "image"
@@ -89,7 +89,7 @@ class HomePage(Page):
 
     hero_cta_text = models.CharField(
         max_length=50,
-        default="Entrer dans l’univers ATR-IS",
+        default="what we do",
         verbose_name="Texte du bouton CTA",
     )
 
@@ -169,7 +169,7 @@ class HomePage(Page):
         FieldPanel("favicon"),
         FieldPanel("logo"),
         FieldPanel("negative_logo"),
-        # FieldPanel("slides"),
+        FieldPanel("slides"),
         # FieldPanel("video"),
         # FieldPanel("introduction"),
         FieldPanel("hero_cta_text"),
@@ -210,19 +210,16 @@ class HomePage(Page):
         )
 
         ######## recrutement ########
-        recruitment_index = RecruitmentIndexPage.objects.live().public().first()
-        context["recruitment_index"] = recruitment_index
+        # recruitment_index = RecruitmentIndexPage.objects.live().public().first()
+        # context["recruitment_index"] = recruitment_index
 
         ######### chiffre cles
         about_page = AboutPage.objects.live().public().specific().first()
-        context["key_numbers"] = about_page.key_numbers if about_page else []
-
+        context["about_page"] =about_page
         # ########## recrutement ##########
         # recrutement_index = RecruitmentIndexPage.objects.live().first()
         # context["recrutement_index"] = recrutement_index
 
-        context["faq_data"] = FqaClient.objects.all()
-        print("context['faq_data']--------->>>", context["faq_data"])
 
         return context
 
@@ -246,9 +243,9 @@ class HomePage(Page):
         return culture_page if culture_page else None
 
     @property
-    def get_recruitment_page(self):
-        recruitment_page = RecruitmentIndexPage.objects.live().first()
-        return recruitment_page if recruitment_page else None
+    def get_about_page(self):
+        about_page = AboutPage.objects.live().first()
+        return about_page if about_page else None
 
 
 class CultureBlock(blocks.StructBlock):

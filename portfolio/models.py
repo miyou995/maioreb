@@ -79,8 +79,8 @@ class PortfolioIndexPage(Page):
 
         context["clients_opinions"] = self.client_opinion.all()
 
-        about_page = AboutPage.objects.live().public().specific().first()
-        context["key_numbers"] = about_page.key_numbers if about_page else []
+        # about_page = AboutPage.objects.live().public().specific().first()
+        # context["key_numbers"] = about_page.key_numbers if about_page else []
 
         context["images"] = self.images
 

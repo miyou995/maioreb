@@ -1,17 +1,30 @@
 {% load static i18n django_htmx wagtailcore_tags wagtailuserbar navigation_tags wagtailsettings_tags %}{% get_site_root as site_root %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
+{% get_site_root as site_root %}
 
 <nav class="bg-surface border-b border-border-subtle sticky top-0 z-50">
     <div class="flex justify-between items-center max-w-[1280px] mx-auto px-4 md:px-16 py-4">
-
-        <a href="{% pageurl site_root %}" class="font-headline-sm text-headline-sm font-bold tracking-widest text-primary uppercase">
-            Maioreb
-        </a>
+<div class="flex items-center">
+    {% with homepage=site_root.specific %}
+    <a href="{% pageurl site_root %}">
+        <img src="{{ homepage.negative_logo.file.url }}" alt="Logo"
+         class="h-12 w-15 object-contain">
+    </a>
+        
+    {% endwith %}
+</div>
 
         <div class="hidden md:flex items-center gap-8">
+            {% if site_root.live %}
+                <a href="{% pageurl site_root %}"
+                    class="{% if page and page.pk == site_root.pk %}text-primary border-b-2 border-secondary pb-1{% else %}text-on-surface-variant{% endif %} font-label-caps text-label-caps uppercase hover:text-secondary transition-colors duration-300">
+                    {{ site_root.title }}
+                </a>
+            {% endif %}
             {% for menuitem in site_root.get_children.live.in_menu %}
                 {% with subitems=menuitem.get_children.live.in_menu %}
+                        
                     {% if subitems.exists %}
                         <div class="relative group">
                             {% if menuitem.specific.not_clicable %}
@@ -82,7 +95,11 @@
                     <span class="material-symbols-outlined text-2xl">close</span>
                 </button>
             </div>
-
+            {% if site_root.live %}
+                <a href="{% pageurl site_root %}" class="font-label-caps text-label-caps uppercase text-on-surface hover:text-primary transition-colors">
+                    {{ site_root.title }}
+                </a>
+            {% endif %}
             {% for menuitem in site_root.get_children.live.in_menu %}
                 {% with subitems=menuitem.get_children.live.in_menu %}
                     {% if menuitem.specific.not_clicable %}

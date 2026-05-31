@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags static i18n %}
+{% load split_filters  %}
 
 {% block content %}
 
@@ -20,46 +21,52 @@
         </div>
     </section>
 
-    <!-- Introduction -->
-    <section class="py-[120px] bg-surface-light">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-16 text-center max-w-3xl mx-auto">
-            <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Services" %}</h2>
-            <h3 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "Your company can be supported by Maioreb for" %}</h3>
-            {% if page.introduction %}
-                <div class="font-body-lg text-body-lg text-on-surface-variant prose max-w-none">
-                    {{ page.introduction|richtext }}
-                </div>
-            {% endif %}
-        </div>
-    </section>
-
     <!-- Services Grid -->
-    <section class="py-[120px] bg-background" id="services">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section class="py-24 bg-gradient-to-b from-background to-surface-container-low" id="services">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                {% translate " Our Services" %}
+                </span>
+                {% if page.introduction %}
+                    <h2 class="mt-4 text-4xl md:text-5xl font-bold text-primary">
+                        {{ page.introduction|richtext }}
+                    </h2>
+                {% endif %}
+            </div>
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
                 {% if page.services %}
                     {% for block in page.services %}
                         {% if block.block_type == "items" %}
                             {% for svc in block.value %}
-                                <div class="glass-card p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 flex flex-col items-start gap-4">
-                                    <span class="material-symbols-outlined text-primary-container text-3xl">{{ svc.icon|default:"work" }}</span>
-                                    <h4 class="font-headline-sm text-[20px] leading-tight text-primary">{{ svc.title }}</h4>
+                                <div class="group relative overflow-hidden rounded-3xl bg-white border border-outline-variant/20 p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+
+                                    <!-- Decorative Gradient -->
+                                    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-primary-container"></div>
+
+                                    <!-- Icon -->
+                                    <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <span class="material-symbols-outlined text-primary text-3xl">
+                                            {{ svc.icon|default:"work" }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <h3 class="text-xl font-semibold text-primary mb-3">
+                                        {{ svc.title }}
+                                    </h3>
+
                                     {% if svc.description %}
-                                        <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ svc.description|richtext }}</div>
+                                        <div class="text-on-surface-variant leading-relaxed prose prose-sm max-w-none">
+                                            {{ svc.description|richtext }}
+                                        </div>
                                     {% endif %}
                                 </div>
                             {% endfor %}
                         {% endif %}
-                    {% endfor %}
-                {% else %}
-                    <!-- Default services from old maioreb.com -->
-                    {% for svc in "analytics:Market research and analysis,corporate_fare:Assistance to branches and joint-ventures constitution,precision_manufacturing:Supply of engineered spare parts & equipment,gavel:Advising and assistance for tender,group_add:Partner research and selection,event:Assistance to workshop fairs and events,admin_panel_settings:Technical logistical and administrative services,policy:Guidance in ARH / DGM regulations"|split:"," %}
-                        {% with parts=svc|split:":" %}
-                            <div class="glass-card p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 flex flex-col items-start gap-4">
-                                <span class="material-symbols-outlined text-primary-container text-3xl">{{ parts.0 }}</span>
-                                <h4 class="font-headline-sm text-[20px] leading-tight text-primary">{{ parts.1 }}</h4>
-                            </div>
-                        {% endwith %}
                     {% endfor %}
                 {% endif %}
             </div>
@@ -67,44 +74,14 @@
     </section>
 
     <!-- Vision & Mission -->
-    <section class="py-[120px] bg-primary text-white">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-            <div class="text-center mb-16">
-                <h2 class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-4">{% trans "Vision & Mission" %}</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
-                    <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">visibility</span>
-                    <h4 class="font-headline-sm text-headline-sm text-white mb-4">
-                        {% if page.vision_title %}{{ page.vision_title }}{% else %}{% trans "Our Vision" %}{% endif %}
-                    </h4>
-                    {% if page.vision_content %}
-                        <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.vision_content|richtext }}</div>
-                    {% else %}
-                        <p class="font-body-md text-body-md text-surface-container-high">
-                            {% trans "To be the consultancy firm leader for the internationalization of companies in the Algerian market." %}
-                        </p>
-                    {% endif %}
-                </div>
-                <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
-                    <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">flag</span>
-                    <h4 class="font-headline-sm text-headline-sm text-white mb-4">
-                        {% if page.mission_title %}{{ page.mission_title }}{% else %}{% trans "Our Mission" %}{% endif %}
-                    </h4>
-                    {% if page.mission_content %}
-                        <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.mission_content|richtext }}</div>
-                    {% else %}
-                        <p class="font-body-md text-body-md text-surface-container-high">
-                            {% trans "To make easier the internationalization process of foreign companies in the Algerian market." %}
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include "about/mission_section.html" %}
+
+        <!-- FAQ -->
+    {% comment %} FAQ SERVICE {% endcomment %}
+    {% include "about/faq.html" %}
 
     <!-- CTA -->
-    {% if page.get_contact_page %}
+    {% comment %} {% if page.get_contact_page %}
         <section class="py-[120px] bg-surface-container-low">
             <div class="max-w-[1280px] mx-auto px-4 md:px-16 text-center">
                 <h3 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "Ready to enter the Maghreb market?" %}</h3>
@@ -114,6 +91,6 @@
                 </a>
             </div>
         </section>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
 {% endblock %}

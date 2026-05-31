@@ -7,15 +7,16 @@
     <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-primary/70 mix-blend-multiply z-10"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-20"></div>
-            {% if page.slides %}
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+            <div id="hero-slider">
                 {% for block in page.slides %}
-                    {% if forloop.first %}
-                        <img alt="" class="w-full h-full object-cover object-center filter grayscale contrast-125"
-                             src="{{ block.value.background_image.file.url }}"/>
-                    {% endif %}
+                    {% if block.block_type == "slide" %}
+                        <img alt=""
+                            class="absolute inset-0 w-full h-full object-cover object-center filter grayscale contrast-125 transition-opacity duration-1000 {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}"
+                            src="{{ block.value.background_image.file.url }}"/>
+                        {% endif %}
                 {% endfor %}
-            {% endif %}
+            </div>
         </div>
         <div class="relative z-30 max-w-[1280px] mx-auto px-4 md:px-16 text-center">
             <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-6">
@@ -27,10 +28,10 @@
                 </p>
             {% endif %}
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                {% if what_we_do %}
-                    <a href="{{ what_we_do.url }}"
+                {% if page.cta_linked_page %}
+                    <a href="{{ page.cta_linked_page.url }}"
                        class="px-8 py-4 bg-secondary-fixed text-on-secondary-fixed font-label-caps text-label-caps uppercase rounded hover:bg-secondary hover:text-white transition-colors duration-300 flex items-center justify-center gap-2">
-                        {% trans "Explore Services" %} <span class="material-symbols-outlined text-sm">arrow_downward</span>
+                        {{ page.hero_cta_text }} <span class="material-symbols-outlined text-sm">arrow_downward</span>
                     </a>
                 {% endif %}
                 {% if page.get_contact_page %}
@@ -43,167 +44,100 @@
         </div>
     </section>
 
-    <!-- About / Mission -->
-    <section class="py-[120px] bg-surface-light" id="about">
+    <section class="py-[120px] bg-background">
         <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <div class="lg:col-span-5 relative">
-                    <div class="absolute -inset-4 bg-surface-variant/30 rounded transform -rotate-3 z-0"></div>
-                    <img alt="Maioreb" class="relative z-10 w-full h-auto rounded border border-border-subtle shadow-lg"
-                         src="{% static 'images/section1.jpg' %}"/>
-                    <div class="absolute -bottom-8 -right-8 glass-card p-6 rounded z-20 hidden md:flex items-center gap-4">
-                        <span class="material-symbols-outlined text-4xl text-primary-container">verified</span>
-                        <div>
-                            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase">{% trans "Certified Quality" %}</p>
-                            <p class="font-headline-sm text-headline-sm text-primary">ISO 9001:2015</p>
+
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-20">
+                <h3 class="font-headline-md text-headline-md text-on-background">
+                    {% trans "MAIOREB" %}
+                </h3>
+            </div>
+
+            <!-- Content -->
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    {% if about_page.introduction %}
+                        <div class="font-body-lg text-on-surface-variant leading-relaxed prose max-w-none">
+                            {{ about_page.introduction|richtext }}
                         </div>
+                    {% endif %}
+                </div>
+
+                <!-- Right Image -->
+                <div class="order-1 lg:order-2 relative">
+
+                    <!-- Decorative Shapes -->
+                    <div class="absolute -top-6 -right-6 w-full h-full bg-primary-container/10 rounded-3xl"></div>
+                    <div class="absolute -bottom-6 -left-6 w-full h-full border-2 border-primary-container/20 rounded-3xl"></div>
+
+                    <!-- Image Card -->
+                    <div class="relative overflow-hidden rounded-3xl shadow-2xl bg-surface z-10">
+                        <img
+                            src="{{ page.presedant_image.file.url }}"
+                            alt="Maioreb Team"
+                            class="w-full h-[500px] object-cover"
+                        >
                     </div>
                 </div>
-                <div class="lg:col-span-6 lg:col-start-7 mt-12 lg:mt-0">
-                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Established 2022" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-on-background mb-6">{% trans "Unmatched Local Access to the Maghreb" %}</h3>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">
-                        {% trans "Established in Tunisia and in Algeria, Maioreb is a business development consultancy firm with unmatched local access to the lucrative Algeria and Maghreb business environment. Led by an international team of experienced and accomplished professionals." %}
-                    </p>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-8">
-                        {% trans "Our main objective is the assistance of International EPC Contractors, engineering and supplier companies in Oil & Gas, Power, industrial and Infrastructures sectors." %}
-                    </p>
-                    {% with about=site_root.get_children.live.in_menu %}
-                        <a href="/en/about/"
-                           class="inline-flex items-center gap-2 font-label-caps text-label-caps text-primary uppercase border-b-2 border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors duration-300">
-                            {% trans "Learn more about us" %} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                        </a>
-                    {% endwith %}
-                </div>
+            </div>
+            <div class="container pt-10">
+                <a href="{{ page.get_about_page.url }}"
+                    class="inline-flex items-center gap-2 font-label-caps text-label-caps text-primary uppercase border-b-2 border-primary pb-1 hover:text-secondary hover:border-secondary transition-colors duration-300">
+                    {% trans "Learn more about us" %} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
             </div>
         </div>
     </section>
+
 
     <!-- Services / What We Do -->
     {% if what_we_do %}
-        <section class="py-[120px] bg-background" id="services">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16 text-center mb-16">
-                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Services" %}</h2>
-                <h3 class="font-headline-md text-headline-md text-on-background">{% trans "What We Do" %}</h3>
-                <div class="w-24 h-1 bg-secondary mx-auto mt-6"></div>
-            </div>
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {% for block in what_we_do.services %}
-                        {% if block.block_type == "items" %}
-                            {% for svc in block.value %}
-                                <div class="glass-card p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 flex flex-col items-start gap-4">
-                                    <span class="material-symbols-outlined text-primary-container text-3xl">{{ svc.icon|default:"work" }}</span>
-                                    <h4 class="font-headline-sm text-[20px] leading-tight text-primary">{{ svc.title }}</h4>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
+        <section class="py-24 bg-gradient-to-b from-background to-surface-container-low" id="services">
+            <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12">
+                <!-- Section Header -->
+                <div class="text-center max-w-5xl mx-auto mb-16">
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xl font-medium">
+                    {% translate " What we do" %}
+                    </span>
                 </div>
-                <div class="text-center mt-12">
-                    <a href="{{ what_we_do.url }}"
-                       class="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors duration-300">
-                        {% trans "View All Services" %} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-    {% endif %}
-
-    <!-- Portfolio / Case Studies -->
-    {% if projects %}
-        <section class="py-[120px] bg-surface-container-low" id="portfolio">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16 mb-12 text-center">
-                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Case Studies" %}</h2>
-                <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Our Recent Projects" %}</h3>
-            </div>
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {% for project in projects %}
-                        <a href="{{ project.url }}" class="group block glass-card rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                            {% if project.featured_image %}
-                                <div class="h-48 overflow-hidden">
-                                    <img src="{{ project.featured_image.file.url }}" alt="{{ project.client_name }}"
-                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
-                                </div>
-                            {% endif %}
-                            <div class="p-6">
-                                <h4 class="font-headline-sm text-[18px] leading-tight text-primary mb-2">{{ project.client_name }}</h4>
-                                {% if project.summary %}
-                                    <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">{{ project.summary }}</p>
-                                {% endif %}
-                            </div>
-                        </a>
-                    {% endfor %}
-                </div>
-                {% if portfolio %}
-                    <div class="text-center mt-12">
-                        <a href="{{ portfolio.url }}"
-                           class="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary text-primary font-label-caps text-label-caps uppercase rounded hover:bg-primary hover:text-white transition-colors duration-300">
-                            {% trans "View All Projects" %} <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-        </section>
-    {% endif %}
-
-    <!-- Network / Companies Assisted -->
-    <section class="py-[120px] bg-background" id="network">
-        <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-            <div class="text-center mb-16">
-                <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Network" %}</h2>
-                <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Companies Assisted by MAIOREB" %}</h3>
-            </div>
-            {% if portfolio and portfolio.images %}
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
-                    {% for block in portfolio.images %}
-                        <div class="flex justify-center grayscale hover:grayscale-0 transition-all">
-                            <img src="{{ block.value.file.url }}" alt="Client logo" class="max-h-12 w-auto object-contain"/>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
-                    {% comment %} {% for name in "Water Technologies,AST Spa,COET,Indra,TET Sistemi,Arrow Pipes,Sinergia,Enereco,Thermo Engineering,Hit Valve"|split:"," %}
-                        <div class="flex justify-center">
-                            <span class="font-headline-sm text-primary/40 font-bold text-center text-sm">{{ name }}</span>
-                        </div>
-                    {% endfor %} {% endcomment %}
-                </div>
-            {% endif %}
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    {% if faq_data %}
-        <section class="py-[120px] bg-surface-container-low">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="text-center mb-16">
-                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "FAQ" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-on-background">{% trans "Frequently Asked Questions" %}</h3>
-                </div>
-                <div class="max-w-3xl mx-auto divide-y divide-border-subtle">
-                    {% for object in faq_data %}
-                        {% for block in object.faq %}
+                <!-- Services Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        {% for block in what_we_do.services %}
                             {% if block.block_type == "items" %}
-                                {% for item in block.value %}
-                                    <details class="py-4 group">
-                                        <summary class="flex justify-between items-center cursor-pointer list-none font-headline-sm text-[18px] text-on-background hover:text-primary transition-colors">
-                                            {{ item.question }}
-                                            <span class="material-symbols-outlined text-primary-container group-open:rotate-180 transition-transform">expand_more</span>
-                                        </summary>
-                                        <div class="mt-3 font-body-md text-body-md text-on-surface-variant prose max-w-none">
-                                            {{ item.answer|richtext }}
+                                {% for svc in block.value %}
+                                    <div class="group relative overflow-hidden rounded-3xl bg-white border border-outline-variant/20 p-8 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+
+                                        <!-- Decorative Gradient -->
+                                        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-primary-container"></div>
+
+                                        <!-- Icon -->
+                                        <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                            <span class="material-symbols-outlined text-primary text-3xl">
+                                                {{ svc.icon|default:"work" }}
+                                            </span>
                                         </div>
-                                    </details>
+
+                                        <!-- Content -->
+                                        <h3 class="text-xl font-semibold text-primary mb-3">
+                                            {{ svc.title }}
+                                        </h3>
+
+                                        {% if svc.description %}
+                                            <div class="text-on-surface-variant leading-relaxed prose prose-sm max-w-none">
+                                                {{ svc.description|richtext }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
-                    {% endfor %}
                 </div>
             </div>
         </section>
     {% endif %}
 
+
+
+    
 {% endblock %}

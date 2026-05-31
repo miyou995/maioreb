@@ -1,4 +1,4 @@
-html {
+/* html {
     box-sizing: border-box;
 }
 
@@ -180,5 +180,104 @@ svg:not(:root) {
 @media (max-width: 360px) {
     .header-link {
         max-width: 100px;
+    }
+} */
+
+
+
+
+/* carossel of about page */
+
+  .carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .carousel-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  .carousel-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .carousel-slide img {
+    width: 100%;
+    height: 600px;        /* ← adjust this value to your liking */
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Buttons */
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    z-index: 10;
+    transition: background 0.2s;
+  }
+  .carousel-btn:hover { background: rgba(0, 0, 0, 0.7); }
+  .carousel-btn.prev { left: 0.75rem; }
+  .carousel-btn.next { right: 0.75rem; }
+
+  /* Dots */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+  .carousel-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #ccc;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s;
+  }
+  .carousel-dots button.active { background: #333; }
+
+
+
+
+
+  /* caroussel of the clients logos */
+  .logo-track {
+    width: max-content;
+    animation: scrollLogos 30s linear infinite;
+}
+
+.logo-track:hover {
+    animation-play-state: paused;
+}
+.logo-track {
+    width: max-content;
+    animation: scrollLogos 40s linear infinite;
+}
+
+@keyframes scrollLogos {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
     }
 }

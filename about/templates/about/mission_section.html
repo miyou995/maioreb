@@ -1,0 +1,39 @@
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
+    
+<section class="py-[120px] bg-primary text-white">
+    <div class="max-w-[1280px] mx-auto px-4 md:px-16">
+        <div class="text-center mb-16">
+            <h2 class="font-label-caps text-label-caps text-secondary-fixed uppercase tracking-widest mb-4">{% trans "Vision & Mission" %}</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-8">
+            <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
+                <div class="">
+                    {% comment %} <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">visibility</span> {% endcomment %}
+                    <h3 class="font-headline-sm text-headline-sm text-white mb-4">
+                        {% if page.vision_title %}{{ page.vision_title }}{% else %}{% trans "Our Vision" %}{% endif %}
+                    </h3>
+                </div>
+                {% if page.vision_content %}
+                    <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.vision_content|richtext }}</div>
+                {% else %}
+                    <p class="font-body-md text-body-md text-surface-container-high">
+                        {% trans "To be the consultancy firm leader for the internationalization of companies in the Algerian market." %}
+                    </p>
+                {% endif %}
+            </div>
+            {% comment %} <div class="glass-card p-8 rounded-xl bg-white/10 border-white/20">
+                <span class="material-symbols-outlined text-secondary-fixed text-3xl mb-4 block">flag</span>
+                <h4 class="font-headline-sm text-headline-sm text-white mb-4">
+                    {% if page.mission_title %}{{ page.mission_title }}{% else %}{% trans "Our Mission" %}{% endif %}
+                </h4>
+                {% if page.mission_content %}
+                    <div class="font-body-md text-body-md text-surface-container-high prose max-w-none prose-invert">{{ page.mission_content|richtext }}</div>
+                {% else %}
+                    <p class="font-body-md text-body-md text-surface-container-high">
+                        {% trans "To make easier the internationalization process of foreign companies in the Algerian market." %}
+                    </p>
+                {% endif %}
+            </div> {% endcomment %}
+        </div>
+    </div>
+</section>
