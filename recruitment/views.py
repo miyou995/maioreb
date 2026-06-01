@@ -31,7 +31,7 @@ def send_email_job(request, recipient_list, data):
     html_content = render_to_string('snippets/email_job.html',  {'data': data})
     # Start the thread
     EmailThread(subject, html_content, from_email, recipient_list).start()
-    print("Email sent ✅")
+    print("Email sent")
 
 
 
@@ -44,4 +44,4 @@ def send_email_contact(request, recipient_list, data):
     html_content = render_to_string('snippets/email_contact.html',  {'data': data})
     # Start the thread
     EmailThread(subject, html_content, from_email, recipient_list).start()
-    print("Email sent ✅")
+    print("Email sent ")

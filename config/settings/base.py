@@ -173,6 +173,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", "English"),
     ("fr", "Français"),
+    ("it", "Italiano"),
 ]
 
 LOCALE_PATHS = [

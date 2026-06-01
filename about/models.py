@@ -30,10 +30,10 @@ class AboutPage(Page):
     introduction = RichTextField(blank=True, verbose_name="Introduction")
 
     mission_title = models.CharField(
-        max_length=255, default="More details", verbose_name="More details"
+        max_length=255, default="Our Story", verbose_name="Our Story"
     )
 
-    mission_content = RichTextField(blank=True, verbose_name="content (More details)")
+    mission_content = RichTextField(blank=True, verbose_name="content (Our Story)")
     mission_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,

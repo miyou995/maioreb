@@ -74,7 +74,7 @@
                     <!-- Image Card -->
                     <div class="relative overflow-hidden rounded-3xl shadow-2xl bg-surface z-10">
                         <img
-                            src="{{ page.presedant_image.file.url }}"
+                            src="{{ page.home_image.file.url }}"
                             alt="Maioreb Team"
                             class="w-full h-[500px] object-cover"
                         >
@@ -137,7 +137,8 @@
         </section>
     {% endif %}
 
-
+    <!-- Companies Assisted -->
+    {% include "about/logos_section.html" with page=about_page %}
 
     
 {% endblock %}

@@ -11,6 +11,7 @@ from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
+from django.utils.translation import gettext_lazy as _
 
 from config.utils import HTMXFormMixin
 from recruitment.models import CustomFormBuilder
@@ -43,7 +44,7 @@ class ContactPage(HTMXFormMixin, AbstractEmailForm):
         max_length=500, blank=True, verbose_name="Sous-titre"
     )
 
-    introduction = RichTextField(blank=True, verbose_name="Introduction")
+    introduction = RichTextField(blank=True, verbose_name=_("Introduction"))
 
     location = StreamField(
         [
@@ -94,7 +95,7 @@ class ContactPage(HTMXFormMixin, AbstractEmailForm):
             ]
         ),
         blank=True,
-        verbose_name="emails qui recevront les formulaires de contact et recrutement",
+        verbose_name="emails qui recevront les formulaires de contact ",
     )
 
     content_panels = AbstractEmailForm.content_panels + [
