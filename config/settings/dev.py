@@ -32,4 +32,4 @@ EMAIL_HOST_PASSWORD = "miyou0209"
 # LANGUAGE_CODE = "en"
 
 
-# SILENCED_SYSTEM_CHECKS = ["django_recaptcha.recaptcha_test_key_error"]
+SILENCED_SYSTEM_CHECKS = ["django_recaptcha.recaptcha_test_key_error"]
