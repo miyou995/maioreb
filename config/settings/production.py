@@ -10,7 +10,7 @@ BASE_DIR = PROJECT_DIR.parent
 # See https://docs.djangoproject.com/en/5.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 
 LANGUAGE_CODE = "fr-fr"
-CACHE_BACKEND = "django.core.cache.backends.redis.RedisCache"
+# CACHE_BACKEND = "django.core.cache.backends.redis.RedisCache"
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 WHITENOISE_MAX_AGE = 2600000
