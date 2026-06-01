@@ -89,6 +89,8 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "django_http_compression",
     "compressor",
+    # Localize
+
 ]
 
 MIDDLEWARE = [
