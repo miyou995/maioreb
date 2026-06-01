@@ -11,7 +11,6 @@ from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.fields import RichTextField, StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
-from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 from config.utils import HTMXFormMixin
 from recruitment.models import CustomFormBuilder
@@ -25,7 +24,7 @@ class FormField(AbstractFormField):
     )
 
 
-class ContactPage(HTMXFormMixin, WagtailCaptchaEmailForm):
+class ContactPage(HTMXFormMixin, AbstractEmailForm):
     """Page model for 'Contact' with integrated form"""
 
     hero_title = models.CharField(
@@ -46,11 +45,29 @@ class ContactPage(HTMXFormMixin, WagtailCaptchaEmailForm):
 
     introduction = RichTextField(blank=True, verbose_name="Introduction")
 
-    # Contact Information
-    address = models.TextField(blank=True, verbose_name="Adresse")
+    location = StreamField(
+        [
+            (
+                "locations",
+                blocks.ListBlock(
+                    blocks.StructBlock(
+                        [
+                            ("label", blocks.CharBlock(required=True)),
+                            ("address", blocks.CharBlock(required=True)),
+                            ("google_maps_link", blocks.TextBlock(required=False)),
+                            ("latitude", blocks.FloatBlock(required=False)),
+                            ("longitude", blocks.FloatBlock(required=False)),
+                        ]
+                    )
+                ),
+            ),
+        ],
+        use_json_field=True,
+        blank=True,
+        verbose_name="Locations",
+    )
 
     phone = models.CharField(max_length=50, blank=True, verbose_name="Téléphone")
-
     email = models.EmailField(blank=True, verbose_name="Email")
 
     office_hours = models.CharField(
@@ -84,7 +101,7 @@ class ContactPage(HTMXFormMixin, WagtailCaptchaEmailForm):
         FieldPanel("hero_title"),
         # FieldPanel("hero_subtitle"),
         FieldPanel("featured_image"),
-        FieldPanel("address"),
+        FieldPanel("location"),
         FieldPanel("facebook_url"),
         FieldPanel("instagram_url"),
         FieldPanel("linkedin_url"),

@@ -2,7 +2,9 @@
 {% load wagtailcore_tags static i18n widget_tweaks %}
 
 {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <!-- Page Hero -->
     <section class="relative py-32 flex items-center overflow-hidden bg-primary">
         {% if page.featured_image %}
@@ -31,33 +33,23 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                 <!-- Algeria -->
-                <div class="glass-card p-8 rounded-xl">
-                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
-                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "Algeria Office" %}</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant">
-                        {% trans "Bat.95 – Rue Khodjet El Djeld – Les sources – Bir Mourad Rais – Alger 16013 – Algérie" %}
-                    </p>
-                    <a href="https://goo.gl/maps/u3g8XVMXcZYxxAzn7" target="_blank" rel="noopener noreferrer"
-                       class="inline-flex items-center gap-1 mt-4 font-label-caps text-label-caps text-primary uppercase border-b border-primary hover:text-secondary hover:border-secondary transition-colors">
-                        {% trans "View on Map" %} <span class="material-symbols-outlined text-sm">open_in_new</span>
-                    </a>
-                </div>
-                <!-- Tunisia -->
-                <div class="glass-card p-8 rounded-xl">
-                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
-                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "Tunisia Office" %}</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant">
-                        {% trans "App.33, immeuble « Etoile du nord » – Centre Urbain Nord – Tunis 1082 – Tunisie" %}
-                    </p>
-                </div>
-                <!-- UAE -->
-                <div class="glass-card p-8 rounded-xl">
-                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
-                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{% trans "UAE Office" %}</h4>
-                    <p class="font-body-md text-body-md text-on-surface-variant">
-                        {% trans "MAIOREB BUSINESS ADVISORY – FZCO, Building A1, Dubai Digital Park, Dubai Silicon Oasis, Dubai, United Arab Emirates" %}
-                    </p>
-                </div>
+                {% for block in page.location %}
+                    {% for key in block.value  %}
+                        <div class="glass-card p-8 rounded-xl">
+                            <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">location_on</span>
+                            <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{{ key.label}}</h4>
+                            <p class="font-body-md text-body-md text-on-surface-variant">
+                                {{ key.address }}
+                            </p>
+                            {% if key.map_embed_code %}
+                                <a href="{{ key.map_embed_code }}" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-1 mt-4 font-label-caps text-label-caps text-primary uppercase border-b border-primary hover:text-secondary hover:border-secondary transition-colors">
+                                    {% trans "View on Map" %} <span class="material-symbols-outlined text-sm">open_in_new</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
 
             <!-- Email & Social -->
@@ -68,7 +60,7 @@
                         <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">{% trans "Email" %}</p>
                         <a href="mailto:{{ page.email|default:'info@maioreb.com' }}"
                            class="font-headline-sm text-headline-sm text-primary hover:text-secondary transition-colors">
-                            {{ page.email|default:"info@maioreb.com" }}
+                            {{ page.email }}
                         </a>
                     </div>
                 </div>
@@ -104,7 +96,7 @@
                         <div class="space-y-5">
                             {% for field in form %}
                                 <div>
-                                    <label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">{{ field.label }}</label>
+                                    {% comment %} <label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">{{ field.label }}</label> {% endcomment %}
                                     {% if field.field.widget.input_type == "textarea" %}
                                         {{ field|add_class:"w-full border border-border-subtle rounded px-4 py-3 font-body-md text-body-md text-on-background bg-surface focus:outline-none focus:border-primary-container transition-colors resize-none h-32" }}
                                     {% else %}
@@ -125,8 +117,10 @@
 
                 <!-- Map -->
                 <div class="rounded-xl overflow-hidden border border-border-subtle min-h-[400px]">
+                   {% comment %} {{ page.get_locations|json_script:"locations-data" }} {% endcomment %}
                     {% if page.map_embed_code %}
                         {{ page.map_embed_code|safe }}
+                        {% comment %} {{ page.location|json_script:"locations-data" }} {% endcomment %}
                     {% else %}
                         <div class="h-full bg-surface-container-low flex items-center justify-center">
                             <div class="text-center">
@@ -139,5 +133,7 @@
             </div>
         </div>
     </section>
+
+
 
 {% endblock %}

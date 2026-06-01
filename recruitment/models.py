@@ -22,6 +22,7 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
+from wagtail.contrib.forms.forms import FormBuilder
 
 from recruitment.views import send_email_job
 
@@ -56,7 +57,7 @@ class CustomSubmissionsListView(SubmissionsListView):
         return context
 
 
-class CustomFormBuilder(WagtailCaptchaFormBuilder):
+class CustomFormBuilder(FormBuilder):
     def create_document_field(self, field, options):
         return forms.FileField(
             widget=forms.FileInput(

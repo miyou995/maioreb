@@ -36,8 +36,8 @@
             <div>
                 <h5 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-widest mb-4">{% translate "Our Offices" %}</h5>
                 <ul class="flex flex-col gap-2">
-                    <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Algeria" %} — Alger 16013</li>
-                    <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Tunisia" %} — Tunis 1082</li>
+                    {% comment %} <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Algeria" %} — Alger 16013</li>
+                    <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Tunisia" %} — Tunis 1082</li> {% endcomment %}
                     <li class="font-body-md text-body-md text-on-surface-variant">{% translate "UAE" %} — Dubai Silicon Oasis</li>
                 </ul>
             </div>
@@ -61,6 +61,17 @@
                                    class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors"
                                    aria-label="LinkedIn">LinkedIn</a>
                             {% endif %}
+                            {% if cp.facebook_url %}
+                                <a href="{{ cp.facebook_url }}" target="_blank" rel="noopener noreferrer"
+                                   class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors"
+                                   aria-label="Facebook">Facebook</a>
+                            {% endif %}
+                            {% if cp.instagram_url %}
+                                <a href="{{ cp.instagram_url }}" target="_blank" rel="noopener noreferrer"
+                                   class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors"
+                                   aria-label="Instagram">Instagram</a>
+                            {% endif %}
+                            
                         </div>
                     {% endif %}
                 {% endwith %}
@@ -69,7 +80,7 @@
 
         <!-- Bottom bar -->
         <div class="mt-12 pt-6 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-4">
-            <span class="font-label-caps text-label-caps uppercase text-secondary font-bold">ISO 9001:2015 {% translate "Certified" %}</span>
+            {% comment %} <span class="font-label-caps text-label-caps uppercase text-secondary font-bold">ISO 9001:2015 {% translate "Certified" %}</span> {% endcomment %}
             <div class="flex gap-6">
                 {% if site_root.specific.get_legal_url %}
                     <a href="{{ site_root.specific.get_legal_url }}"
