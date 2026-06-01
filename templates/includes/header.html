@@ -60,7 +60,7 @@
                     <span class="material-symbols-outlined text-xl">language</span>
                     <span class="font-label-caps text-label-caps uppercase">{{ LANGUAGE_CODE }}</span>
                 </button>
-                <div class="absolute right-0 top-full mt-2 bg-surface border border-border-subtle shadow-lg rounded-lg py-2 hidden group-hover:block z-50">
+                <div class="absolute right-0 top-full bg-surface border border-border-subtle shadow-lg rounded-lg py-2 hidden group-hover:block z-50">
                     {% for lang_code, lang_name in LANGUAGES %}
                         <form action="{% url 'set_language' %}" method="post" class="block">
                             {% csrf_token %}

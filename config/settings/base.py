@@ -89,6 +89,8 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "django_http_compression",
     "compressor",
+    # Localize
+
 ]
 
 MIDDLEWARE = [
@@ -173,6 +175,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", "English"),
     ("fr", "Français"),
+    ("it", "Italiano"),
 ]
 
 LOCALE_PATHS = [

@@ -51,7 +51,7 @@ class HomePage(Page):
     hero_subtitle = models.CharField(
         max_length=500,
         blank=True,
-        verbose_name="petite introduction(afficher dans hero section avant le CTA)",
+        verbose_name="petite introduction dans la section hero",
     )
     slides = StreamField(
         [("slide", HeroSlideBlock())],
@@ -108,41 +108,41 @@ class HomePage(Page):
     )
 
     # Presedant Section
-    presedant_name = models.CharField(
-        max_length=255, verbose_name="Nom presedant", blank=True
-    )
-    presedant_message = RichTextField(
-        blank=True,
-        verbose_name="Message presedant",
-    )
-    presedant_image = models.ForeignKey(
+    # presedant_name = models.CharField(
+    #     max_length=255, verbose_name="Nom presedant", blank=True
+    # )
+    # presedant_message = RichTextField(
+    #     blank=True,
+    #     verbose_name="Message presedant",
+    # )
+    home_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Image président",
+        verbose_name="Image de la première section de la page d'accueil",
     )
-    posts_linkedin = StreamField(
-        [
-            (
-                "items",
-                blocks.ListBlock(
-                    blocks.StructBlock(
-                        [
-                            ("image", ImageChooserBlock()),
-                            ("introduction", blocks.RichTextBlock()),
-                            ("link", blocks.URLBlock()),
-                            ("date", blocks.DateBlock()),
-                        ]
-                    )
-                ),
-            )
-        ],
-        use_json_field=True,
-        blank=True,
-    )
-    posts_linkedin.verbose_name = "Posts LinkedIn"
+    # posts_linkedin = StreamField(
+    #     [
+    #         (
+    #             "items",
+    #             blocks.ListBlock(
+    #                 blocks.StructBlock(
+    #                     [
+    #                         ("image", ImageChooserBlock()),
+    #                         ("introduction", blocks.RichTextBlock()),
+    #                         ("link", blocks.URLBlock()),
+    #                         ("date", blocks.DateBlock()),
+    #                     ]
+    #                 )
+    #             ),
+    #         )
+    #     ],
+    #     use_json_field=True,
+    #     blank=True,
+    # )
+    # posts_linkedin.verbose_name = "Posts LinkedIn"
 
     sectors = StreamField(
         [
@@ -169,16 +169,12 @@ class HomePage(Page):
         FieldPanel("favicon"),
         FieldPanel("logo"),
         FieldPanel("negative_logo"),
+        FieldPanel("home_image"),
         FieldPanel("slides"),
-        # FieldPanel("video"),
-        # FieldPanel("introduction"),
         FieldPanel("hero_cta_text"),
         FieldPanel("cta_linked_page"),
-        FieldPanel("presedant_name"),
-        FieldPanel("presedant_message"),
-        FieldPanel("presedant_image"),
-        FieldPanel("posts_linkedin"),
-        FieldPanel("sectors"),
+        # FieldPanel("sectors"),
+  
     ]
 
     class Meta:

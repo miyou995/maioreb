@@ -9,7 +9,7 @@
             <div>
                 <span class="font-headline-sm text-headline-sm font-bold text-primary uppercase tracking-wider block mb-3">Maioreb</span>
                 <p class="font-body-md text-body-md text-on-surface-variant mb-4">
-                    {% translate "Local Growth, Vision Without Borders." %}
+                   {{ site_root.specific.hero_title|linebreaks }}
                 </p>
                 <p class="font-body-md text-body-md text-on-surface-variant">
                     &copy; {% now "Y" %} Maioreb Consultancy.
@@ -38,7 +38,14 @@
                 <ul class="flex flex-col gap-2">
                     {% comment %} <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Algeria" %} — Alger 16013</li>
                     <li class="font-body-md text-body-md text-on-surface-variant">{% translate "Tunisia" %} — Tunis 1082</li> {% endcomment %}
-                    <li class="font-body-md text-body-md text-on-surface-variant">{% translate "UAE" %} — Dubai Silicon Oasis</li>
+                    {% with cp=site_root.specific.get_contact_page %}
+                        {% for block in cp.location %}
+                            {% for key in block.value  %}
+                            <li class="font-body-md text-body-md text-on-surface-variant">{{ key.label}}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endwith %}
+
                 </ul>
             </div>
 
