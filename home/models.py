@@ -7,10 +7,9 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
 from about.models import AboutPage, WhatWeDoPage
-from contact.models import ContactPage, FqaServicesProvided
+from contact.models import ContactPage
 from legal.models import LegalPage
 from portfolio.models import PortfolioIndexPage
-from recruitment.models import RecruitmentIndexPage
 
 
 class HeroSlideBlock(blocks.StructBlock):
@@ -107,14 +106,6 @@ class HomePage(Page):
         verbose_name="Introduction",
     )
 
-    # Presedant Section
-    # presedant_name = models.CharField(
-    #     max_length=255, verbose_name="Nom presedant", blank=True
-    # )
-    # presedant_message = RichTextField(
-    #     blank=True,
-    #     verbose_name="Message presedant",
-    # )
     home_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -174,7 +165,6 @@ class HomePage(Page):
         FieldPanel("hero_cta_text"),
         FieldPanel("cta_linked_page"),
         # FieldPanel("sectors"),
-  
     ]
 
     class Meta:
@@ -211,11 +201,10 @@ class HomePage(Page):
 
         ######### chiffre cles
         about_page = AboutPage.objects.live().public().specific().first()
-        context["about_page"] =about_page
+        context["about_page"] = about_page
         # ########## recrutement ##########
         # recrutement_index = RecruitmentIndexPage.objects.live().first()
         # context["recrutement_index"] = recrutement_index
-
 
         return context
 
