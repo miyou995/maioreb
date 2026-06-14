@@ -92,7 +92,7 @@ class AboutPage(Page):
         blank=True,
         use_json_field=True,
     )
-    certified.verbose_name = "Maioreb certified"
+    certified.verbose_name = "Maioreb business advisory fzco certified"
 
     
     content_panels = Page.content_panels + [

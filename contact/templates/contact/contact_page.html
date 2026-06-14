@@ -53,18 +53,19 @@
             </div>
 
             <!-- Email & Social -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card p-8 rounded-xl flex items-center gap-4">
-                    <span class="material-symbols-outlined text-primary-container text-3xl">email</span>
-                    <div>
-                        <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">{% trans "Email" %}</p>
-                        <a href="mailto:{{ page.email|default:'info@maioreb.com' }}"
-                           class="font-headline-sm text-headline-sm text-primary hover:text-secondary transition-colors">
-                            {{ page.email }}
-                        </a>
-                    </div>
-                </div>
-                {% if page.phone %}
+            {% if page.phone %}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% comment %} <div class="glass-card p-8 rounded-xl flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary-container text-3xl">email</span>
+                        <div>
+                            <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">{% trans "Email" %}</p>
+                            <a href="mailto:{{ page.email|default:'info@maioreb.com' }}"
+                            class="font-headline-sm text-headline-sm text-primary hover:text-secondary transition-colors">
+                                {{ page.email }}
+                            </a>
+                        </div>
+                    </div> {% endcomment %}
+                
                     <div class="glass-card p-8 rounded-xl flex items-center gap-4">
                         <span class="material-symbols-outlined text-primary-container text-3xl">phone</span>
                         <div>
@@ -75,8 +76,8 @@
                             </a>
                         </div>
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
     </section>
 
