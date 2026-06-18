@@ -1,0 +1,324 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-18 10:28+0100\n"
+"PO-Revision-Date: 2026-06-18 11:44+0000\n"
+"Last-Translator:   <admin@admin.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.10.3\n"
+
+#: .\about\templates\about\about_page.html:14
+#: .\about\templates\about\about_page.html:18
+msgid "About Us"
+msgstr "À propos de nous"
+
+#: .\about\templates\about\about_page.html:16
+#: .\about\templates\about\what_we_do_page.html:17
+#: .\contact\templates\contact\contact_page.html:20
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:16
+#: .\portfolio\templates\portfolio\portfolio_page.html:16
+#: .\recruitment\templates\recruitment\recruitment_index_page.html:15
+msgid "Home"
+msgstr "accueil"
+
+#: .\about\templates\about\about_page.html:56
+msgid "MAIOREB business advisory fzco"
+msgstr "MAIOREB business advisory fzco"
+
+#: .\about\templates\about\about_page.html:57
+msgid "About us"
+msgstr "À propos de nous"
+
+#: .\about\templates\about\about_page.html:79
+msgid "Our Story"
+msgstr "Notre histoire"
+
+#: .\about\templates\about\about_page.html:82
+msgid "Born from Decades of Experience"
+msgstr "Fruit de plusieurs décennies d'expérience"
+
+#: .\about\templates\about\about_page.html:176
+msgid "Certifications"
+msgstr "Certifications"
+
+#: .\about\templates\about\about_page.html:180
+msgid "Certified Excellence & Compliance"
+msgstr "Excellence et conformité certifiées"
+
+#: .\about\templates\about\about_page.html:184
+msgid ""
+"Our certifications reflect our commitment to quality, safety, environmental "
+"responsibility, and international standards."
+msgstr ""
+"Nos certifications témoignent de notre engagement envers la qualité, la "
+"sécurité, la responsabilité environnementale et les normes internationales."
+
+#: .\about\templates\about\about_page.html:206
+msgid "Official certification document available for download."
+msgstr "Document de certification officiel disponible en téléchargement."
+
+#: .\about\templates\about\about_page.html:213
+msgid "View Certificate"
+msgstr "Voir le certificat"
+
+#: .\about\templates\about\faq.html:7
+msgid "The services provided by Maioreb business advisory fzco are:"
+msgstr ""
+"Les services fournis par Maioreb Business Advisory FZCO sont les suivants :"
+
+#: .\about\templates\about\logos_section.html:6
+msgid "Our Network"
+msgstr "Nos clients"
+
+#: .\about\templates\about\logos_section.html:9
+#: .\portfolio\templates\portfolio\section_logos_client.html:7
+msgid "Companies Assisted by Maioreb business advisory fzco"
+msgstr "Entreprises accompagnées par Maioreb Business Advisory fzco"
+
+#: .\about\templates\about\mission_section.html:6
+msgid "Vision & Mission"
+msgstr "Vision & Mission"
+
+#: .\about\templates\about\mission_section.html:14
+msgid "Our Vision"
+msgstr "Notre vision"
+
+#: .\about\templates\about\mission_section.html:21
+msgid ""
+"To be the consultancy firm leader for the internationalization of companies "
+"in the Algerian market."
+msgstr ""
+"Être le cabinet de conseil leader pour l'internationalisation des "
+"entreprises sur le marché algérien."
+
+#: .\about\templates\about\what_we_do_page.html:15
+#: .\about\templates\about\what_we_do_page.html:19
+msgid "What We Do"
+msgstr "Ce que nous faisons"
+
+#: .\about\templates\about\what_we_do_page.html:31
+msgid " Our Services"
+msgstr "Nos services"
+
+#: .\contact\models.py:47
+msgid "Introduction"
+msgstr "Introduction"
+
+#: .\contact\templates\contact\contact_page.html:22
+#: .\templates\includes\footer.html:55
+msgid "Contact"
+msgstr "Contact"
+
+#: .\contact\templates\contact\contact_page.html:31
+#: .\templates\includes\footer.html:37
+msgid "Our Offices"
+msgstr ""
+
+#: .\contact\templates\contact\contact_page.html:32
+msgid "Find Us"
+msgstr ""
+
+#: .\contact\templates\contact\contact_page.html:47
+msgid "View on Map"
+msgstr ""
+
+#: .\contact\templates\contact\contact_page.html:73
+msgid "Phone"
+msgstr ""
+
+#: .\contact\templates\contact\contact_page.html:91
+msgid "Send us a message"
+msgstr "Envoyez-nous un message"
+
+#: .\contact\templates\contact\contact_page.html:115
+msgid "Send Message"
+msgstr ""
+
+#: .\contact\templates\contact\contact_page.html:133
+msgid "Map coming soon"
+msgstr ""
+
+#: .\home\templates\home\home_page.html:40
+msgid "Contact Us"
+msgstr "Contactez-nous"
+
+#: .\home\templates\home\home_page.html:53
+msgid "Maioreb business advisory fzco"
+msgstr ""
+
+#: .\home\templates\home\home_page.html:87
+msgid "Learn more about us"
+msgstr "Apprenez-en plus sur nous"
+
+#: .\home\templates\home\home_page.html:101
+msgid " What we do"
+msgstr "Ce que nous faisons"
+
+#: .\legal\templates\legal\item_legal_page.html:25
+msgid "Back"
+msgstr ""
+
+#: .\legal\templates\legal\legal_page.html:32
+msgid "Read more"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:14
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:18
+#: .\portfolio\templates\portfolio\portfolio_page.html:18
+msgid "Portfolio"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:38
+msgid "Case Studies"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:39
+msgid "Our Projects"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:63
+msgid "No projects yet."
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:74
+#: .\search\templates\search\search.html:42
+msgid "Previous"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:88
+#: .\search\templates\search\search.html:48
+msgid "Next"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_index_page.html:106
+msgid "Testimonials"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:33
+msgid "Overview"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:39
+msgid "Challenge"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:45
+msgid "Solution"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:51
+msgid "Results"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:59
+msgid "Project Info"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:63
+msgid "Date"
+msgstr ""
+
+#: .\portfolio\templates\portfolio\portfolio_page.html:72
+msgid "Back to Portfolio"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_index_page.html:32
+msgid "Open Positions"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_index_page.html:33
+msgid "Join Our Team"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_index_page.html:54
+msgid "Apply"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_index_page.html:60
+msgid "No open positions at the moment. Check back soon."
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:10
+msgid "Careers"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:29
+msgid "Apply for this Position"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:52
+msgid "Submit Application"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:61
+msgid "Position Details"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:65
+msgid "Contract"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:71
+msgid "Location"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:77
+msgid "Published"
+msgstr ""
+
+#: .\recruitment\templates\recruitment\recruitment_page.html:86
+msgid "All Positions"
+msgstr ""
+
+#: .\search\templates\search\search.html:8
+msgid "Search"
+msgstr ""
+
+#: .\search\templates\search\search.html:18
+msgid "Search..."
+msgstr ""
+
+#: .\search\templates\search\search.html:57
+#, python-format
+msgid "No results found for \"%(query)s\"."
+msgstr ""
+
+#: .\templates\includes\footer.html:21
+msgid "Navigation"
+msgstr ""
+
+#: .\templates\includes\footer.html:97
+msgid "Legal & Privacy"
+msgstr ""
+
+#: .\templates\includes\header.html:59
+msgid "Switch language"
+msgstr ""
+
+#: .\templates\includes\header.html:81 .\templates\includes\header.html:138
+msgid "Consult with Us"
+msgstr ""
+
+#: .\templates\snippets\cookie-banner.html:14
+msgid "Privacy Policy"
+msgstr ""
+
+#: .\templates\snippets\cookie-banner.html:22
+msgid "Accept"
+msgstr ""
+
+#: .\templates\snippets\cookie-banner.html:26
+msgid "Decline"
+msgstr ""

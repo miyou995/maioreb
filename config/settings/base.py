@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
+     "rosetta",
     # "wagtailmenus",
     # "captcha",
     "django_recaptcha",
@@ -175,7 +176,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", "English"),
     ("fr", "Français"),
-    ("it", "Italiano"),
+    # ("it", "Italiano"),
 ]
 
 LOCALE_PATHS = [
