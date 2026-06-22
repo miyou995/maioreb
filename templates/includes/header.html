@@ -7,11 +7,10 @@
     <div class="flex justify-between items-center max-w-[1280px] mx-auto px-4 md:px-16 py-4">
 <div class="flex items-center">
     {% with homepage=site_root.specific %}
-    <a href="{% pageurl site_root %}">
-        <img src="{{ homepage.negative_logo.file.url }}" alt="Logo"
-         class="w-24 h-auto object-contain">
-    </a>
-        
+        <a href="{% pageurl site_root %}">
+            <img src="{{ homepage.negative_logo.file.url }}" alt="Logo"
+            class="w-[8rem] h-auto object-contain">
+        </a>
     {% endwith %}
 </div>
 {% csrf_token %}
