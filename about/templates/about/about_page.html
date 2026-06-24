@@ -128,30 +128,7 @@
     </section>
 
 
-    <!-- Values -->
-    {% comment %} {% if page.values %}
-        <section class="py-[120px] bg-surface-container-low">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-16">
-                <div class="text-center mb-16">
-                    <h2 class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest mb-4">{% trans "Our Values" %}</h2>
-                    <h3 class="font-headline-md text-headline-md text-on-background">{{ page.values_title }}</h3>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {% for block in page.values %}
-                        {% if block.block_type == "values_items" %}
-                            {% for item in block.value %}
-                                <div class="glass-card p-8 rounded-xl">
-                                    <span class="material-symbols-outlined text-primary-container text-3xl mb-4 block">star</span>
-                                    <h4 class="font-headline-sm text-headline-sm text-primary mb-3">{{ item.title }}</h4>
-                                    <div class="font-body-md text-body-md text-on-surface-variant prose max-w-none">{{ item.description|richtext }}</div>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-    {% endif %} {% endcomment %}
+
 
     <!-- Vision & Mission -->
     {% if page.mission_content or page.vision_content %}
